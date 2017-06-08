@@ -1,0 +1,26 @@
+file$="../stage/Baqu-20171113_txt.wav"
+
+Read from file... 'file$'
+tg$=file$-".wav"+".TextGrid"
+dur=Get total duration
+Read from file... 'tg$'
+f$=selected("TextGrid")
+plus Sound 'f$'
+Edit
+tim=0
+editor TextGrid 'f$'
+while tim < dur
+	Select... 'tim' 'tim'+10
+	Zoom to selection
+	Play or stop
+	tim=tim+10
+endwhile
+endeditor
+
+clearinfo
+print please discuss before moving on to next file
+
+
+
+
+

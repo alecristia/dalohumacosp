@@ -1,0 +1,47 @@
+folder$="../reliability3/Baqu-20171113_txt/"
+coder$="ac"
+Create Strings as file list... wavs 'folder$'*.wav
+nwav=Get number of strings
+
+for j to nwav
+	select Strings wavs
+	t$=Get string... 'j'
+	Read from file... 'folder$''t$'
+	name$=selected$("Sound")
+	if !fileReadable("'folder$''name$'_'coder$'.TextGrid")
+		do ("To TextGrid...", "Autre", "")
+		do ("Insert interval tier...", 1, "    LF2P")
+		do ("Insert interval tier...", 1, "    2POPMT")
+		do ("Insert interval tier...", 1, "    MA2")
+		do ("Insert interval tier...", 1, "    MA1")
+		do ("Insert interval tier...", 1, "    FA2")
+		do ("Insert interval tier...", 1, "    FA1")
+		do ("Insert interval tier...", 1, "    C2")
+		do ("Insert interval tier...", 1, "    C1")
+		do ("Insert interval tier...", 1, "    MOT*")
+		do ("Insert interval tier...", 1, "    CHI*")
+		do ("Insert boundary...", 10, 180)
+		do ("Insert boundary...", 10, 240)
+
+		plus Sound 'name$'
+		do ("View & Edit")
+		editor TextGrid 'name$'
+			do ("Select...", 180, 240)
+			Zoom to selection
+		endeditor
+
+		pause Rappel: 1=parole (babillage, vrai parole); 0=non-linguistique (crie, pleur)
+		select TextGrid 'name$'
+		Save as text file... 'folder$''name$'_'coder$'.TextGrid
+	endif
+	select all
+	minus Strings wavs
+	Remove
+endfor
+clearinfo
+print all done
+
+
+
+
+

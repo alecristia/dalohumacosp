@@ -1,0 +1,22 @@
+folder$="en_cours/Baqu-20171112_txt/"
+
+Create Strings as file list... tgs 'folder$'*m1.TextGrid
+ntg=Get number of strings
+for i to ntg
+	select Strings tgs
+	tg$=Get string... 'i'
+	Read from file... 'folder$''tg$'
+	do ("Down to Table...", "no", 3, "yes", "no")
+	t$=tg$-"m1.TextGrid"
+	do ("Save as comma-separated file...", "'folder$''t$'m1.csv")
+	Read from file... 'folder$''t$'m2.TextGrid
+	do ("Down to Table...", "no", 3, "yes", "no")
+	do ("Save as comma-separated file...", "'folder$''t$'m2.csv")
+
+	select all
+	minus Strings tgs
+#minus Sound Gkao-20171111_txt_07_23400_23700
+#minus TextGrid Gkao-20171111_txt_07_23400_23700
+	Remove
+endfor
+print all done

@@ -1,0 +1,43 @@
+folder$="../reliability2/Baqu-20171112_txt/"
+
+Create Strings as file list... wavs 'folder$'*.wav
+nwav=Get number of strings
+
+
+
+for j to nwav
+	select Strings wavs
+	t$=Get string... 'j'
+	Read from file... 'folder$''t$'
+	f$=t$-".wav"
+	if j = 1
+		sf=do ("Get sampling frequency")
+		do ("Create Sound as pure tone...", "tone", 1, 0, 0.2, 16000, 440, 0.2, 0.01, 0.01)
+		select Sound 'f$'
+	endif
+
+	Edit
+	editor Sound 'f$'
+	Select... 180 240
+	Extract selected sound (time from 0)
+	endeditor
+	Rename... 'f$'_180s-240s
+	select Sound 'f$'
+	Remove
+	select Sound tone
+	Copy... transition
+
+endfor
+
+	select all
+	minus Strings wavs
+	do ("Concatenate recoverably")
+
+
+clearinfo
+print all done
+
+
+
+
+
