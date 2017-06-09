@@ -1,39 +1,59 @@
-folder$="../reliability2/Baqu-20171112_txt/"
-
-Create Strings as file list... wavs 'folder$'*.wav
-nwav=Get number of strings
+folder$="/Users/acristia/Documents/WACK_temp/stage/"
 
 
+Create Strings as directory list... recs 'folder$'
+nrecs=Get number of strings
+for i to nrecs
+	select Strings recs
+	thisrec$=Get string... 'i'
+	Create Strings as file list... wavs 'folder$''thisrec$'/*.wav
+	nwav=Get number of strings
 
-for j to nwav
-	select Strings wavs
-	t$=Get string... 'j'
-	Read from file... 'folder$''t$'
-	f$=t$-".wav"
-	if j = 1
-		sf=do ("Get sampling frequency")
-		do ("Create Sound as pure tone...", "tone", 1, 0, 0.2, 16000, 440, 0.2, 0.01, 0.01)
+
+	for j to nwav
+		select Strings wavs
+		t$=Get string... 'j'
+		Read from file... 'folder$''thisrec$'/'t$'
+		f$=t$-".wav"
+		if j = 1
+			sf=do ("Get sampling frequency")
+			do ("Create Sound as pure tone...", "tone", 1, 0, 0.2, 16000, 440, 0.2, 0.01, 0.01)
+			select Sound 'f$'
+		endif
+
+		Edit
+			editor Sound 'f$'
+			Select... 180 240
+			Extract selected sound (time from 0)
+			Close
+		endeditor
+		Rename... 'f$'
 		select Sound 'f$'
-	endif
-
-	Edit
-	editor Sound 'f$'
-	Select... 180 240
-	Extract selected sound (time from 0)
-	endeditor
-	Rename... 'f$'_180s-240s
-	select Sound 'f$'
-	Remove
-	select Sound tone
-	Copy... transition
-
-endfor
+		Remove
+		select Sound tone
+		Copy... transition
+	endfor
 
 	select all
 	minus Strings wavs
+	minus Strings recs
 	do ("Concatenate recoverably")
 
+	select Sound chain
+	Save as WAV file... 'folder$''f$'.wav
+	select TextGrid chain
 
+#this part is not working
+#pause check 'f$'
+#	Replace interval text... 1 0 0 'f$'_ "" Literals
+#pause check
+#	do ("Replace interval text...", 1, 0, 0, "_.*", "", "Regular Expressions")
+	Save as text file... 'folder$''f$'..TextGrid
+
+	select all
+	minus Strings recs
+	Remove
+endfor
 clearinfo
 print all done
 
