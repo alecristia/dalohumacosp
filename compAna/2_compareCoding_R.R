@@ -1,6 +1,4 @@
-#reliab_folder="C:\\Users\\scaff\\Documents\\en_cours\\Baqu-20171112_txt\\"
-#reliab_folder="C:\\Baqu-20171112_txt\\"
-reliab_folder="/Users/acristia/Documents/habilis_backup/PROJECTS/1-developing/WACK-all/reliability2/Baqu-20171112_txt/"
+reliab_folder=""
 csvs=dir(path=reliab_folder,pattern="csv")
 all=NULL
 empty=NULL

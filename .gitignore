@@ -1,7 +1,10 @@
 # hidden files sometimes created by mac
-.R
+.R*
 .DS_Store
-*/.R
+*/.R*
 */.DS_Store
-*/*/.R
+*/*/.R*
 */*/.DS_Store
+
+#files that can be regenerated
+derivedFiles/*

@@ -3,29 +3,61 @@ warmuptime=60*30
 chunklength=60*5
 skip=55*60
 
+#folder from which to extract & folder to which one writes
+folder$="/Users/acristia/Documents/WACK_temp/Uce/"
+out$="/Users/acristia/Documents/WACK_temp/stage/"
+
 #script starts
-Create Strings as file list... wav ../*.wav
+clearinfo
+Create Strings as file list... wav 'folder$'/*.wav
 ntg=Get number of strings
+
 for i to ntg
 	select Strings wav
 	snd$=Get string... 'i'
-	Open long sound file... ../'snd$'
-pause
+	Open long sound file... 'folder$'/'snd$'
 	snd$=selected$("LongSound")
 	dur=Get total duration
-	To TextGrid... sample ""
-	s=warmuptime
-	counter=2
-	while s < dur
-		Insert boundary... 1 's'
-		Set interval text... 1 'counter' on
-		if s+chunklength < dur
-			Insert boundary... 1 's'+chunklength
-		endif
-		counter=counter+2
-		s=s+chunklength+skip
-	endwhile
-	Save as text file... ../'snd$'.TextGrid
+
+	extraits$=out$ + snd$ + "/"
+
+	exists=0
+	if fileReadable(extraits$)
+		Create Strings as file list... folder 'extraits$'*.wav
+		exists=Get number of strings
+		Remove
+	endif
+
+	if exists>0
+		print skipping 'snd$'
+	else
+		pause about to create 'snd$' - continue?
+
+		createDirectory(extraits$)
+
+		#start loop extracting those times
+		s=warmuptime
+		counter=1
+
+		while s < dur
+			select LongSound 'snd$'
+			end=s+chunklength
+			do ("Extract part...", 's', 'end', "no")
+			if counter<10
+				counter$="0"+"'counter'"
+			else
+				counter$="'counter'"
+			endif
+			Save as WAV file... 'extraits$''snd$'_'counter$'_'s'_'end'.wav
+	
+			plus Sound 'snd$'
+			Remove
+			counter=counter+1
+			s=end+skip
+		endwhile
+	endif
+	select LongSound 'snd$'
+	Remove
 endfor
 select all
 Remove
