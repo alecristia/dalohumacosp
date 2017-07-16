@@ -1,22 +1,32 @@
-folder$="en_cours/Baqu-20171112_txt/"
+folder$="/Users/acristia/Documents/habilis_backup/PROJECTS/1-developing/WACK-all/coded/"
+Create Strings as directory list... dirs 'folder$'*
+ndir=Get number of strings
 
-Create Strings as file list... tgs 'folder$'*m1.TextGrid
-ntg=Get number of strings
-for i to ntg
-	select Strings tgs
-	tg$=Get string... 'i'
-	Read from file... 'folder$''tg$'
-	do ("Down to Table...", "no", 3, "yes", "no")
-	t$=tg$-"m1.TextGrid"
-	do ("Save as comma-separated file...", "'folder$''t$'m1.csv")
-	Read from file... 'folder$''t$'m2.TextGrid
-	do ("Down to Table...", "no", 3, "yes", "no")
-	do ("Save as comma-separated file...", "'folder$''t$'m2.csv")
+for thisdir to ndir
+	select Strings dirs
+	thisdir$=Get string... 'thisdir'
 
+	Create Strings as file list... tgs 'folder$''thisdir$'/*.TextGrid
+	ntg=Get number of strings
+#print 'folder$''thisdir$'/
+#pause 'folder$''thisdir$'/
+	for i to ntg
+		select Strings tgs
+		tg$=Get string... 'i'
+		tgx$=tg$-".TextGrid"
+		tgx$=right$(tgx$,2)
+#pause 'tgx$'
+		if tgx$<>"00"
+			Read from file... 'folder$''thisdir$'/'tg$'
+			do ("Down to Table...", "no", 3, "yes", "no")
+			t$=tg$-".TextGrid"
+			do ("Save as comma-separated file...", "'folder$''thisdir$'/'t$'.csv")
+			Remove
+		endif
+
+	endfor
 	select all
-	minus Strings tgs
-#minus Sound Gkao-20171111_txt_07_23400_23700
-#minus TextGrid Gkao-20171111_txt_07_23400_23700
+	minus Strings dirs
 	Remove
 endfor
 print all done
