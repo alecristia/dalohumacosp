@@ -1,0 +1,35 @@
+#folder$="/Users/acristia/Documents/gh_coded/"
+#folder$="/Users/acristia/Documents/vanuatuSamples/filtered/"
+folder$="../en_cours/"
+
+Create Strings as directory list... dirList 'folder$'/*
+ndirs=Get number of strings
+for i to ndirs
+	select Strings dirList
+	d$=Get string... 'i'
+	Create Strings as file list... fileList 'folder$''d$'/*m1.TextGrid
+	nfs=Get number of strings
+	for j to nfs
+		select Strings fileList
+		f$=Get string... 'j'
+		Read from file... 'folder$''d$'/'f$'
+		Save as TextGrid: "'folder$''f$'.TextGrid"
+		Extract part: 180, 240, "no"
+		Down to Table: "no", 6, "yes", "no"
+		f$=f$-"_m1.TextGrid"
+#print 'folder$''f$'.csv
+		Save as comma-separated file: "'folder$''f$'.csv"
+		plus TextGrid 'f$'_m1
+		Remove
+		Read from file... 'folder$''d$'/'f$'.wav
+		Extract part: 180, 240, "rectangular", 1.0, "no"
+		Save as WAV file: "'folder$''f$'.wav"
+		Remove
+
+	endfor
+	select Strings fileList
+	Remove
+endfor
+print all done
+
+
