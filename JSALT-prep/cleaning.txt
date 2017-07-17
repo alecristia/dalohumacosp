@@ -1,0 +1,70 @@
+
+
+#fixing DAYLONG Namibia files names
+for j in  *.wav
+do
+k=`echo $j | sed "s/.wav//" | sed "s/-/_/" | sed "s/_Jul..//" | sed "s/_txt//" | sed "s/_USB.//"`
+kid=`echo $k | cut -d _ -f 1 | tr '[:upper:]' '[:lower:]' | sed "s/\(...\)\(.*\)/\1/"`
+date=`echo $k | cut -d _ -f 2`
+
+out=../daylong/${kid}_${date}.wav
+mv $j $out 
+done
+
+
+
+#fixing the Namibia files names
+for j in  *.csv *.wav
+do
+k=`echo $j | sed "s/-/_/" | sed "s/_Jul..//" | sed "s/_txt//" | sed "s/_USB.//"`
+kid=`echo $k | cut -d _ -f 1 | tr '[:upper:]' '[:lower:]' | sed "s/\(...\)\(.*\)/\1/"`
+date=`echo $k | cut -d _ -f 2`
+beg=`echo $k | cut -d _ -f 4`
+beg=$(( $beg + 60*3 ))
+ext=`echo $k | sed "s/.*\.//"`
+out=../_1minute/${kid}_${date}_${beg}.${ext}
+cp $j $out 
+done
+
+
+
+
+cd van/
+#fixing the Vanuatu files names for child 1-2
+for j in *.csv *.wav
+do
+k=`echo $j | sed "s/-/_/" | sed "s/.*child//"`
+kid=`echo $k | cut -d _ -f 1 `
+date=`echo $k | cut -d _ -f 2`
+beg=`echo $k | cut -d _ -f 4`
+beg=$(($beg + 60*3))
+ext=`echo $k | sed "s/.*\.//"`
+out=../../_1minute/va${kid}_${date}_${beg}.${ext}
+cp $j $out 
+done
+
+cd child3/
+#fixing the Vanuatu files names for child 3
+for j in *REC*.csv *REC*.wav
+do
+k=`echo $j | sed "s/.*REC00//" | sed "s/_.*//" `
+if [ $k -eq "2" ]
+then
+add=14351
+elif [ $k -eq "3" ]
+then
+add=14351*2
+else
+add=0
+fi
+kid=`echo $k | cut -d _ -f 1 `
+date=`echo $k | cut -d _ -f 2`
+beg=`echo $k | cut -d _ -f 4`
+beg=$(($beg + 60*3 + $add))
+ext=`echo $k | sed "s/.*\.//"`
+out=../../../_1minute/va3_${date}_${beg}.${ext}
+cp $j $out 
+done
+
+cd ../../_1minute
+#generate the task results
