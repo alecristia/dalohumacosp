@@ -1,5 +1,5 @@
-reliab_folder=""
-csvs=dir(path=reliab_folder,pattern="csv")
+reliab_folder="/home/lscpuser/B.Touati/Baqu-20171112_txt/"
+csvs=dir(path=reliab_folder,pattern=".csv")
 all=NULL
 empty=NULL
 for(thisf in csvs){
@@ -38,7 +38,7 @@ sums=aggregate(all$dur,by=list(all$coder,all$start,all$tier_broad),sum)
 names(sums)<-c("coder","start","tier","sumdur")
 sums$uid=paste(sums$start,sums$tier)
 sums_m1<-sums[sums$coder=="m1",]
-sums.y<-sums[sums$coder=="m2",]
+sums.y<-sums[sums$coder=="VAD",]
 joint=merge(sums_m1,sums.y,by="uid")
 names(joint)<-gsub(".x","_m1",names(joint))
 names(joint)<-gsub(".y",".y",names(joint))
@@ -49,7 +49,7 @@ sums=aggregate(all$dur,by=list(all$coder,all$start,all$parole),sum)
 names(sums)<-c("coder","start","tier","sumdur")
 sums$uid=paste(sums$start,sums$tier)
 sums_m1<-sums[sums$coder=="m1",]
-sums.y<-sums[sums$coder=="m2",]
+sums.y<-sums[sums$coder=="VAD",]
 joint_p=merge(sums_m1,sums.y,by="uid")
 names(joint_p)<-gsub(".x","_m1",names(joint_p))
 names(joint_p)<-gsub(".y",".y",names(joint_p))
@@ -59,12 +59,12 @@ sums=aggregate(all$dur,by=list(all$coder,all$start,all$age),sum)
 names(sums)<-c("coder","start","tier","sumdur")
 sums$uid=paste(sums$start,sums$tier)
 sums_m1<-sums[sums$coder=="m1",]
-sums.y<-sums[sums$coder=="m2",]
+sums.y<-sums[sums$coder=="VAD",]
 joint_a=merge(sums_m1,sums.y,by="uid")
 names(joint_a)<-gsub(".x","_m1",names(joint_a))
 names(joint_a)<-gsub(".y",".y",names(joint_a))
 
-pdf("C:\\Users\\scaff\\Documents\\comparison2.pdf")
+pdf("comparison2.pdf")
 
 plot(joint$sumdur_m1~joint$sumdur.y)
 for(thislevel in levels(as.factor(joint$tier_m1))){
