@@ -1,3 +1,61 @@
+# getting Nam files in format they want
+for j in *.csv;
+do
+k=`echo $j | sed "s/.csv/.tdf/" `
+cp header.txt $k
+
+grep -v "tier" < $j |
+	sed "s/\*//" |
+	sed "s/, ,/,NA,/g" |
+	sed "s/ //g" |
+	sed "s/Autre/Noise/" |
+	sed "s/FA2/FA3/" |
+	sed "s/FA1/FA2/" |
+	sed "s/MOT/FA1/" |
+	sed "s/\+2parl/XOL/" |
+	sed "s/2POPMT/XOL/" |
+	sed "s/2parlou\+/XOL/" |
+	sed "s/LF2P/SP/" |
+	sed "s/Loin/SP/" |
+	sed "s/Loin-faible/SP/" |
+	sed "s/,C/,UC/" |
+	sed "s/UCHI/CHI/" |
+	sed "s/1&/1/" |
+	sed "s/,11,/,1,/" |
+	sed "s/\\\177/NA/" |
+	sed "s/^/$j,/"|
+	tr "," "\t" |
+ 	awk  '{ print $1 "\t0\t" $2 "\t" $5 "\t" $3"-"$4 "\t" (substr($3,1,1)=="F"?"female":(substr($3,1,1)=="M"?"male":(substr($3,1,1)=="C"?"child":"NA"))) "\t" 0 "\t" 0 "\t" NR-1}' |
+	sed "s/Noise-x/Noise/g"   >> $k
+done
+
+## compress
+tar cvf ../namj.tar all/
+gzip ../namj.tar 
+
+1 file file name or id string
+2 channel audio channel number
+3 start start time number
+4 end end time number
+5 speaker speaker name or id string
+6 speakerType speaker type string
+7 speakerDialect speaker dialect string
+8 transcript transcript string 
+9 section section id number
+10 turn turn id number
+11 segment segment id number
+12 sectionType section type string
+13 suType SU type string 
+
+Each record in an XTrans .tdf file refers to a segment. In addition to the body of
+segments, there are a few lines of meta-information within the .tdf file. The first
+line of the format declares the above field specification for segments in the
+following form:
+file;unicode channel;int start;float ...
+The second and third lines specify where the "real" section boundaries are and
+what types they are. For example,
+;;MM sectionTypes [u'report', u'nontrans', None]
+;;MM sectionBoundaries [0.0, 425.3, 9999999.0] 
 
 
 #fixing DAYLONG Namibia files names
