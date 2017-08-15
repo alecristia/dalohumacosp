@@ -1,0 +1,94 @@
+#Set variables (in seconds)
+warmuptime=60*30+60*4
+chunklength=60*1
+skip=60*59
+
+#old setting: extract 5 minute chunk, 
+#because Alex had another script show only minute 4 to coder
+#warmuptime=60*30
+#chunklength=60*5
+#skip=60*55
+
+#folder from which to extract & folder to which one writes
+folder$="/Users/acristia/Documents/dalohumacosp/derivedFiles/recordings_raw/"
+outfolder_long$="/Users/acristia/Documents/dalohumacosp/derivedFiles/recordings_whole/"
+outfolder_clips$="/Users/acristia/Documents/dalohumacosp/derivedFiles/recordings_tocode/"
+
+#script starts
+clearinfo
+
+#This first section glues all the mp3s or wavs from one child-day together
+#there should be a folder per child (and no other folders than those with the recordings)
+# the big wav with all the individual recordings 
+# inside it will be named just like the folder
+# please remember to remove any recordings that don't really belong to the child (eg tests)
+# before this, as all the sound files in a given folder will be glued together
+# and you should only have sound files in there: other files will make script crash
+#AND you should clean your praat object window before starting...
+
+Create Strings as directory list... recs 'folder$'
+nf=Get number of strings
+for i to nf
+	select Strings recs
+	subfolder$=Get string... 'i'
+	Create Strings as file list... sounds 'folder$'/'subfolder$'/*
+	nsnd=Get number of strings
+	for j to nsnd
+		select Strings sounds
+		snd$=Get string... 'j'
+		nowarn Open long sound file... 'folder$'/'subfolder$'/'snd$'
+	endfor
+	select Strings sounds
+#pause check
+	Remove
+	select all
+	minus Strings recs
+	Save as WAV file... 'outfolder_long$'/'subfolder$'.wav
+	select all
+	minus Strings recs
+	Remove
+endfor
+#pause check
+
+#This second section loops through all long wavs and extracts the minute clips to be coded
+
+Create Strings as file list... wav 'outfolder_long$'/*.wav
+ntg=Get number of strings
+
+for i to ntg
+	select Strings wav
+	snd$=Get string... 'i'
+	Open long sound file... 'outfolder_long$'/'snd$'
+	snd$=selected$("LongSound")
+	dur=Get total duration
+#pause 'dur'
+
+	extracts$ = outfolder_clips$ + "/" + snd$ + "/"
+
+	createDirectory(extracts$)
+
+	#start loop extracting those times
+	s=warmuptime
+#pause 's'
+
+	while s < dur
+#pause 's'
+		select LongSound 'snd$'
+		end=s+chunklength
+		do ("Extract part...", 's', 'end', "no")
+		Save as WAV file... 'extracts$''snd$'_'s'.wav
+	
+		plus Sound 'snd$'
+		Remove
+		s=end+skip
+	endwhile
+
+	select LongSound 'snd$'
+	Remove
+endfor
+
+
+select all
+Remove
+clearinfo
+print all done
