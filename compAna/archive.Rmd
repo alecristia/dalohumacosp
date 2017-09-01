@@ -535,3 +535,61 @@ for(thisf in added){
 
 }
 ```
+### correlation on sums
+
+
+
+```{r sums}
+#create sums per tier, coder, and chunk
+sums=aggregate(all$dur,by=list(all$coder,all$start,all$tier_broad),sum)
+names(sums)<-c("coder","start","tier","sumdur")
+sums$uid=paste(sums$start,sums$tier)
+sums_m1<-sums[sums$coder=="m1",]
+sums.y<-sums[sums$coder=="m2",]
+joint=merge(sums_m1,sums.y,by="uid")
+names(joint)<-gsub(".x","_m1",names(joint))
+names(joint)<-gsub(".y",".y",names(joint))
+
+
+#create sums per parole, coder, and chunk
+sums=aggregate(all$dur,by=list(all$coder,all$start,all$parole),sum)
+names(sums)<-c("coder","start","tier","sumdur")
+sums$uid=paste(sums$start,sums$tier)
+sums_m1<-sums[sums$coder=="m1",]
+sums.y<-sums[sums$coder=="m2",]
+joint_p=merge(sums_m1,sums.y,by="uid")
+names(joint_p)<-gsub(".x","_m1",names(joint_p))
+names(joint_p)<-gsub(".y",".y",names(joint_p))
+
+#create sums per parole, coder, and chunk
+sums=aggregate(all$dur,by=list(all$coder,all$start,all$age),sum)
+names(sums)<-c("coder","start","tier","sumdur")
+sums$uid=paste(sums$start,sums$tier)
+sums_m1<-sums[sums$coder=="m1",]
+sums.y<-sums[sums$coder=="m2",]
+joint_a=merge(sums_m1,sums.y,by="uid")
+names(joint_a)<-gsub(".x","_m1",names(joint_a))
+names(joint_a)<-gsub(".y",".y",names(joint_a))
+
+pdf("comparison2.pdf")
+
+plot(joint$sumdur_m1~joint$sumdur.y)
+for(thislevel in levels(as.factor(joint$tier_m1))){
+  plot(joint$sumdur_m1 [joint$tier_m1 == thislevel] ~joint$sumdur.y [joint$tier_m1 == thislevel], main=thislevel)
+  if(length(joint$sumdur_m1 [joint$tier_m1 == thislevel]) > 3) text(mean(joint$sumdur.y [joint$tier_m1 == thislevel]),mean(joint$sumdur_m1 [joint$tier_m1 == thislevel]),round(cor.test(joint$sumdur.y [joint$tier_m1 == thislevel], joint$sumdur_m1 [joint$tier_m1 == thislevel])$estimate,3))
+}
+
+
+for(thislevel in levels(as.factor(joint_p$tier_m1))){
+  plot(joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel] ~joint_p$sumdur.y [joint_p$tier_m1 == thislevel], main=thislevel)
+  if(length(joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel]) > 3)   text(mean(joint_p$sumdur.y [joint_p$tier_m1 == thislevel]),mean(joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel]),round(cor.test(joint_p$sumdur.y [joint_p$tier_m1 == thislevel], joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel])$estimate,3))
+}
+
+
+for(thislevel in levels(as.factor(joint_a$tier_m1))){
+  plot(joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel] ~joint_a$sumdur.y [joint_a$tier_m1 == thislevel], main=thislevel)
+  if(length(joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel]) > 3)  text(mean(joint_a$sumdur.y [joint_a$tier_m1 == thislevel]),mean(joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel]),round(cor.test(joint_a$sumdur.y [joint_a$tier_m1 == thislevel], joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel])$estimate,3))
+}
+
+dev.off()
+```
