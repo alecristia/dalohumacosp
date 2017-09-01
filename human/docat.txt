@@ -1,0 +1,93 @@
+
+#code to cut big files
+for j in *.wav
+do
+   size=`ls -l $j | awk '{print $5}'` 
+   if [ 2000000000 -lt $size ]
+   then
+	short=`echo $j | sed 's/.wav//'`
+	ffmpeg -i $j -t 15:00:00 ${short}_1.wav
+	ffmpeg -i $j -ss 15:00:00 ${short}_2.wav
+	mv $j ..
+   fi
+done
+
+# code for 2016-07
+for j in *.zip; do unzip "$j" ; done
+
+# corrected July 12/Jul13-USB3 --> July 12/Jul1*2*-USB3
+#rm Jul17-USB2-4of5 (1);  Jul16-USB2-1of3 (1)
+
+for j in */; do
+	k=`echo $j | sed 's/ //g'`
+	mkdir $k
+done
+
+for j in */*.WAV */*.MP3; do
+	x=`echo $j | cut -f1 -d-`
+	folder=`echo $x | cut -f1 -d/ | sed 's/ /_/g'`
+	day=`echo $x | cut -f2 -d/`
+	device=`echo $j | cut -f2 -d- `
+	echo "file '$j'" >> ${folder}-${day}-${device}.txt
+done
+
+
+for j in *.txt; do
+	folder=`echo $j | cut -f1 -d-`
+	day=`echo $j | cut -f2 -d-`
+	device=`echo $j | cut -f3 -d- | sed 's/\.txt//g'`
+	ffmpeg -f concat -safe 0 -i $j -ac 1 -ar 16000 -acodec pcm_s16le ${day}-${device}.wav
+done
+
+# code for 2017-03
+
+for j in */*/; do
+	child=`echo $j | cut -f1 -d/ | sed 's/ /_/g'`
+	day=`echo $j | cut -f2 -d/ |  cut -f1 -d-`
+	ls $j*.* > temp.txt
+	sed "s/^/file \'/" < temp.txt | sed "s/$/\'/" > ${child}-201703${day}.txt
+done
+
+for j in *.txt; do
+	child=`echo $j | cut -f1 -d-`
+	day=`echo $j | cut -f2 -d- | cut -f1 -d.`
+	ffmpeg -f concat -safe 0 -i $j -ac 1 -ar 16000 -acodec pcm_s16le ${child}-${day}.wav
+done
+
+#error Line 1: unknown keyword 'Gkao_Debe/9-March/REC001.WAV'
+#temp.txt: Invalid data found when processing input
+for j in *.txt; do
+	child=`echo $j | cut -f1 -d-`
+	day=`echo $j | cut -f2 -d- | cut -f1 -d.`
+	key=`echo $j | cut -f1 -d.`
+	ffmpeg -f concat -safe 0 -i $j -ac 1 -ar 16000 -acodec pcm_s16le ${key}.wav
+done
+
+for j in *.txt; do
+	key=`echo $j | cut -f1 -d.`
+	ffmpeg -f concat -safe 0 -i $j -ac 1 -ar 16000 -acodec pcm_s16le ${key}.wav
+done
+
+
+#fix names
+for j in *.wav; do
+	key=`echo $j | cut -f1 -d.`
+	mv $j $key.wav
+done
+
+
+# code for 2017-11
+
+for j in */*/; do
+	child=`echo $j | cut -f1 -d/ | sed 's/ /_/g'`
+	day=`echo $j | cut -f2 -d/ |  cut -f2 -d-`
+	ls $j*.* > temp.txt
+	sed "s/^/file \'/" < temp.txt | sed "s/$/\'/" > ${child}-201711${day}.txt
+	rm temp.txt
+done
+
+for j in *.txt; do
+	child=`echo $j | cut -f1 -d-`
+	day=`echo $j | cut -f2 -d-`
+	ffmpeg -f concat -safe 0 -i $j -ac 1 -ar 16000 -acodec pcm_s16le ${child}-${day}.wav
+done
