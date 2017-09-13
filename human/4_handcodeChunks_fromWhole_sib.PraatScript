@@ -1,0 +1,105 @@
+# path to folder containing the whole-day wavs
+folder$="/Users/acristia/Documents/DELETE/"
+
+# name of the csv containing personal ID info
+keyfile$="tsiRec2017.csv"
+
+# coder initials
+coder$="ac"
+
+#Set variables (in seconds)
+warmuptime=60*30+60*4
+chunklength=60*1
+skip=60*59
+
+# script begins - ignore from here on
+clearinfo
+
+Read Table from comma-separated file: "'folder$'/'keyfile$'"
+keyfile$=selected$("Table")
+
+Create Strings as file list... wavs 'folder$'/*.wav
+nwav=Get number of strings
+
+for j to nwav
+	select Strings wavs
+	w$=Get string... 'j'
+	name$=w$- ".wav"
+
+#check whether kid has been coded
+	select Table 'keyfile$'
+	keyrow=Search column... name 'name$'
+	done=Get value... 'keyrow' coded
+	if done = 0
+
+		Open long sound file... 'folder$'/'w$'
+
+		if !fileReadable("'folder$'/'name$'_'coder$'.TextGrid")
+			do ("To TextGrid...", "CODE", "")
+			do ("Insert interval tier...", 1, "    Autre")
+			do ("Insert interval tier...", 1, "    LF2P")
+			do ("Insert interval tier...", 1, "    2POPMT")
+			do ("Insert interval tier...", 1, "    MA2")
+			do ("Insert interval tier...", 1, "    MA1")
+			do ("Insert interval tier...", 1, "    FA2")
+			do ("Insert interval tier...", 1, "    FA1")
+			do ("Insert interval tier...", 1, "    C2")
+			do ("Insert interval tier...", 1, "    C1")
+			do ("Insert interval tier...", 1, "    MOT*")
+			do ("Insert interval tier...", 1, "    CHI*")
+			Rename... 'name$'_'coder$'
+			Save as text file... 'folder$''name$'_'coder$'.TextGrid
+		endif
+
+		Read from file... 'folder$'/'name$'_'coder$'.TextGrid
+		nint=Count intervals where: 12, "is equal to", "1"
+
+		dur=Get total duration
+		exp_nint=(dur-warmuptime) div (chunklength+skip)
+		pause 'nint' 'exp_nint'
+		if nint < exp_nint
+			#pause has not been completed
+			plus LongSound 'name$'
+			do ("View & Edit")
+			now=warmuptime
+			while now < dur
+				select TextGrid 'name$'_'coder$'
+				thisint=Get interval boundary from time... 12 'now'
+				if thisint = 0
+					do ("Insert boundary...", 12, 'now')
+					do ("Insert boundary...", 12, 'now'+'chunklength')
+					nint=Get number of intervals... 12
+					do ("Set interval text...", 12, 'nint'-1, "1")
+					editor TextGrid 'name$'_'coder$'
+						do ("Select...", 'now', 'now'+'chunklength')
+						Zoom to selection
+						pause 1=speech; 0=non-speech
+					endeditor
+					Save as text file... 'folder$''name$'_'coder$'.TextGrid
+				endif
+				now=now+chunklength+skip
+			endwhile
+		else
+			print 'name$' skipped because textgrid exists & has right N of intervals
+		endif
+		select Table 'keyfile$'
+		Set numeric value... 'keyrow' coded 1
+		Save as comma-separated file... 'folder$'/'keyfile$'.csv
+	endif
+	select all
+	minus Strings wavs
+	minus Table 'keyfile$'
+	nsel=numberOfSelected()
+	if nsel > 0
+		Remove
+	endif
+endfor
+clearinfo
+print all done
+
+
+
+
+
+
+

@@ -14,11 +14,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Basic (not to redo)
 getting an idea of difficulty via coding time
-for j in ${folder}*/*m1.TextGrid
-do
- date=`date -r $j`
- echo $j $date >> ~/Desktop/times.txt
-done
+<!-- for j in ${folder}*/*m1.TextGrid -->
+<!-- do -->
+<!--  date=`date -r $j` -->
+<!--  echo $j $date >> ~/Desktop/times.txt -->
+<!-- done -->
 ```{r get-codtime, eval=FALSE}
 reliab_folder="/Users/acristia/Documents/habilis_backup/PROJECTS/1-developing/WACK-all/coded/"
 read.table("~/Desktop/times.txt")->x
@@ -301,6 +301,7 @@ I also expected CHI to vocalize MORE as they age, yet I observe no trend.  This 
 Strong prediction that should be verified: higher proportion of ling as kids age.
 
 ```{r prod-ling}
+all=read.table("../derivedFiles/line_per_segment_age.txt",header=T)
 aggregate(all$dur,by=list(all$child,all$age,all$speakerID,all$type),sum,na.rm=T)->sumdur
 
 names(sumdur)<-c("child","age","speakerID","type","totdur")
@@ -357,9 +358,9 @@ for(eachkid in levels(as.factor(sumdur$key))){
 }
 names(twodays)[7:8]<-c("avgtotdur","day")
 
-plot(twodays[twodays$day==2,"avgtotdur"]~twodays[twodays$day==1,"avgtotdur"],xlab="Odd days",ylab="Even days", main="Avg tot voc duration CHI")
+plot(twodays[twodays$day==2,"avgtotdur"]~twodays[twodays$day==1,"avgtotdur"],xlab="Odd days",ylab="Even days", main="Avg tot voc duration CHI",xlim=range(twodays$avgtotdur),ylim=range(twodays$avgtotdur))
 abline(lm(twodays[twodays$day==2,"avgtotdur"]~twodays[twodays$day==1,"avgtotdur"]))
-
+lines(c(range(twodays$avgtotdur)[1],range(twodays$avgtotdur)[2]),c(range(twodays$avgtotdur)[1],range(twodays$avgtotdur)[2]),lty=2)
 cor.test(twodays[twodays$day==2,"avgtotdur"],twodays[twodays$day==1,"avgtotdur"],method="s")
 ```
 
@@ -384,7 +385,8 @@ for(eachkid in levels(as.factor(sumdur$key))){
 }
 names(twodays)[7:8]<-c("avgtotdur","day")
 
-plot(twodays[twodays$day==2,"avgtotdur"]~twodays[twodays$day==1,"avgtotdur"],xlab="Odd days",ylab="Even days", main="Avg tot voc duration CHI")
+plot(twodays[twodays$day==2,"avgtotdur"]~twodays[twodays$day==1,"avgtotdur"],xlab="Odd days",ylab="Even days", main="Avg tot voc duration CHI",xlim=range(twodays$avgtotdur),ylim=range(twodays$avgtotdur))
+lines(c(0,1000),c(0,1000),lty=2)
 abline(lm(twodays[twodays$day==2,"avgtotdur"]~twodays[twodays$day==1,"avgtotdur"]))
 
 cor.test(twodays[twodays$day==2,"avgtotdur"],twodays[twodays$day==1,"avgtotdur"],method="s") 
@@ -451,3 +453,29 @@ for(thislevel in levels(as.factor(joint_a$tier_m1))){
 dev.off()
 ```
 
+```{r prod-ling}
+all=read.table("../derivedFiles/line_per_segment_age.txt",header=T)
+aggregate(all$dur,by=list(all$child,all$age,all$speakerID,all$type),sum,na.rm=T)->sumdur
+
+names(sumdur)<-c("child","age","speakerID","type","totdur")
+hist(sumdur$totdur) #total speaking time over a whole day
+#TO IMPROVE -- add number of chunks so as to have total length of coding per chunk
+
+sumdur[sumdur$speakerID=="CHI" ,]->sumchi
+sumchi$unique=paste0(sumchi$child,sumchi$age)
+sumchi[sumchi$type==0,5:6]->chinonling
+names(chinonling)[1]<-"nonling"
+sumchi[sumchi$type==1,-3]->chiling
+names(chiling)[4]<-"ling"
+merge(chiling,chinonling,all.x=T,all.y=T)->sumchi2
+sumchi2$tot=sumchi2$ling+sumchi2$nonling
+sumchi2$prop=sumchi2$ling/sumchi2$tot
+
+
+plot(sumchi2$prop~sumchi2$age,cex=(sumchi2$tot/max(sumchi2$tot,na.rm=T)))
+
+summary(lm(prop~age+(1/child),data=sumchi2))
+summary(lm(prop~age+(1/child),data=sumchi2,subset=c(!(sumchi2$age<10 & sumchi2$prop>.7))))
+
+write.table(sumchi2,"../derivedFiles/propling_age.txt",row.names=F,sep="\t")
+```

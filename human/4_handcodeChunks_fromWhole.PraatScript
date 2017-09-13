@@ -1,0 +1,71 @@
+#put path to folder containing the whole-day wavs
+folder$="/Users/acristia/Documents/DELETE/"
+
+#enter coder initials
+coder$="ac"
+
+#Set variables (in seconds)
+warmuptime=60*30+60*4
+chunklength=60*1
+skip=60*59
+
+# script begins - ignore from here on
+clearinfo
+
+Create Strings as file list... wavs 'folder$'/*.wav
+nwav=Get number of strings
+
+for j to nwav
+	select Strings wavs
+	w$=Get string... 'j'
+	Open long sound file... 'folder$''w$'
+	name$=selected$("LongSound")
+	if !fileReadable("'folder$'/'name$'_'coder$'.TextGrid")
+		do ("To TextGrid...", "CODE", "")
+		do ("Insert interval tier...", 1, "    Autre")
+		do ("Insert interval tier...", 1, "    LF2P")
+		do ("Insert interval tier...", 1, "    2POPMT")
+		do ("Insert interval tier...", 1, "    MA2")
+		do ("Insert interval tier...", 1, "    MA1")
+		do ("Insert interval tier...", 1, "    FA2")
+		do ("Insert interval tier...", 1, "    FA1")
+		do ("Insert interval tier...", 1, "    C2")
+		do ("Insert interval tier...", 1, "    C1")
+		do ("Insert interval tier...", 1, "    MOT*")
+		do ("Insert interval tier...", 1, "    CHI*")
+
+		dur=Get total duration
+		plus LongSound 'name$'
+		do ("View & Edit")
+
+		now=warmuptime
+
+		while now < dur
+			select TextGrid 'name$'
+			do ("Insert boundary...", 12, 'now')
+			do ("Insert boundary...", 12, 'now'+'chunklength')
+			editor TextGrid 'name$'
+				do ("Select...", 'now', 'now'+'chunklength')
+				Zoom to selection
+				pause 1=speech; 0=non-speech, DON'T STOP
+			endeditor
+			now=now+chunklength+skip
+			Save as text file... 'folder$''name$'_'coder$'.TextGrid
+		endwhile
+		print 'name$' finished
+
+
+	else
+		print 'name$' skipped because textgrid exists
+	endif
+	select all
+	minus Strings wavs
+	Remove
+endfor
+clearinfo
+print all done
+
+
+
+
+
