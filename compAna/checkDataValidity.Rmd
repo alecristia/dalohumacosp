@@ -1,106 +1,22 @@
 ---
 title: "Analyses speech coding over daylong recordings"
-output: pdf_document
-	toc: yes
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
+redoALL=F ## LOOK HERE!!!
 
 ```
+# Instructions for use
 
-## Key research questions
+If this is first time that you are running this script, change the redoALL parameter to T so that the first set of chunks, under generate main databases, is recalculated. Make sure you've created a directory inside dalohumacosp called derivedFiles, where the databases will be stored. (This folder is not pushed to github.)
 
-## Basic (not to redo)
-getting an idea of difficulty via coding time
-<!-- for j in ${folder}*/*m1.TextGrid -->
-<!-- do -->
-<!--  date=`date -r $j` -->
-<!--  echo $j $date >> ~/Desktop/times.txt -->
-<!-- done -->
-```{r get-codtime, eval=FALSE}
-reliab_folder="/Users/acristia/Documents/habilis_backup/PROJECTS/1-developing/WACK-all/coded/"
-read.table("~/Desktop/times.txt")->x
-x$date=as.Date(paste0(x$V4,x$V3,x$V7),format = "%d%b%Y")
-x$dt=as.POSIXlt(paste(x$date,x$V5))
-x[order(x$dt),]->y
-y$dur=as.numeric(as.character(difftime(c(y$dt[-1],NA),y$dt,units="secs")))
-hist(y$dur,xlim=c(0,1000),breaks=10000)
-y$dur[y$dur>1000]<-NA
-y$name=gsub(".*/","",y$V1,perl=T)
-y$name=gsub(".TextGrid","",y$name,fixed=T)
-write.table(y[c("name","dur","date","dt")],"../derivedFiles/code_dur.txt",row.names=F)
-#data.frame(table(x$date))->quant
-#quant$order<-row.names(quant)
-#cor.test(quant$order,quant$Freq)
-#max(quant$order)*7*60/sum(quant$Freq)
-#5*7*60/sum(quant$Freq[dim(quant)[1]-4:dim(quant)[1]])
-```
+Note that the text was done on a subset of the data, and on code that contained some bugs, so some of the conclusions no longer hold. Also, there are really not enough annotations, particularly at the end...
 
-## Reliability
-
-
-```{r create-dataset,eval=FALSE}
-dirs=dir(path=reliab_folder)
-all=NULL
-empty=NULL
-for(thisdir in dirs){
-	csvs=dir(path=paste0(reliab_folder,thisdir),pattern="csv")
-	for(thisf in csvs){
-  	read.csv(paste0(reliab_folder,thisdir,"/",thisf))->thiscsv
-	 bits=strsplit(thisf,"_")
-	 if(dim(thiscsv)[1]>0){
-  	  all=rbind(all,cbind(bits[[1]][1],bits[[1]][4],bits[[1]][5],bits[[1]][6],thiscsv))
-	 }else{
-  	  empty=rbind(empty,cbind(bits[[1]][1],bits[[1]][4],bits[[1]][5],bits[[1]][6]))
-	 }
-	}	
-}
-
-names(all)[1:4]<-c("file","start","end","coder")
-
-#minor clean
-all$tier_broad=as.character(all$tier)
-all$tier_broad=gsub(" ","",all$tier)
-all$tier_broad[grep("parl",all$tier_broad)]<-"2parlou+"
-all$tier_broad[grep("oi",all$tier_broad)]<-"Loi-fai-2e"
-all$tier_broad[all$tier_broad %in% c("C1","C2")]<-"OCH"
-all$tier_broad[all$tier_broad %in% c("FA1","FA2")]<-"FA"
-all$tier_broad[all$tier_broad %in% c("MA1","MA2")]<-"MA"
-
-all$age=NA
-all$age[all$tier_broad %in% c("CHI","OCH")]<-"C"
-all$age[all$tier_broad %in% c("FA","MA")]<-"A"
-
-all$parole=NA
-all$parole[all$tier_broad %in% c("OCH","FA","MA")]<-"otherSpeech"
-
-
-all$coder<-gsub(".csv","",all$coder)
-all$dur=all$tmax-all$tmin
-
-write.table(all, "../derivedFiles/final.txt",row.names=F)
-```
-
-## Comparing old & new
-
-Clarify old and new
-
-```{r moveNew,eval=F}
-dir(path="../../nam-j/_1minute/",pattern=".wav")->old
-dir(path="../../nam-j/new1min/",pattern=".wav")->new
-added=new[new %in% old]
-
-for(thisf in added){
-  file.copy(paste0("../../nam-j/new1min/",thisf),paste0("../../nam-j/added/",thisf))
-  thisf=gsub(".wav",".csv",thisf)
-  file.copy(paste0("../../nam-j/new1min/",thisf),paste0("../../nam-j/added/",thisf))
-   thisf=gsub(".csv",".TextGrid",thisf)
-  file.copy(paste0("../../nam-j/new1min/",thisf),paste0("../../nam-j/added/",thisf))
-
-}
-```
+# Generate main databases 
 
 ## Reading in current results
 
@@ -108,14 +24,14 @@ New version of tg, compose
 
 uses code from https://stackoverflow.com/questions/41839268/sum-overlapping-non-overlapping-time-intervals-in-r by Jonathan von Schroeder
 
-```{r doAll,eval=F}
+```{r doAll,eval=redoALL}
 
-reliab_folder="../../nam-j/all/"
-csvs=dir(path=reliab_folder,pattern="csv")
+final_folder="~/owncloud/namvanj/"
+csvs=dir(path=final_folder,pattern="csv")
 all=NULL
 for(thisf in csvs){
   #csvs[1]->thisf
-  read.csv(paste0(reliab_folder,thisf))->thiscsv
+  read.csv(paste0(final_folder,thisf))->thiscsv
   bits=strsplit(thisf,"_")
   if(dim(thiscsv)[1]==0) thiscsv[1,]<-NA
   all=rbind(all,cbind(thisf, bits[[1]][1],bits[[1]][2],bits[[1]][3],thiscsv))
@@ -152,35 +68,14 @@ all$recn=substr(all$date,9,9)
 
 all$date=as.Date(paste(substr(all$date,1,4),substr(all$date,5,6),substr(all$date,7,8),sep="-"))
 
-
-# #classes
-# all$tier_broad=as.character(all$tier)
-# all$tier_broad=gsub(" ","",all$tier)
-# all$tier_broad[grep("parl",all$tier_broad)]<-"2parlou+"
-# all$tier_broad[grep("oi",all$tier_broad)]<-"Loi-fai-2e"
-# all$tier_broad[all$tier_broad %in% c("C1","C2")]<-"OCH"
-# all$tier_broad[all$tier_broad %in% c("FA1","FA2")]<-"FA"
-# all$tier_broad[all$tier_broad %in% c("MA1","MA2")]<-"MA"
-# 
-# all$age=NA
-# all$age[all$tier_broad %in% c("CHI","OCH")]<-"C"
-# all$age[all$tier_broad %in% c("FA","MA")]<-"A"
-# 
-# all$parole=NA
-# all$parole[all$tier_broad %in% c("OCH","FA","MA")]<-"otherSpeech"
-
 write.table(all,"../derivedFiles/line_per_segment.txt", row.names=F,quote=T,sep="\t")
+
+
 ```
 
 ## do summaries per child & file
 
-```{r doSums}
-read.table("../derivedFiles/line_per_segment.txt", header=T)-> all
-
-```
-
-
-```{r doSums,eval=F}
+```{r doSums,eval=redoALL}
 ###### local functions
 extract_interval_as_vector <- function(df) {
   as.vector(t(subset(df,select=c('beg','end'))))
@@ -237,12 +132,12 @@ write.table(sums,"../derivedFiles/line_per_chunk.txt", row.names=F,quote=T,sep="
 
 move age adding above to all, so we don't need to do it twice (for all, for sums).
 
-```{r add-age-all}
+```{r add-age-all,eval=redoALL}
 ##PROBLEM!!! FOR SURE XOANAN IS AMBIGUOUS
 #KXAO IS TOO (2 KIDS HAVE IT AS LAST NAME)
 #GAKU NOT PRESENT
-read.table("../derivedFiles/ages.txt",header=T)->ages
-cbind(stack(ages[,c(1:3)]),ages$shortname)->x
+read.table("~/owncloud/namvanj/ages.text",header=T)->ages
+cbind(stack(ages[,c(2:4)]),ages$shortname)->x
 gsub("X","",x$ind)->x$ind
 x[,3]=paste0(x[,2],x[,3])
 x=x[,c(1,3)]
@@ -251,21 +146,81 @@ names(x)<-c("age","key")
 all$key=paste0(substr(gsub("-","",all$date),1,6),all$child)
 merge(all,x,all.x=F,all.y=F)->all
 
-write.table(all,"../derivedFiles/line_per_segment_age.txt", row.names=F,quote=T,sep="\t")
+all$chidate=paste0(all$child,all$date)
+all$chiage=paste0(all$child,all$age)
 
+write.table(all,"../derivedFiles/line_per_segment_age.txt", row.names=F,quote=T,sep="\t")
 ```
 
-```{r add-age-sums}
+```{r add-age-sums,eval=redoALL}
 
-
-sums$key=paste0(substr(sums$date,1,6),sums$child)
+read.table("../derivedFiles/line_per_chunk.txt", header=T)->sums
+sums$key=paste0(substr(gsub("-","",sums$date),1,6),sums$child)
 merge(sums,x,all.x=F,all.y=F)->sums
 
 write.table(sums,"../derivedFiles/line_per_chunk_age.txt", row.names=F,quote=T,sep="\t")
 
 ```
 
+## Generating Proportion & quantities of CHI vocalizations of different types
 
+```{r dopropling,eval= redoALL}
+aggregate(all$dur,by=list(all$child,all$age,all$speakerID,all$type,all$date),sum,na.rm=T)->sumdur
+names(sumdur)<-c("child","age","speakerID","type","date","totdur")
+sumdur[sumdur$speakerID=="CHI" ,]->sumchi
+
+sumchi$chidate=paste0(sumchi$child,sumchi$date)
+sumchi[sumchi$type==0,c("chidate","totdur")]->chinonling
+colnames(chinonling)[2]<-"nonling"
+sumchi[sumchi$type==1,]->chiling
+colnames(chiling)[dim(chiling)[2]-1]<-"ling"
+merge(chiling,chinonling,all.x=T,all.y=T)->sumchi
+sumchi$ling[is.na(sumchi$ling)]<-0
+sumchi$nonling[is.na(sumchi$ling)]<-0
+sumchi$tot=sumchi$ling+sumchi$nonling
+sumchi$prop=sumchi$ling/sumchi$tot
+sumchi$chag=paste0(sumchi$child,sumchi$age)
+
+sumchi$nchunks=NA
+for(eachchidate in levels(factor(all$chidate))) sumchi$nchunks[sumchi$chidate==eachchidate]<- length(levels(factor(all$File[all$chidate==eachchidate])))
+
+sumchi$lingRatio=sumchi$ling/(sumchi$nchunks*60)
+sumchi$nonlingRatio=sumchi$nonling/(sumchi$nchunks*60)
+
+
+write.table(sumchi,"../derivedFiles/propling_age.txt",row.names=F,sep="\t")
+```
+
+
+## Generating Proportion & quantities of FA1 linguistic vocalizations
+
+```{r dopropsFA1,eval= redoALL}
+aggregate(all$dur,by=list(all$child,all$age,all$speakerID,all$type,all$date),sum,na.rm=T)->sumdur
+names(sumdur)<-c("child","age","speakerID","type","date","totdur")
+sumdur[sumdur$speakerID=="FA1",]->summot
+
+summot$chidate=paste0(summot$child,summot$date)
+summot[summot$type==0,c("chidate","totdur")]->motnonling
+colnames(motnonling)[2]<-"nonling"
+summot[summot$type==1,]->motling
+colnames(motling)[dim(motling)[2]-1]<-"ling"
+merge(motling,motnonling,all.x=T,all.y=T)->summot
+summot$ling[is.na(summot$ling)]<-0
+summot$nonling[is.na(summot$ling)]<-0
+summot$tot=summot$ling+summot$nonling
+summot$prop=summot$ling/summot$tot
+summot$chag=paste0(summot$child,summot$age)
+
+summot$nchunks=NA
+for(eachchidate in levels(factor(all$chidate))) summot$nchunks[summot$chidate==eachchidate]<- length(levels(factor(all$File[all$chidate==eachchidate])))
+
+summot$lingRatio=summot$ling/(summot$nchunks*60)
+summot$nonlingRatio=summot$nonling/(summot$nchunks*60)
+
+
+write.table(summot,"../derivedFiles/propling_age_MOT.txt",row.names=F,sep="\t")
+```
+# Actual analyses
 
 ## Initial analyses: check 1
 
@@ -274,13 +229,14 @@ The goal of these initial analyses is to confirm strong predictions, as a way to
 First, how much do CHI and FAN vocalize as a function of CHI's age?
 
 
-```{r prod}
+```{r vocQuant-age}
+read.table("../derivedFiles/line_per_chunk_age.txt", header=T)->sums
 
 plot(sums$dur~sums$age,subset=c(sums$source=="CHI"),xlab="Age",ylab="Total voc time per chunk",main="CHI")
 
 library(gplots)
 
-plotmeans(sums$dur~sums$age,subset=c(sums$source=="CHI"),xlab="Age",ylab="Total voc time per chunk",main="CHI")
+plotmeans(sums$dur~sums$age,subset=c(sums$source=="CHI"),xlab="Age",ylab="Total voc time per chunk",main="CHI",n.label = F)
 
 aggregate(sums$dur,by=list(sums$source,sums$age,sums$child,sums$clean),mean)->means
 
@@ -298,184 +254,138 @@ I also expected CHI to vocalize MORE as they age, yet I observe no trend.  This 
 
 ## Initial analyses: check 2
 
-Strong prediction that should be verified: higher proportion of ling as kids age.
+```{r prodsfunctions}
+dokidageplot<-function(sumchi,dvname,fancydvname){
+  #dvname="prop";fancydvname="prop"
+  plot(sumchi[,dvname]~sumchi$age,type="n",main=fancydvname,xlab="Age (months)",ylab=dvname)
+for(kidag in levels(factor(sumchi$chag))){ 
+  age=mean(sumchi$age[sumchi$chag==kidag],na.rm=T)
+  prop=mean(sumchi[sumchi$chag==kidag,dvname],na.rm=T)
+  err=sd(sumchi[sumchi$chag==kidag,dvname],na.rm=T)
+  text(age,prop,substr(kidag,1,3))
+  lines(c(age,age),c(prop-err,prop+err),col="gray")
+}
 
 ```{r prod-ling}
-all=read.table("../derivedFiles/line_per_segment_age.txt",header=T)
-aggregate(all$dur,by=list(all$child,all$age,all$speakerID,all$type),sum,na.rm=T)->sumdur
 
-names(sumdur)<-c("child","age","speakerID","type","totdur")
-hist(sumdur$totdur) #total speaking time over a whole day
-#TO IMPROVE -- add number of chunks so as to have total length of coding per chunk
+for(kid in levels(factor(sumchi$child))){ 
+  props = aggregate(sumchi[sumchi$child==kid,dvname],by=list(sumchi$age[sumchi$child==kid]),mean,na.rm=T)
+  for(thisline in 1:(dim(props)[1]-1)) lines(c(props$Group.1[thisline],props$Group.1[thisline+1]),c(props$x[thisline],props$x[thisline+1]),lty=2)
+}
+  
+    plot(sumchi[,dvname]~sumchi$age,cex=(sumchi[,dvname]/max(sumchi[,dvname],na.rm=T)),main="Data per recording day",xlab="Age (months)",ylab=dvname)
+text(sumchi$age,sumchi[,dvname],as.character(sumchi$child),cex=.5,pos=4)
+ 
+}
 
-sumdur[sumdur$speakerID=="CHI" ,]->sumchi
-sumchi$unique=paste0(sumchi$child,sumchi$age)
-sumchi[sumchi$type==0,5:6]->chinonling
-names(chinonling)[1]<-"nonling"
-sumchi[sumchi$type==1,-3]->chiling
-names(chiling)[4]<-"ling"
-merge(chiling,chinonling,all.x=T,all.y=T)->sumchi2
-sumchi2$tot=sumchi2$ling+sumchi2$nonling
-sumchi2$prop=sumchi2$ling/sumchi2$tot
+```
+
+Strong prediction that should be verified: higher proportion of ling as kids age.
+
+```{r prod-age-prop}
+read.table("../derivedFiles/propling_age.txt", header=T)->sumchi
 
 
-plot(sumchi2$prop~sumchi2$age,cex=(sumchi2$tot/max(sumchi2$tot,na.rm=T)))
+dokidageplot(sumchi,"prop","Proportion of CHI vocs that are linguistic")
 
-summary(lm(prop~age+(1/child),data=sumchi2))
-summary(lm(prop~age+(1/child),data=sumchi2,subset=c(!(sumchi2$age<10 & sumchi2$prop>.7))))
-
-write.table(sumchi2,"../derivedFiles/propling_age.txt",row.names=F,sep="\t")
 ```
 That is a pretty massive effect with one exception of an 8mo have a really high ling voc rate. Notice that this child has a rather large voc quantity.
 
 So these results are more encouraging, although as mentioned above it could be due to the coder's expectations...
 
-## Check 3: Stability in behavior over days
+Above we looked at proportion of linguistic over all child vocalizations. Does this go up because linguistic voc quantity goes up with age, or because non-ling goes down? I predicted both of these were true.
 
-We often recorded 3 days -- how stable is vocal behavior across days within the same participant (CHI & FA1)?
+First we look at quantity of linguistic vocalizations, controlling for recording length. That is, these are proportions of the time that has been coded where CHI produces ling vocs. For instance, if kid produced 200 secs of ling vocalizations in a given day, of which 1000 secs have been coded, then they will show up below as .2. The graphs below suggest that quantity of ling vocs increases with CHI age.
+
+```{r prod-age-ling}
+
+dokidageplot(sumchi,"lingRatio","Quantity of CHI ling vocs (controlling for rec length)")
+```
+
+Now the same types of calculations but on non-ling vocs. The graphs below do not suggest a massive reduction of quantity of non-ling vocs with CHI age.
+
+```{r prod-age-nonling}
+dokidageplot(sumchi,"nonlingRatio","Quantity of CHI non-ling vocs (controlling for rec length)")
+```
+
+## Check 3: Stability in CHI vocal behavior over days
+
+We often recorded 3 days -- how stable is vocal behavior across days within the same participant (CHI only for now)?
+
+
 
 ```{r prod-ling-stab-chi}
-aggregate(all$dur,by=list(all$child,all$age,all$speakerID,all$type,all$date),sum,na.rm=T)->sumdur_all
-
-names(sumdur_all)<-c("child","age","speakerID","type","date","totdur")
-
-subset(sumdur_all,speakerID == "CHI" & type==1)->sumdur
-sumdur$key=paste0(sumdur$child,sumdur$age,sumdur$speakerID)
-sumdur[order(sumdur$key),]->sumdur
-
-sumdur[sumdur$key=="kxa9CHI",]
-
-names(table(sumdur$key))[table(sumdur$key)>=2]->include
-sumdur[sumdur$key %in% include,]->sumdur
-
+read.table("../derivedFiles/propling_age.txt", header=T)->sumchi
 
 twodays=NULL
-for(eachkid in levels(as.factor(sumdur$key))){
-  subset(sumdur,key==eachkid)->x
-  xx=NULL
-  for(i in 1:2) xx=rbind(xx,cbind(x[1,-6],mean(x[seq(i,dim(x)[1],by=2),"totdur"]),i))
-  twodays=rbind(twodays,xx)
+for(eachkid in names(table(sumchi$chag))[table(sumchi$chag)>1]){
+  subset(sumchi,chag==eachkid)->thischidat
+  odd_days=cbind(thischidat[1,c("child","age","chag")],
+             t( colMeans(thischidat[seq(1,dim(thischidat)[1],by=2),c("ling","nonling","tot","prop","lingRatio","nonlingRatio")],na.rm=T)),
+              sum(thischidat[seq(1,dim(thischidat)[1],by=2),c("nchunks")],na.rm=T),1)
+  names(odd_days)[10:11]<-c("nchunks","day")
+  
+   even_days=cbind(thischidat[1,c("child","age","chag")],
+             t( colMeans(thischidat[seq(2,dim(thischidat)[1],by=2),c("ling","nonling","tot","prop","lingRatio","nonlingRatio")],na.rm=T)),
+              sum(thischidat[seq(2,dim(thischidat)[1],by=2),c("nchunks")],na.rm=T),2)
+  names(even_days)[10:11]<-c("nchunks","day")
+    twodays=rbind(twodays, odd_days,even_days ) 
 }
-names(twodays)[7:8]<-c("avgtotdur","day")
 
-plot(twodays[twodays$day==2,"avgtotdur"]~twodays[twodays$day==1,"avgtotdur"],xlab="Odd days",ylab="Even days", main="Avg tot voc duration CHI",xlim=range(twodays$avgtotdur),ylim=range(twodays$avgtotdur))
-abline(lm(twodays[twodays$day==2,"avgtotdur"]~twodays[twodays$day==1,"avgtotdur"]))
-lines(c(range(twodays$avgtotdur)[1],range(twodays$avgtotdur)[2]),c(range(twodays$avgtotdur)[1],range(twodays$avgtotdur)[2]),lty=2)
-cor.test(twodays[twodays$day==2,"avgtotdur"],twodays[twodays$day==1,"avgtotdur"],method="s")
+
+for(thisdv in c("ling","nonling","tot","prop","lingRatio","nonlingRatio")){
+  temp=table(twodays$chag[!is.na(twodays[,thisdv])])
+  goodkids=names(temp)[temp==2]
+  plot(twodays[twodays$day==2 & twodays$chag %in% goodkids,thisdv]~twodays[twodays$day==1 & twodays$chag %in% goodkids,thisdv],xlab="Odd days",ylab="Even days", main=thisdv,xlim=range(twodays[,thisdv],na.rm=T),ylim=range(twodays[,thisdv],na.rm=T))
+abline(lm(twodays[twodays$day==2,thisdv]~twodays[twodays$day==1,thisdv]))
+cor.test(twodays[twodays$day==2,thisdv],twodays[twodays$day==1,thisdv],method="s")
+} 
+
 ```
 
 Weak correlation, not super convincing.
 
 
 ```{r prod-ling-stab-fa1}
-subset(sumdur_all,speakerID == "FA1" & type==1)->sumdur
-sumdur$key=paste0(sumdur$child,sumdur$age,sumdur$speakerID)
-sumdur[order(sumdur$key),]->sumdur
 
-names(table(sumdur$key))[table(sumdur$key)>=2]->include
-sumdur[sumdur$key %in% include,]->sumdur
-
+read.table("../derivedFiles/propling_age_MOT.txt", header=T)->summot
 
 twodays=NULL
-for(eachkid in levels(as.factor(sumdur$key))){
-  subset(sumdur,key==eachkid)->x
-  xx=NULL
-  for(i in 1:2) xx=rbind(xx,cbind(x[1,-6],mean(x[seq(i,dim(x)[1],by=2),"totdur"]),i))
-  twodays=rbind(twodays,xx)
+for(eachkid in names(table(summot$chag))[table(summot$chag)>1]){
+  subset(summot,chag==eachkid)->thischidat
+  odd_days=cbind(thischidat[1,c("child","age","chag")],
+                 t( colMeans(thischidat[seq(1,dim(thischidat)[1],by=2),c("ling","nonling","tot","prop","lingRatio","nonlingRatio")],na.rm=T)),
+                 sum(thischidat[seq(1,dim(thischidat)[1],by=2),c("nchunks")],na.rm=T),1)
+  names(odd_days)[10:11]<-c("nchunks","day")
+  
+  even_days=cbind(thischidat[1,c("child","age","chag")],
+                  t( colMeans(thischidat[seq(2,dim(thischidat)[1],by=2),c("ling","nonling","tot","prop","lingRatio","nonlingRatio")],na.rm=T)),
+                  sum(thischidat[seq(2,dim(thischidat)[1],by=2),c("nchunks")],na.rm=T),2)
+  names(even_days)[10:11]<-c("nchunks","day")
+  twodays=rbind(twodays, odd_days,even_days ) 
 }
-names(twodays)[7:8]<-c("avgtotdur","day")
 
-plot(twodays[twodays$day==2,"avgtotdur"]~twodays[twodays$day==1,"avgtotdur"],xlab="Odd days",ylab="Even days", main="Avg tot voc duration CHI",xlim=range(twodays$avgtotdur),ylim=range(twodays$avgtotdur))
-lines(c(0,1000),c(0,1000),lty=2)
-abline(lm(twodays[twodays$day==2,"avgtotdur"]~twodays[twodays$day==1,"avgtotdur"]))
+for(thisdv in c("ling","lingRatio")){
+  temp=table(twodays$chag[!is.na(twodays[,thisdv])])
+  goodkids=names(temp)[temp==2]
+  plot(twodays[twodays$day==2 & twodays$chag %in% goodkids,thisdv]~twodays[twodays$day==1 & twodays$chag %in% goodkids,thisdv],xlab="Odd days",ylab="Even days", main=thisdv,xlim=range(twodays[,thisdv],na.rm=T),ylim=range(twodays[,thisdv],na.rm=T))
+  abline(lm(twodays[twodays$day==2,thisdv]~twodays[twodays$day==1,thisdv]))
+  cor.test(twodays[twodays$day==2,thisdv],twodays[twodays$day==1,thisdv],method="s")
+} 
 
-cor.test(twodays[twodays$day==2,"avgtotdur"],twodays[twodays$day==1,"avgtotdur"],method="s") 
 ```
 
 Even weaker correlation, not super convincing AT ALL.
 
-### correlation on sums
 
+# new ideas :
+- name of the key child in vocative or not
+crossing across ages / across days (& the interaction) with the following dependent measures: 
+- identity of people around the child; their number, and their contribution to overall quantity
+- CHI. voc auqntm speech auqntm ratio
+- mot talk quant
+- chi-mot correlation
+All of the above can be done over siblings in the Tsi dataset
+- expect more speech at day than night; describe quant over hours --> do we have hours?
+- 
 
-
-```{r sums}
-#create sums per tier, coder, and chunk
-sums=aggregate(all$dur,by=list(all$coder,all$start,all$tier_broad),sum)
-names(sums)<-c("coder","start","tier","sumdur")
-sums$uid=paste(sums$start,sums$tier)
-sums_m1<-sums[sums$coder=="m1",]
-sums.y<-sums[sums$coder=="m2",]
-joint=merge(sums_m1,sums.y,by="uid")
-names(joint)<-gsub(".x","_m1",names(joint))
-names(joint)<-gsub(".y",".y",names(joint))
-
-
-#create sums per parole, coder, and chunk
-sums=aggregate(all$dur,by=list(all$coder,all$start,all$parole),sum)
-names(sums)<-c("coder","start","tier","sumdur")
-sums$uid=paste(sums$start,sums$tier)
-sums_m1<-sums[sums$coder=="m1",]
-sums.y<-sums[sums$coder=="m2",]
-joint_p=merge(sums_m1,sums.y,by="uid")
-names(joint_p)<-gsub(".x","_m1",names(joint_p))
-names(joint_p)<-gsub(".y",".y",names(joint_p))
-
-#create sums per parole, coder, and chunk
-sums=aggregate(all$dur,by=list(all$coder,all$start,all$age),sum)
-names(sums)<-c("coder","start","tier","sumdur")
-sums$uid=paste(sums$start,sums$tier)
-sums_m1<-sums[sums$coder=="m1",]
-sums.y<-sums[sums$coder=="m2",]
-joint_a=merge(sums_m1,sums.y,by="uid")
-names(joint_a)<-gsub(".x","_m1",names(joint_a))
-names(joint_a)<-gsub(".y",".y",names(joint_a))
-
-pdf("comparison2.pdf")
-
-plot(joint$sumdur_m1~joint$sumdur.y)
-for(thislevel in levels(as.factor(joint$tier_m1))){
-  plot(joint$sumdur_m1 [joint$tier_m1 == thislevel] ~joint$sumdur.y [joint$tier_m1 == thislevel], main=thislevel)
-  if(length(joint$sumdur_m1 [joint$tier_m1 == thislevel]) > 3) text(mean(joint$sumdur.y [joint$tier_m1 == thislevel]),mean(joint$sumdur_m1 [joint$tier_m1 == thislevel]),round(cor.test(joint$sumdur.y [joint$tier_m1 == thislevel], joint$sumdur_m1 [joint$tier_m1 == thislevel])$estimate,3))
-}
-
-
-for(thislevel in levels(as.factor(joint_p$tier_m1))){
-  plot(joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel] ~joint_p$sumdur.y [joint_p$tier_m1 == thislevel], main=thislevel)
-  if(length(joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel]) > 3)   text(mean(joint_p$sumdur.y [joint_p$tier_m1 == thislevel]),mean(joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel]),round(cor.test(joint_p$sumdur.y [joint_p$tier_m1 == thislevel], joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel])$estimate,3))
-}
-
-
-for(thislevel in levels(as.factor(joint_a$tier_m1))){
-  plot(joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel] ~joint_a$sumdur.y [joint_a$tier_m1 == thislevel], main=thislevel)
-  if(length(joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel]) > 3)  text(mean(joint_a$sumdur.y [joint_a$tier_m1 == thislevel]),mean(joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel]),round(cor.test(joint_a$sumdur.y [joint_a$tier_m1 == thislevel], joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel])$estimate,3))
-}
-
-dev.off()
-```
-
-```{r prod-ling}
-all=read.table("../derivedFiles/line_per_segment_age.txt",header=T)
-aggregate(all$dur,by=list(all$child,all$age,all$speakerID,all$type),sum,na.rm=T)->sumdur
-
-names(sumdur)<-c("child","age","speakerID","type","totdur")
-hist(sumdur$totdur) #total speaking time over a whole day
-#TO IMPROVE -- add number of chunks so as to have total length of coding per chunk
-
-sumdur[sumdur$speakerID=="CHI" ,]->sumchi
-sumchi$unique=paste0(sumchi$child,sumchi$age)
-sumchi[sumchi$type==0,5:6]->chinonling
-names(chinonling)[1]<-"nonling"
-sumchi[sumchi$type==1,-3]->chiling
-names(chiling)[4]<-"ling"
-merge(chiling,chinonling,all.x=T,all.y=T)->sumchi2
-sumchi2$tot=sumchi2$ling+sumchi2$nonling
-sumchi2$prop=sumchi2$ling/sumchi2$tot
-
-
-plot(sumchi2$prop~sumchi2$age,cex=(sumchi2$tot/max(sumchi2$tot,na.rm=T)))
-
-summary(lm(prop~age+(1/child),data=sumchi2))
-summary(lm(prop~age+(1/child),data=sumchi2,subset=c(!(sumchi2$age<10 & sumchi2$prop>.7))))
-
-write.table(sumchi2,"../derivedFiles/propling_age.txt",row.names=F,sep="\t")
-```

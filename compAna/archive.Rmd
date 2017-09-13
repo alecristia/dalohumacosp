@@ -445,3 +445,151 @@ for(thislevel in levels(as.factor(joint_a$tier_m1))){
 dev.off()
 ```
 
+# repeated
+## Basic (not to redo)
+getting an idea of difficulty via coding time
+for j in ${folder}*/*m1.TextGrid
+do
+ date=`date -r $j`
+ echo $j $date >> ~/Desktop/times.txt
+done
+```{r get-codtime, eval=FALSE}
+reliab_folder="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/2017_reliab/coded/"
+read.table("~/Desktop/times.txt")->x
+x$date=as.Date(paste0(x$V4,x$V3,x$V7),format = "%d%b%Y")
+x$dt=as.POSIXlt(paste(x$date,x$V5))
+x[order(x$dt),]->y
+y$dur=as.numeric(as.character(difftime(c(y$dt[-1],NA),y$dt,units="secs")))
+hist(y$dur,xlim=c(0,1000),breaks=10000)
+y$dur[y$dur>1000]<-NA
+y$name=gsub(".*/","",y$V1,perl=T)
+y$name=gsub(".TextGrid","",y$name,fixed=T)
+write.table(y[c("name","dur","date","dt")],"../derivedFiles/code_dur.txt",row.names=F)
+#data.frame(table(x$date))->quant
+#quant$order<-row.names(quant)
+#cor.test(quant$order,quant$Freq)
+#max(quant$order)*7*60/sum(quant$Freq)
+#5*7*60/sum(quant$Freq[dim(quant)[1]-4:dim(quant)[1]])
+```
+
+## Reliability
+
+
+```{r create-dataset,eval=FALSE}
+dirs=dir(path=reliab_folder)
+all=NULL
+empty=NULL
+for(thisdir in dirs){
+	csvs=dir(path=paste0(reliab_folder,thisdir),pattern="csv")
+	for(thisf in csvs){
+  	read.csv(paste0(reliab_folder,thisdir,"/",thisf))->thiscsv
+	 bits=strsplit(thisf,"_")
+	 if(dim(thiscsv)[1]>0){
+  	  all=rbind(all,cbind(bits[[1]][1],bits[[1]][4],bits[[1]][5],bits[[1]][6],thiscsv))
+	 }else{
+  	  empty=rbind(empty,cbind(bits[[1]][1],bits[[1]][4],bits[[1]][5],bits[[1]][6]))
+	 }
+	}	
+}
+
+names(all)[1:4]<-c("file","start","end","coder")
+
+#minor clean
+all$tier_broad=as.character(all$tier)
+all$tier_broad=gsub(" ","",all$tier)
+all$tier_broad[grep("parl",all$tier_broad)]<-"2parlou+"
+all$tier_broad[grep("oi",all$tier_broad)]<-"Loi-fai-2e"
+all$tier_broad[all$tier_broad %in% c("C1","C2")]<-"OCH"
+all$tier_broad[all$tier_broad %in% c("FA1","FA2")]<-"FA"
+all$tier_broad[all$tier_broad %in% c("MA1","MA2")]<-"MA"
+
+all$age=NA
+all$age[all$tier_broad %in% c("CHI","OCH")]<-"C"
+all$age[all$tier_broad %in% c("FA","MA")]<-"A"
+
+all$parole=NA
+all$parole[all$tier_broad %in% c("OCH","FA","MA")]<-"otherSpeech"
+
+
+all$coder<-gsub(".csv","",all$coder)
+all$dur=all$tmax-all$tmin
+
+write.table(all, "../derivedFiles/final.txt",row.names=F)
+```
+
+## Comparing old & new
+
+Clarify old and new
+
+```{r moveNew,eval=F}
+dir(path="../../nam-j/_1minute/",pattern=".wav")->old
+dir(path="../../nam-j/new1min/",pattern=".wav")->new
+added=new[new %in% old]
+
+for(thisf in added){
+  file.copy(paste0("../../nam-j/new1min/",thisf),paste0("../../nam-j/added/",thisf))
+  thisf=gsub(".wav",".csv",thisf)
+  file.copy(paste0("../../nam-j/new1min/",thisf),paste0("../../nam-j/added/",thisf))
+   thisf=gsub(".csv",".TextGrid",thisf)
+  file.copy(paste0("../../nam-j/new1min/",thisf),paste0("../../nam-j/added/",thisf))
+
+}
+```
+### correlation on sums
+
+
+
+```{r sums}
+#create sums per tier, coder, and chunk
+sums=aggregate(all$dur,by=list(all$coder,all$start,all$tier_broad),sum)
+names(sums)<-c("coder","start","tier","sumdur")
+sums$uid=paste(sums$start,sums$tier)
+sums_m1<-sums[sums$coder=="m1",]
+sums.y<-sums[sums$coder=="m2",]
+joint=merge(sums_m1,sums.y,by="uid")
+names(joint)<-gsub(".x","_m1",names(joint))
+names(joint)<-gsub(".y",".y",names(joint))
+
+
+#create sums per parole, coder, and chunk
+sums=aggregate(all$dur,by=list(all$coder,all$start,all$parole),sum)
+names(sums)<-c("coder","start","tier","sumdur")
+sums$uid=paste(sums$start,sums$tier)
+sums_m1<-sums[sums$coder=="m1",]
+sums.y<-sums[sums$coder=="m2",]
+joint_p=merge(sums_m1,sums.y,by="uid")
+names(joint_p)<-gsub(".x","_m1",names(joint_p))
+names(joint_p)<-gsub(".y",".y",names(joint_p))
+
+#create sums per parole, coder, and chunk
+sums=aggregate(all$dur,by=list(all$coder,all$start,all$age),sum)
+names(sums)<-c("coder","start","tier","sumdur")
+sums$uid=paste(sums$start,sums$tier)
+sums_m1<-sums[sums$coder=="m1",]
+sums.y<-sums[sums$coder=="m2",]
+joint_a=merge(sums_m1,sums.y,by="uid")
+names(joint_a)<-gsub(".x","_m1",names(joint_a))
+names(joint_a)<-gsub(".y",".y",names(joint_a))
+
+pdf("comparison2.pdf")
+
+plot(joint$sumdur_m1~joint$sumdur.y)
+for(thislevel in levels(as.factor(joint$tier_m1))){
+  plot(joint$sumdur_m1 [joint$tier_m1 == thislevel] ~joint$sumdur.y [joint$tier_m1 == thislevel], main=thislevel)
+  if(length(joint$sumdur_m1 [joint$tier_m1 == thislevel]) > 3) text(mean(joint$sumdur.y [joint$tier_m1 == thislevel]),mean(joint$sumdur_m1 [joint$tier_m1 == thislevel]),round(cor.test(joint$sumdur.y [joint$tier_m1 == thislevel], joint$sumdur_m1 [joint$tier_m1 == thislevel])$estimate,3))
+}
+
+
+for(thislevel in levels(as.factor(joint_p$tier_m1))){
+  plot(joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel] ~joint_p$sumdur.y [joint_p$tier_m1 == thislevel], main=thislevel)
+  if(length(joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel]) > 3)   text(mean(joint_p$sumdur.y [joint_p$tier_m1 == thislevel]),mean(joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel]),round(cor.test(joint_p$sumdur.y [joint_p$tier_m1 == thislevel], joint_p$sumdur_m1 [joint_p$tier_m1 == thislevel])$estimate,3))
+}
+
+
+for(thislevel in levels(as.factor(joint_a$tier_m1))){
+  plot(joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel] ~joint_a$sumdur.y [joint_a$tier_m1 == thislevel], main=thislevel)
+  if(length(joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel]) > 3)  text(mean(joint_a$sumdur.y [joint_a$tier_m1 == thislevel]),mean(joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel]),round(cor.test(joint_a$sumdur.y [joint_a$tier_m1 == thislevel], joint_a$sumdur_m1 [joint_a$tier_m1 == thislevel])$estimate,3))
+}
+
+dev.off()
+```
