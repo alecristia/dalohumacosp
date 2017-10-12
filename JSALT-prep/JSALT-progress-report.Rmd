@@ -42,7 +42,7 @@ write.table(ds,"/Users/acristia/Documents/dalohumacosp/derivedFiles/ds_jsalt.txt
 I should check which files go awry, why, and fix that. A bunch of NAs also in Casillas (probably change in version not reflected here, I should check that I'm using the latest files). Loads of NaNs in namvanj (not sure why...) In any case, datasets will grow soon.
 
 ```{r readin-final}
-read.table("/Users/acristia/Documents/dalohumacosp/derivedFiles/ds_jsalt.txt",header=T)->ds
+read.table("../derivedFiles/ds_jsalt.txt",header=T)->ds
 ds$corpus=factor(ds$corpus, levels=c('aclewstarter',"sod2","seedlings","namvanj","casj"))
 ds[ds$method %in% c("ldc","lena","lena_nofar"),]-> sad
 sad$method=factor(sad$method)
@@ -163,7 +163,7 @@ The diarization part of the problem is, given a set of sections that have been l
 xx=read.table("/Users/acristia/Documents/JSALT/casj/summary_clean.text")
 xx[grep("diar",xx$V2),]-> diar
 names(diar)<-c("file","method","DER","b3f1")
-write.table(diar,"/Users/acristia/Documents/dalohumacosp/derivedFiles/casj_diar.txt",row.names=F,sep="\t")
+write.table(diar,"../dalohumacosp/derivedFiles/casj_diar.txt",row.names=F,sep="\t")
 
 ```
 
@@ -171,7 +171,7 @@ write.table(diar,"/Users/acristia/Documents/dalohumacosp/derivedFiles/casj_diar.
 
 
 ```{r diar-perf}
-read.table("/Users/acristia/Documents/dalohumacosp/derivedFiles/casj_diar.txt",header=T)->diar
+read.table("../derivedFiles/casj_diar.txt",header=T)->diar
 
 #pdf("performance_diar.pdf",height=7,width=5,pointsize=20)
 subset(diar,method=="goldsad_diar_a" | method=="goldsad_diarTK_a")->diar
@@ -223,7 +223,7 @@ for(thisdir in diarf){
 }
 
 
-write.table(ntall,"/Users/acristia/Documents/dalohumacosp/derivedFiles/casj_ntalkers.txt",row.names=F,quote=T,sep="\t")
+write.table(ntall,"../derivedFiles/casj_ntalkers.txt",row.names=F,quote=T,sep="\t")
 
 # I want to know:
 # precision for each speaker
