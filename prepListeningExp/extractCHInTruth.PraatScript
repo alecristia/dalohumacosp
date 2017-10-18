@@ -46,13 +46,25 @@ for thisdir to ndir
 					if thislab$="1"
 						start=Get start point... 1 'thisint'
 						end=Get end point... 1 'thisint'
-						select Sound 'clean$'
-						Extract part... 'start' 'end' rectangular 1.0 0
-						filename$=folder$+thisdir$+"/CHI/"+ fixed$(start,0)
-						Save as WAV file... 'filename$'.wav
-						Remove
+						thisdur=end-start
+						noOverlap=0
+						for thistier from 2 to 9
+							otherInt=Get interval at time: 'thistier', (start+end)/2
+							otherLab$=Get label of interval: 'thistier', 'otherInt'
+							if otherLab$ <> ""
+								noOverlap=1
+							endif
+						endfor
+
+						if thisdur<2 & noOverlap=0
+							select Sound 'clean$'
+							Extract part... 'start' 'end' rectangular 1.0 0
+							filename$=folder$+thisdir$+"/CHI/"+ fixed$(start,0)
+							Save as WAV file... 'filename$'.wav
+							Remove
+						endif
 						nintFound=nintFound+1
-						totaldur=totaldur+(end-start)
+						totaldur=totaldur+thisdur
 					endif
 					thisint=thisint+1
 				endwhile
