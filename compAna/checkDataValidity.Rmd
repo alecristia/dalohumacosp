@@ -266,6 +266,8 @@ for(kidag in levels(factor(sumchi$chag))){
   lines(c(age,age),c(prop-err,prop+err),col="gray")
 }
 
+```{r prod-ling}
+
 for(kid in levels(factor(sumchi$child))){ 
   props = aggregate(sumchi[sumchi$child==kid,dvname],by=list(sumchi$age[sumchi$child==kid]),mean,na.rm=T)
   for(thisline in 1:(dim(props)[1]-1)) lines(c(props$Group.1[thisline],props$Group.1[thisline+1]),c(props$x[thisline],props$x[thisline+1]),lty=2)
@@ -275,7 +277,6 @@ for(kid in levels(factor(sumchi$child))){
 text(sumchi$age,sumchi[,dvname],as.character(sumchi$child),cex=.5,pos=4)
  
 }
-
 
 ```
 
@@ -331,6 +332,7 @@ for(eachkid in names(table(sumchi$chag))[table(sumchi$chag)>1]){
     twodays=rbind(twodays, odd_days,even_days ) 
 }
 
+
 for(thisdv in c("ling","nonling","tot","prop","lingRatio","nonlingRatio")){
   temp=table(twodays$chag[!is.na(twodays[,thisdv])])
   goodkids=names(temp)[temp==2]
@@ -370,6 +372,7 @@ for(thisdv in c("ling","lingRatio")){
   abline(lm(twodays[twodays$day==2,thisdv]~twodays[twodays$day==1,thisdv]))
   cor.test(twodays[twodays$day==2,thisdv],twodays[twodays$day==1,thisdv],method="s")
 } 
+
 ```
 
 Even weaker correlation, not super convincing AT ALL.
@@ -385,3 +388,4 @@ crossing across ages / across days (& the interaction) with the following depend
 All of the above can be done over siblings in the Tsi dataset
 - expect more speech at day than night; describe quant over hours --> do we have hours?
 - 
+
