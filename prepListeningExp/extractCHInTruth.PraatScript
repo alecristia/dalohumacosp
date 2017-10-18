@@ -1,0 +1,75 @@
+folder$="/Users/alejandrinacristia/corpora_inprogress/namibie_backup/en_cours/"
+data$="file_propCHI.txt"
+header_row$ = "file" + tab$ + "propCHI"  + newline$
+header_row$ > 'folder$''data$'
+
+
+Create Strings as directory list... dirs 'folder$'*
+ndir=Get number of strings
+
+for thisdir to ndir
+	select Strings dirs
+	thisdir$=Get string... 'thisdir'
+
+	Create Strings as file list... tgs 'folder$''thisdir$'/*.TextGrid
+	ntg=Get number of strings
+#print 'folder$''thisdir$'/
+#pause 'folder$''thisdir$'/
+	for i to ntg
+		select Strings tgs
+		tg$=Get string... 'i'
+		tgx$=tg$-".TextGrid"
+		tgx$=right$(tgx$,2)
+#pause 'tgx$'
+		if tgx$<>"00"
+#pause 'tgx$'
+			Read from file... 'folder$''thisdir$'/'tg$'
+
+			Replace interval text: 1, 0, 0, " ", "", "Literals"
+			Replace interval text: 1, 0, 0, "\n", "", "Literals"
+
+			nchiling=Count intervals where: 1, "is equal to", "1"
+#pause 'nchiling'
+			if nchiling > 0
+				createDirectory("'folder$''thisdir$'/CHI/")
+#pause 'folder$''thisdir$'/CHI/
+				clean$=tg$ - ".TextGrid" - tgx$ - "_"
+				Read from file... 'folder$''thisdir$'/'clean$'.wav
+
+				thisint=1
+				nintFound=0
+				totaldur=0
+				while nintFound < nchiling
+#pause 'thisint' 'nintFound' 'nchiling'
+					select TextGrid 'clean$'_'tgx$'
+					thislab$=Get label of interval... 1 'thisint'
+					if thislab$="1"
+						start=Get start point... 1 'thisint'
+						end=Get end point... 1 'thisint'
+						select Sound 'clean$'
+						Extract part... 'start' 'end' rectangular 1.0 0
+						filename$=folder$+thisdir$+"/CHI/"+ fixed$(start,0)
+						Save as WAV file... 'filename$'.wav
+						Remove
+						nintFound=nintFound+1
+						totaldur=totaldur+(end-start)
+					endif
+					thisint=thisint+1
+				endwhile
+#pause check after while
+			endif
+			propCHI=totaldur/60*100
+			fileappend "'folder$''data$'" 'clean$''tab$''propCHI:0''newline$'
+pause check 'clean$''tab$''propCHI:0'
+			select all
+			minus Strings tgs
+			minus Strings dirs
+			Remove
+		endif
+#pause check after cleaning
+	endfor
+	select all
+	minus Strings dirs
+	Remove
+endfor
+print all done

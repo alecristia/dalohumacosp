@@ -1,0 +1,60 @@
+#Set variables (in seconds)
+warmuptime=60*30+60*4
+chunklength=60*1
+skip=60*59 + 60*30
+#note an extra 30 minute skip to get another minute half-way through the recording
+
+
+#folder from which to extract & folder to which one writes
+folder$="/Users/alejandrinacristia/corpora_inprogress/namibie_backup/all/"
+out$="/Users/alejandrinacristia/corpora_inprogress/namibie_backup/extraMinute/"
+
+#script starts
+clearinfo
+Create Strings as file list... wav 'folder$'/*.wav
+ntg=Get number of strings
+
+for i to ntg
+	select Strings wav
+	snd$=Get string... 'i'
+	Open long sound file... 'folder$'/'snd$'
+	snd$=selected$("LongSound")
+	dur=Get total duration
+
+	extraits$=out$ + snd$ + "/"
+
+	exists=0
+	if fileReadable(extraits$)
+		Create Strings as file list... folder 'extraits$'*.wav
+		exists=Get number of strings
+		Remove
+	endif
+
+	if exists>0
+		print skipping 'snd$'
+	else
+		pause about to create 'snd$' - continue?
+
+		createDirectory(extraits$)
+
+		#start loop extracting those times
+		s=warmuptime
+
+		while s < dur
+			select LongSound 'snd$'
+			end=s+chunklength
+			do ("Extract part...", 's', 'end', "no")
+			Save as WAV file... 'extraits$''snd$'_'s'.wav
+	
+			plus Sound 'snd$'
+			Remove
+			s=end+skip
+		endwhile
+	endif
+	select LongSound 'snd$'
+	Remove
+endfor
+select all
+Remove
+clearinfo
+print all done
