@@ -1,6 +1,14 @@
 # dalohumacosp
 daylong recordings human and machine coding of speech
 
+# immediateFeedback
+The idea is to: 
+- starting from a set of recordings from an olympus or USB in a folder named as the unique ID for the child, 
+- concatenate them in a long file for future automatic analysis 
+- extract 1 minute every half hour and concatenate with beep for parents
+- extract 1 minute per hour to validate (see next); then second minute per hour 
+- present these to parents over praat script & ask (1) whether they allow others to listen, and (2) pre-annotate
+
 # human
 These scripts are used to extract subparts of the audio recordings (script 1_),
 extract minute 4 from those chunks and concatenate them into a single file (script 2_),
