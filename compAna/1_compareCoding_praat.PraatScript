@@ -1,6 +1,11 @@
-folder$="/Users/acristia/Documents/habilis_backup/PROJECTS/1-developing/WACK-all/coded/"
+
+form Test command line calls
+	sentence folder "/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials/aiku_201607/"
+endform
+
 Create Strings as directory list... dirs 'folder$'*
 ndir=Get number of strings
+print ndir
 
 for thisdir to ndir
 	select Strings dirs

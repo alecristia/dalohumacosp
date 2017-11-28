@@ -2,6 +2,7 @@ folder$="/Users/alejandrinacristia/corpora_inprogress/namibie_backup/en_cours/"
 data$="file_propCHI.txt"
 header_row$ = "file" + tab$ + "propCHI"  + newline$
 header_row$ > 'folder$''data$'
+maxdur=100
 
 
 Create Strings as directory list... dirs 'folder$'*
@@ -21,6 +22,7 @@ for thisdir to ndir
 		tgx$=tg$-".TextGrid"
 		tgx$=right$(tgx$,2)
 #pause 'tgx$'
+		clean$=tg$ - ".TextGrid" - tgx$ - "_"
 		if tgx$<>"00"
 #pause 'tgx$'
 			Read from file... 'folder$''thisdir$'/'tg$'
@@ -28,17 +30,17 @@ for thisdir to ndir
 			Replace interval text: 1, 0, 0, " ", "", "Literals"
 			Replace interval text: 1, 0, 0, "\n", "", "Literals"
 
+			totaldur=0
 			nchiling=Count intervals where: 1, "is equal to", "1"
 #pause 'nchiling'
 			if nchiling > 0
 				createDirectory("'folder$''thisdir$'/CHI/")
 #pause 'folder$''thisdir$'/CHI/
-				clean$=tg$ - ".TextGrid" - tgx$ - "_"
+#pause 'clean$'
 				Read from file... 'folder$''thisdir$'/'clean$'.wav
 
 				thisint=1
 				nintFound=0
-				totaldur=0
 				while nintFound < nchiling
 #pause 'thisint' 'nintFound' 'nchiling'
 					select TextGrid 'clean$'_'tgx$'
@@ -56,7 +58,7 @@ for thisdir to ndir
 							endif
 						endfor
 
-						if thisdur<2 & noOverlap=0
+						if thisdur< maxdur & noOverlap=0
 							select Sound 'clean$'
 							Extract part... 'start' 'end' rectangular 1.0 0
 							filename$=folder$+thisdir$+"/CHI/"+ fixed$(start,0)
@@ -72,7 +74,7 @@ for thisdir to ndir
 			endif
 			propCHI=totaldur/60*100
 			fileappend "'folder$''data$'" 'clean$''tab$''propCHI:0''newline$'
-pause check 'clean$''tab$''propCHI:0'
+#pause check 'clean$''tab$''propCHI:0'
 			select all
 			minus Strings tgs
 			minus Strings dirs
