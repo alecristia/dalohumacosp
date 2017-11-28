@@ -1,0 +1,223 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Compose all the datasets from various sources
+
+
+```{r readintxt,eval=F}
+dir(pattern="*[0-9]")->mydirs
+all=NULL
+for(thisdir in mydirs) all=rbind(all, cbind(read.table(paste0(thisdir,"/stats_mean_diff.txt")) ) )
+all$excl=ifelse(all$V2>350,1,0)
+write.table(all,"../backup_mean_diff.txt", row.names=F,quote=T,sep="\t")
+
+```
+
+```{r readintestcsv, eval=F}
+#argh I've destroyed my local version of these files -- fortunately, saved a backup below
+test=NULL
+for(thisdir in mydirs) test=rbind(test, cbind(read.csv(paste0(thisdir,"/test.csv")) ) )
+#repeats when the random sampler overlaps with human sampling
+#test[test$sound_file=="aiku_20160714_1_12800.wav",]
+#test$babytalk[duplicated(test$sound_file)]
+#remove those dups
+test=test[!duplicated(test$sound_file),]
+test$babyvoc=NA
+test$babyvoc[!is.na(test$babytalk)]=ifelse(test$babytalk>0,"bb","0")[!is.na(test$babytalk)]
+
+merge(all, test,all.x=T,all.y=T,by.x="V1",by.y="sound_file")->x
+write.table(x, "../backup_info.txt",row.names=T,quote=T,sep=";")
+```
+
+```{bash gencsv, eval=F}
+/Applicatip/Contents/MacOS/Praat --run "/Users/alejandrinacristia/gitrepos/dalohumacosp/compAna/0docsv.PraatScript" "/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials/"
+```
+
+```{r readcsvs,eval=F}
+dir(path="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/nam_sampled_human/", pattern="[0-9].csv")->csvs
+allcsvs=NULL
+for(thisf in csvs) {
+  #csvs[1]->thisf
+  read.csv(paste0("/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/nam_sampled_human/",thisf))->thiscsv
+  thiscsv=thiscsv[grep("CHI",thiscsv$tier),]
+  if(dim(thiscsv)[1]>0){
+  bits=strsplit(thisf,"_")
+  if(length(bits[[1]])==3) thisline=c(bits[[1]][1],bits[[1]][2],1,bits[[1]][3]) else thisline=c(bits[[1]][1],bits[[1]][2],bits[[1]][3],bits[[1]][4])
+   allcsvs=rbind(allcsvs,cbind(thisf, t(thisline),thiscsv))
+    
+  }
+  }
+
+names(allcsvs)<-c("File","child","date","rec","chunkstart",	"beg",	"speakerID",	 "type",	"end")
+
+#tier name clean
+allcsvs$speakerID=gsub("*","",allcsvs$speakerID,fixed=T)
+allcsvs$speakerID=gsub(" ","",allcsvs$speakerID,fixed=T)
+table(allcsvs$speakerID)
+
+table(allcsvs$type)
+allcsvs$type=gsub("\177","",allcsvs$type,fixed=T)
+allcsvs$type=gsub(" ","",allcsvs$type,fixed=T)
+allcsvs$type[allcsvs$type=="11"]<-1
+allcsvs$type[allcsvs$type==""]<-NA
+allcsvs$type[allcsvs$type=="x"]<-NA
+table(allcsvs$type)
+
+allcsvs$chunkstart=as.numeric(as.character(gsub(".csv","",allcsvs$chunkstart,fixed=T)))
+
+allcsvs$dur=allcsvs$end-allcsvs$beg
+
+allcsvs$date=as.Date(paste(substr(allcsvs$date,1,4),substr(allcsvs$date,5,6),substr(allcsvs$date,7,8),sep="-"))
+
+write.table(allcsvs,"../backup_human_line_per_segment.txt", row.names=F,quote=T,sep="\t")
+
+aggregate(allcsvs$dur,by=list(allcsvs$File,allcsvs$type),sum)->trsums
+
+trsums[trsums$Group.2==0,c(1,3)]->nl
+colnames(nl)<-c("file","nl")
+trsums[trsums$Group.2==1,c(1,3)]->ling
+colnames(ling)<-c("file","l")
+merge(nl,ling,all.x=T,all.y=T)->trsumty
+
+write.table(trsumty,"../backup_human_line_per_file.txt", row.names=F,quote=T,sep="\t")
+
+```
+
+```{bash ldc,eval=F}
+cd /Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/nam_sampled_ldc_SAD
+for j in */*.lab; do
+  nspeech=`cat $j | grep " speech" | wc -l`
+  if [[ $nspeech -gt 0 ]]
+  then
+    echo $j >> ldc_has_speech.txt
+  fi
+done
+
+```
+```{r read_ldc,eval=F}
+read.table("/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/nam_sampled_ldc_SAD/ldc_has_speech.txt")->ldc
+ldc$V1=gsub(".*/","",ldc$V1)
+ldc$V1=gsub("lab","",ldc$V1)
+colnames(ldc)<-"file"
+ldc$sp=1
+write.table(ldc,"../backup_ldc.txt", row.names=F,quote=T,sep="\t")
+```
+
+```{r addhuman,eval=F}
+read.table("../backup_human_line_per_file.txt",header=T)->human
+read.table("../backup_info.txt",header=T,sep=";")->means
+colnames(means)[1:2]<-c("file","meandif")
+gsub("wav","",means$file)->means$file
+gsub("csv","",human$file)->human$file
+
+merge(means,human,all.x=T,all.y=T)->humm
+
+read.table("../backup_ldc.txt",header=T)->ldc
+
+merge(humm,ldc,all.x=T,all.y=T)->humml
+humml[humml$file!="child_voice.",]->humml
+write.table(humml,"../backup_humml.txt", row.names=F,quote=T,sep="\t")
+
+```
+
+
+## check results using LDC
+
+```{r checkLDC}
+read.table("../backup_humml.txt",header=T)->x
+x$sp[!is.na(x$sp)]<-"speech_found"
+x$sp[is.na(x$sp)]<-"no"
+x$there.is.ling<-ifelse(x$l>0,"yes","no_ling")
+x$there.is.ling[is.na(x$l) & !is.na(x$babyvoc)]<-"no_ling"
+x$there.is.nonling<-ifelse(x$nl>0,"yes","no_non_ling")
+x$there.is.nonling[is.na(x$nl) & !is.na(x$babyvoc)]<-"no_non_ling"
+
+# CO OCCURRENCE WITH ANY TYPE OF VOC
+table(x$sp,x$babyvoc)->mytab
+print(mytab)
+  precision_ldc=mytab[2,2]/sum(mytab[2,])
+  recall_ldc=mytab[2,2]/sum(mytab[,2])
+print(precision_ldc)
+print(recall_ldc)
+
+# CO OCCURRENCE WITH LING VOC
+table(x$sp,x$there.is.ling)->mytab
+print(mytab)
+  precision=mytab[2,2]/sum(mytab[2,])
+  recall=mytab[2,2]/sum(mytab[,2])
+print(precision)
+print(recall)
+
+# CO OCCURRENCE WITH NONLING VOC
+table(x$sp,x$there.is.nonling)->mytab
+print(mytab)
+  precision=mytab[2,2]/sum(mytab[2,])
+  recall=mytab[2,2]/sum(mytab[,2])
+print(precision)
+print(recall)
+
+
+```
+
+
+## check results using loudness
+
+
+```{r checkLoudnessPM}
+# CO OCCURRENCE WITH ANY TYPE OF VOC
+table(x$excl,x$babyvoc)->mytab
+print(mytab)
+  precision=mytab[2,2]/sum(mytab[2,])
+  recall=mytab[2,2]/sum(mytab[,2])
+print(precision)
+print(recall)
+
+# CO OCCURRENCE WITH LING VOC
+table(x$excl,x$there.is.ling)->mytab
+print(mytab)
+  precision=mytab[2,2]/sum(mytab[2,])
+  recall=mytab[2,2]/sum(mytab[,2])
+print(precision)
+print(recall)
+
+# CO OCCURRENCE WITH NONLING VOC
+table(x$excl,x$there.is.nonling)->mytab
+print(mytab)
+  precision=mytab[2,2]/sum(mytab[2,])
+  recall=mytab[2,2]/sum(mytab[,2])
+print(precision)
+print(recall)
+
+curves=NULL
+for(pm in seq(50,600,10)){
+  incl=ifelse(x$meandif>pm,"incl","excl")[!is.na(x$babyvoc)]
+  table(incl,x$babyvoc[!is.na(x$babyvoc)])->mytab
+  precision=mytab[2,2]/sum(mytab[2,])
+  recall=mytab[2,2]/sum(mytab[,2])
+  curves=rbind(curves,cbind(pm,precision,recall,sum(mytab[2,])))
+}
+
+
+```
+
+##  Plots all results together
+
+You can also embed plots, for example:
+
+```{r pressure}
+plot(curves[,"precision"],curves[,"recall"],type="n",xlim=c(0,1),ylim=c(0,1))
+text(curves[,"precision"],curves[,"recall"],curves[,"pm"],cex=.5)
+points(precision_ldc,recall_ldc,pch="L",col="red")
+plot(curves[,4],curves[,"recall"],type="n", xlab="Number of chunks included",ylim=c(0,1),xlim=range(c(curves[,4],sum(x$sp=="speech_found"))))
+text(curves[,4],curves[,"recall"],curves[,"pm"],cex=.5)
+points(sum(x$sp=="speech_found"),recall_ldc,pch="L",col="red")
+
+```
+
+

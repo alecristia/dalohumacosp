@@ -1,0 +1,54 @@
+## Script to only extract minute 4 in 5-minute extracts
+
+folder$="en_cours/"
+out$="experiment_materials/one4one/"
+createDirectory(out$)
+
+# Go over the day recordings
+Create Strings as directory list... recs 'folder$'
+
+nrecs=Get number of strings
+for i to nrecs
+	select Strings recs
+	thisrec$=Get string... 'i'
+	Create Strings as file list... wavs 'folder$''thisrec$'/*.wav
+	nwav=Get number of strings
+	createDirectory("'out$''thisrec$'")
+
+	# Go over the 5-minute extracts
+	for j to nwav
+		select Strings wavs
+		t$=Get string... 'j'
+		f$=t$-".wav"
+		#ttg$="'f$'_m1.TextGrid"
+		#ftg$=ttg$-".TextGrid"
+
+		# Extract minute 4
+		Read from file... 'folder$''thisrec$'/'t$'
+		Edit
+			editor Sound 'f$'
+			Select... 180 240
+			Extract selected sound (time from 0)
+			Close
+		endeditor
+		select Sound untitled
+    		Save as WAV file... 'out$''thisrec$'/'f$'.wav
+		# Extract the Textgrid (actually not needed)
+		#Read from file... 'folder$''thisrec$'/'ttg$'
+		#Edit
+		#	editor TextGrid 'ftg$'
+		#	Select... 180 240
+		#	Extract selected TextGrid (time from zero)
+		#	Close
+		#endeditor
+		#Save as text file... 'out$''thisrec$'/'ftg$'.TextGrid
+
+	endfor
+	select all
+	minus Strings recs
+	Remove
+endfor
+select all
+Remove
+clearinfo
+print all done

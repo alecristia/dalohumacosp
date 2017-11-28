@@ -1,0 +1,35 @@
+
+form Test command line calls
+	sentence folder "/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials/"
+endform
+
+Create Strings as directory list... dirs 'folder$'*
+ndir=Get number of strings
+print 'ndir'
+
+for thisdir to ndir
+	select Strings dirs
+	thisdir$=Get string... 'thisdir'
+
+	Create Strings as file list... tgs 'folder$''thisdir$'/tg_orig/*.TextGrid
+	ntg=Get number of strings
+#print 'folder$''thisdir$'/
+#pause 'folder$''thisdir$'/
+	for i to ntg
+		select Strings tgs
+		tg$=Get string... 'i'
+		tgx$=tg$-".TextGrid"
+		tgx$=right$(tgx$,2)
+#pause 'tgx$'
+			Read from file... 'folder$''thisdir$'/tg_orig/'tg$'
+			do ("Down to Table...", "no", 3, "yes", "no")
+			t$=tg$-".TextGrid"
+			do ("Save as comma-separated file...", "'folder$''thisdir$'/'t$'.csv")
+			Remove
+
+	endfor
+	select all
+	minus Strings dirs
+	Remove
+endfor
+print all done

@@ -1,0 +1,56 @@
+clearinfo
+
+Create Strings as file list... tgs *\*.*
+pause
+ntg=Get number of strings
+for i to ntg
+	tg$=Get string... 'i'
+	Read from file... 'tg$'
+	short$=tg$-".TextGrid"
+	Create Strings as file list... temp 'short$'*
+	j$=Get string... 1
+	if right$(j$)="d"
+		j$=Get string... 2
+	endif
+	Open long sound file... 'j$'
+	snd$=selected$("LongSound")
+
+	select TextGrid 'short$'
+	ntiers=Get number of tiers
+
+	samplefound=0
+	counter=1
+	while samplefound=0
+		tier$=Get tier name... 'counter'
+		tier$=left$(tier$)
+		if tier$="s" or tier$="S"
+			samplefound=1
+		else
+			counter=counter+1
+		endif
+	endwhile
+	nchunks=Get number of intervals... 'counter'
+
+	for thisint to nchunks
+		lab$=Get label of interval... 'counter' 'thisint'
+		if lab$ <> ""
+			start=Get start point... 'counter' 'thisint'
+			end=Get end point... 'counter' 'thisint'
+			dur=end-start
+			print 'short$''tab$''snd$''tab$''thisint''tab$''start''tab$''end''tab$''dur''newline$'
+			select LongSound 'snd$'
+			Extract part... 'start' 'end' 1
+			Save as WAV file... extracts\'short$'_'thisint'.wav
+			select TextGrid 'short$'
+			Extract part... 'start' 'end' 1
+			Save as text file... extracts\'short$'_'thisint'.TextGrid
+			select TextGrid 'short$'
+		endif
+	endfor
+	select all
+	minus Strings tgs
+	Remove
+	select Strings tgs
+endfor
+#Remove
+print all done

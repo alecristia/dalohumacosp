@@ -1,0 +1,88 @@
+folder$="/Volumes/Seagate Expansion Drive/Vanuatu_m1/"
+outfolder$="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/CHI_coding2/"
+data$="file_propCHI.txt"
+header_row$ = "file" + tab$ + "propCHI"  + newline$
+header_row$ > 'outfolder$''data$'
+maxdur=100000
+
+
+Create Strings as directory list... dirs 'folder$'*
+ndir=Get number of strings
+
+for thisdir to ndir
+	select Strings dirs
+	thisdir$=Get string... 'thisdir'
+
+	Create Strings as file list... tgs 'folder$''thisdir$'/*.TextGrid
+	ntg=Get number of strings
+#print 'folder$''thisdir$'/
+#pause 'folder$''thisdir$'/
+	for i to ntg
+		select Strings tgs
+		tg$=Get string... 'i'
+		tgx$=tg$-".TextGrid"
+		tgx$=right$(tgx$,2)
+#pause 'tgx$'
+		clean$=tg$ - ".TextGrid" - tgx$ - "_"
+		if tgx$<>"00"
+#pause 'tgx$'
+			Read from file... 'folder$''thisdir$'/'tg$'
+
+			Replace interval text: 1, 0, 0, " ", "", "Literals"
+			Replace interval text: 1, 0, 0, "\n", "", "Literals"
+
+			totaldur=0
+			nchiling=Count intervals where: 1, "is equal to", "1"
+#pause 'nchiling'
+			if nchiling > 0
+#pause 'clean$'
+				Read from file... 'folder$''thisdir$'/'clean$'.wav
+
+				thisint=1
+				nintFound=0
+				while nintFound < nchiling
+#pause 'thisint' 'nintFound' 'nchiling'
+					select TextGrid 'clean$'_'tgx$'
+					thislab$=Get label of interval... 1 'thisint'
+					if thislab$="1"
+						start=Get start point... 1 'thisint'
+						end=Get end point... 1 'thisint'
+						thisdur=end-start
+						noOverlap=0
+						for thistier from 2 to 9
+							otherInt=Get interval at time: 'thistier', (start+end)/2
+							otherLab$=Get label of interval: 'thistier', 'otherInt'
+							if otherLab$ <> ""
+								noOverlap=1
+							endif
+						endfor
+
+						if thisdur < maxdur & noOverlap=0
+							select Sound 'clean$'
+							Extract part... 'start' 'end' rectangular 1.0 0
+							filename$=outfolder$+clean$+"_"+"'thisint'"+ fixed$(start,0)
+							Save as WAV file... 'filename$'.wav
+							Remove
+						endif
+						nintFound=nintFound+1
+						totaldur=totaldur+thisdur
+					endif
+					thisint=thisint+1
+				endwhile
+#pause check after while
+			endif
+			propCHI=totaldur/60*100
+			fileappend "'outfolder$''data$'" 'clean$''tab$''propCHI:0''newline$'
+#pause check 'clean$''tab$''propCHI:0'
+			select all
+			minus Strings tgs
+			minus Strings dirs
+			Remove
+		endif
+#pause check after cleaning
+	endfor
+	select all
+	minus Strings dirs
+	Remove
+endfor
+print all done

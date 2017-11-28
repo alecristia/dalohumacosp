@@ -1,0 +1,32 @@
+speech=3
+nonling=3
+check=2
+Read Table from tab-separated file... wavs_coded.txt
+nr=Get number of rows
+for j to nr
+	select Table wavs_coded
+	coded$=Get value: 'j', "coded"
+	if coded$="0"
+		file$=Get value: 'j', "file"
+		Read from file... 'file$'
+		Open
+		Play
+		beginPause: "code row 'j' of 'nr'"
+			choice: "linguistic types", speech
+				option: "non-canonical syllable(s)"
+				option: "canonical syllable(s)"
+				option: "neither"
+			choice: "emotion types", nonling
+				option: "crying"
+				option: "laughing"
+				option: "neither"
+			choice: "check again?", check
+				option: "yes"
+				option: "no"
+		endPause: "Continue", "", 1
+		Remove
+		select Table wavs_coded
+		Set string value... 'j' "coded" "'speech'+":"+'nonling'+":"+'check'"
+		Save as tab-separated file... wavs_coded.txt
+	endif
+endfor
