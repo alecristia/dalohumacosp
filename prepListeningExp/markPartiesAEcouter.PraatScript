@@ -1,0 +1,27 @@
+clearinfo
+
+Create Strings as file list... wav *.wav
+ntg=Get number of strings
+for i to ntg
+	select Strings wav
+	snd$=Get string... 'i'
+	Open long sound file... 'snd$'
+	snd$=selected$("LongSound")
+	dur=Get total duration
+	To TextGrid... sample ""
+	s=300
+	counter=2
+	while s < dur
+		Insert boundary... 1 's'
+		Set interval text... 1 'counter' on
+		if s+60 < dur
+			Insert boundary... 1 's'+60
+		endif
+		counter=counter+2
+		s=s+29*60
+	endwhile
+	Save as text file... 'snd$'.TextGrid
+endfor
+select all
+Remove
+print all done

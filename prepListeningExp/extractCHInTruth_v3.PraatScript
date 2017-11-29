@@ -1,0 +1,60 @@
+folder$="/Volumes/Seagate Expansion Drive/Tsimane_m1/en_cours/"
+outfolder$="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/CHI_coding2/"
+data$="file_propCHI.txt"
+header_row$ = "file" + tab$ + "propCHI"  + newline$
+header_row$ > 'outfolder$''data$'
+
+
+Create Strings as file list... tgs 'folder$'*.TextGrid
+ntg=Get number of strings
+for i to ntg
+	select Strings tgs
+	tg$=Get string... 'i'
+	tgx$=tg$-".TextGrid"
+	tgx$=right$(tgx$,2)
+	clean$=tg$ - ".TextGrid" - tgx$ - "_"
+	if tgx$="m1"
+		Read from file... 'folder$''tg$'
+
+		Replace interval text: 1, 0, 0, " ", "", "Literals"
+		Replace interval text: 1, 0, 0, "\n", "", "Literals"
+
+		nchiling=Count intervals where: 1, "is equal to", "1"
+		Open long sound file... 'folder$''clean$'.wav
+
+		thisint=1
+		nintFound=0
+		while nintFound < nchiling
+			select TextGrid 'clean$'_'tgx$'
+			thislab$=Get label of interval... 1 'thisint'
+			if thislab$="1"
+				start=Get start point... 1 'thisint'
+				end=Get end point... 1 'thisint'
+				noOverlap=0
+				for thistier from 2 to 9
+					otherInt=Get interval at time: 'thistier', (start+end)/2
+					otherLab$=Get label of interval: 'thistier', 'otherInt'
+					if otherLab$ <> ""
+						noOverlap=1
+					endif
+				endfor
+
+				if noOverlap=0
+					select LongSound 'clean$'
+					Extract part... 'start' 'end' rectangular 1.0 0
+					filename$=outfolder$+clean$+"_"+"'thisint'"+ fixed$(start,0)
+					Save as WAV file... 'filename$'.wav
+					Remove
+				endif
+				nintFound=nintFound+1
+			endif
+			thisint=thisint+1
+		endwhile
+		select all
+		minus Strings tgs
+		Remove
+	endif
+endfor
+select all
+Remove
+print all done

@@ -1,17 +1,17 @@
 
 form Test command line calls
-	sentence folder "/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials/aiku_201607/"
+	sentence folder "/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials/"
 endform
 
 Create Strings as directory list... dirs 'folder$'*
 ndir=Get number of strings
-print ndir
+print 'ndir'
 
 for thisdir to ndir
 	select Strings dirs
 	thisdir$=Get string... 'thisdir'
 
-	Create Strings as file list... tgs 'folder$''thisdir$'/*m1.TextGrid
+	Create Strings as file list... tgs 'folder$''thisdir$'/tg_orig/*.TextGrid
 	ntg=Get number of strings
 #print 'folder$''thisdir$'/
 #pause 'folder$''thisdir$'/
@@ -21,13 +21,11 @@ for thisdir to ndir
 		tgx$=tg$-".TextGrid"
 		tgx$=right$(tgx$,2)
 #pause 'tgx$'
-		if tgx$<>"00"
-			Read from file... 'folder$''thisdir$'/'tg$'
+			Read from file... 'folder$''thisdir$'/tg_orig/'tg$'
 			do ("Down to Table...", "no", 3, "yes", "no")
 			t$=tg$-".TextGrid"
 			do ("Save as comma-separated file...", "'folder$''thisdir$'/'t$'.csv")
 			Remove
-		endif
 
 	endfor
 	select all

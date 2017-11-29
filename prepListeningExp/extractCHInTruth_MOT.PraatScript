@@ -1,0 +1,93 @@
+folder$="G:\en_cours\"
+thistalker$="MOT"
+thistier=2
+#MOT is always tier number 2
+clearinfo
+
+Create Strings as directory list... dirs 'folder$'*
+ndir=Get number of strings
+
+lastchild$=""
+
+for thisdir to ndir
+   select Strings dirs
+   thisdir$=Get string... 'thisdir'
+   thischild$=left$(thisdir$,11)
+#pause 'thischild$' 'lastchild$' 'thisdir$'
+
+   if thischild$<>lastchild$
+	select all
+   	minus Strings dirs
+	if numberOfSelected()>0
+		#Concatenate recoverably
+		#Edit
+
+		#pause check 'thischild$'
+
+		select all
+		minus Strings dirs
+		Remove
+	endif
+   endif
+
+   Create Strings as file list... tgs 'folder$''thisdir$'\'thistalker$'\*.*
+   ntg=Get number of strings
+   Remove
+   if ntg>0
+	print skipping 'folder$''thisdir$'\'thistalker$''newline$'
+   else
+   #this kid has not been done before, so get tgs for this folder
+	createDirectory("'folder$''thisdir$'/'thistalker$'/")
+	Create Strings as file list... tgs 'folder$''thisdir$'\*.TextGrid
+	ntg=Get number of strings
+	for i to ntg
+		select Strings tgs
+		tg$=Get string... 'i'
+		tgx$=tg$-".TextGrid"
+		tgx$=right$(tgx$,2)
+		if tgx$<>"00"
+		#skip the uncoded tgs
+			Read from file... 'folder$''thisdir$'/'tg$'
+			Replace interval text: 'thistier', 0, 0, " ", "", "Literals"
+			Replace interval text: 'thistier', 0, 0, "\n", "", "Literals"
+			nchi=Count intervals where: 'thistier', "is not equal to", ""
+			if nchi > 0
+			#if there are some thistalker$ intervals
+				clean$=tg$ - ".TextGrid" - tgx$ - "_"
+				Read from file... 'folder$''thisdir$'/'clean$'.wav
+				thisint=1
+				nintFound=0
+				while nintFound < nchi
+					select TextGrid 'clean$'_'tgx$'
+					thislab$=Get label of interval... 'thistier' 'thisint'
+					if thislab$<>""
+						start=Get start point... 'thistier' 'thisint'
+						end=Get end point... 'thistier' 'thisint'
+						select Sound 'clean$'
+						Extract part... 'start' 'end' rectangular 1.0 0
+						filename$=folder$+thisdir$+"/'thistalker$'/"+ fixed$(start,0)
+						Save as WAV file... 'filename$'.wav
+						Rename... 'clean$'-'thisint'
+						nintFound=nintFound+1
+					endif
+					thisint=thisint+1
+				endwhile
+				select Sound 'clean$'
+				Remove
+			endif
+			#if there are chi intervals
+
+			tg$=tg$-".TextGrid"
+			select TextGrid 'tg$'
+			Remove
+		endif
+		#end skip uncoded tgs
+	endfor
+	#end for all tgs for this directory
+	select Strings tgs
+	Remove
+   endif
+   #folder already done
+
+endfor
+print all done

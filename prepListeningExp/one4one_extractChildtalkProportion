@@ -1,0 +1,137 @@
+## Script to extract the child voice intervals and compute the percentage of child voice in the annotated minutes
+# !!! This script generates comma-separated csv files (compatible with the experiment one4one)
+
+# Get the folders ready
+folder$="en_cours/"
+extra_folder$="extra_minutes/"
+out$="experiment_materials/one4one/"
+createDirectory(out$)
+
+# Go over the day recordings
+Create Strings as directory list... dirs 'folder$'*
+ndir=Get number of strings
+
+for thisdir to ndir
+	select Strings dirs
+	thisdir$=Get string... 'thisdir'
+
+	# Create the folder for experiment materials related to this recording
+	createDirectory("'out$''thisdir$'/")
+#pause 'thisdir''thisdir$'
+
+    # Prepare the csv files for child voice proportions
+    data_practice$="practice.csv"
+    data_test$="test.csv"
+    header_row$ = "sound_file" + "," + "babytalk"  + newline$
+    header_row$ > 'out$''thisdir$'/'data_practice$'
+    header_row$ > 'out$''thisdir$'/'data_test$'
+
+	# Go over the annotations in the 5-minute extracts' folder
+	Create Strings as file list... tgs 'folder$''thisdir$'/*.TextGrid
+	ntg=Get number of strings
+#print 'folder$''thisdir$'/
+	for i to ntg
+		select Strings tgs
+		tg$=Get string... 'i'
+		ftgx$=tg$-".TextGrid"
+		tgx$=right$(ftgx$,2)
+#pause 'tgx$'
+		if tgx$<>"00"
+#pause 'tgx$'		
+			Read from file... 'folder$''thisdir$'/'tg$'
+			# Find out the intervals annotated with the child voice with the label '1'
+			Replace interval text... 1 0 0 " " "" Literals
+			Replace interval text... 1 0 0 "\n" "" Literals
+
+			nchiling=Count labels... 1 1
+#pause 'nchiling'
+			clean$=tg$ - ".TextGrid" - tgx$ - "_"
+			totaldur=0
+			if nchiling > 0
+				Read from file... 'folder$''thisdir$'/'clean$'.wav
+				thisint=1
+				nintFound=0
+				while nintFound < nchiling
+#pause 'thisint' 'nintFound' 'nchiling'
+					select TextGrid 'clean$'_'tgx$'
+					thislab$=Get label of interval... 1 'thisint'
+					if thislab$="1"
+						start=Get start point... 1 'thisint'
+						end=Get end point... 1 'thisint'
+						thisdur=end-start
+						noOverlap=0
+						for thistier from 2 to 9
+							otherInt=Get interval at time... 'thistier' (start+end)/2
+							otherLab$=Get label of interval... 'thistier' 'otherInt'
+							if otherLab$ <> ""
+								noOverlap=1
+							endif
+						endfor
+
+						if thisdur<2 & noOverlap=0
+							select Sound 'clean$'
+							Extract part... 'start' 'end' rectangular 1.0 0
+
+						endif
+						nintFound=nintFound+1
+						totaldur=totaldur+thisdur
+					endif
+					thisint=thisint+1
+				endwhile
+#pause check after while
+				select Sound 'clean$'
+				Remove
+			endif
+			select TextGrid 'ftgx$'
+			Remove
+# pause check after sound and textgrid cleaning
+
+			# Compute the percentage of child voice in the extract and store it in file
+			propCHI=totaldur/60*100
+			
+			# If the time stamp of the minute is 1800, we use it as practice
+			time_stamp$=right$(clean$,4)
+			if time_stamp$<>"1800"
+				fileappend "'out$''thisdir$'/'data_test$'" 'clean$','propCHI:0''newline$'
+			else
+				fileappend "'out$''thisdir$'/'data_practice$'" 'clean$','propCHI:0''newline$'
+			endif		
+#pause check 'clean$'',''propCHI:0'
+		endif
+	endfor
+
+	# Concatenate the intervals with the child voice to familiarize ppts to the voice
+	select all
+	minus Strings tgs
+	minus Strings dirs
+
+	numberOfSounds = numberOfSelected("Sound")
+	if  numberOfSounds >= 2
+		Concatenate
+		select Sound chain
+		Save as WAV file... 'out$''thisdir$'/child_voice.wav
+		select all
+		minus Strings tgs
+		minus Strings dirs
+		Remove
+	endif
+	
+#pause check after big cleaning
+	
+	# Go over the extra minutes and save them in experiment materials
+	Create Strings as file list... wavs 'extra_folder$''thisdir$'/*.wav
+	nwav=Get number of strings
+	for j to nwav
+		select Strings wavs
+		t$=Get string... 'j'
+		f$=t$-".wav"
+		fileappend "'out$''thisdir$'/'data_test$'" 'f$','newline$'
+#pause check 'f$'','
+		Read from file... 'extra_folder$''thisdir$'/'t$'
+		Save as WAV file... 'out$''thisdir$'/'t$'
+	endfor
+	select all
+	minus Strings dirs
+	Remove
+endfor
+print all done
