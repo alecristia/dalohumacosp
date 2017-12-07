@@ -11,7 +11,7 @@ for thisdir to ndir
 	select Strings dirs
 	thisdir$=Get string... 'thisdir'
 
-	Create Strings as file list... tgs 'folder$''thisdir$'/*.TextGrid
+	Create Strings as file list... tgs 'folder$''thisdir$'/*m1.TextGrid
 	ntg=Get number of strings
 #print 'folder$''thisdir$'/
 #pause 'folder$''thisdir$'/
