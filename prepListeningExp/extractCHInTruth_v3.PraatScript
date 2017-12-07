@@ -43,7 +43,7 @@ for i to ntg
 				#if noOverlap=0
 					select LongSound 'clean$'
 					Extract part... 'start' 'end' rectangular 1.0 0
-					filename$=outfolder$+clean$+"_"+"'thisint'"+ fixed$(start,0)
+					filename$=outfolder$+clean$+"_"+"'thisint'"+ "_" + fixed$(start,0)
 					Save as WAV file... 'filename$'.wav
 					Remove
 				#endif
