@@ -12,8 +12,11 @@ skip=60*4
 
 
 #folder from which to extract & folder to which one writes
-folder$="all/"
-out$="extra_minutes/"
+folder$="/Volumes/Seagate Expansion Drive/all/"
+#out$="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials/"
+out$="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials_1128/"
+#folder$="all/"
+#out$="extra_minutes/"
 #folder$="/Users/alejandrinacristia/corpora_inprogress/namibie_backup/all/"
 #out$="/Users/alejandrinacristia/corpora_inprogress/namibie_backup/extraMinute/"
 
@@ -23,14 +26,14 @@ data_tests$="test.csv"
 
 #script starts
 clearinfo
-Create Strings as file list... wav 'folder$'/*.wav
+Create Strings as file list... wav 'folder$'/a*.wav
 ntg=Get number of strings
 
 # Go over the day recordings
 for i to ntg
 	select Strings wav
 	snd$=Get string... 'i'
-	thischild$=left$(thisrec$,11)
+	thischild$=left$(snd$,11)
 
 	Open long sound file... 'folder$'/'snd$'
 	snd$=selected$("LongSound")
@@ -39,12 +42,16 @@ for i to ntg
 	#start loop extracting those times
 	s=warmuptime
 	while s < dur
+		if fileReadable("'out$''thischild$'/'snd$'_'s'.wav")
+			print skipping 'out$''thischild$'/'snd$'_'s'.wav'newline$'
+		else
 		select LongSound 'snd$'
 		end=s+chunklength
 		Extract part... 's' 'end' no
-		Save as WAV file... 'extraits$''snd$'_'s'.wav
+		Save as WAV file... 'out$''thischild$'/'snd$'_'s'.wav
 		Remove
 		fileappend "'out$''thischild$'/'data_tests$'" 'snd$'_'s'.wav,'newline$'
+		endif
 		s=end+skip
 	endwhile
 	select LongSound 'snd$'

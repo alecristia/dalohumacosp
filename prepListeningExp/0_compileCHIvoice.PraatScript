@@ -1,8 +1,10 @@
 ## Script to concatenate the child voice intervals to be listened to
 
+
 # Get the folders ready
-folder$="/Volumes/Seagate Expansion Drive/en_cours/"
-out$="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials/"
+folder$="/Volumes/Seagate Expansion Drive/Namibie_m1/"
+#out$="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials/"
+out$="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials_1128/"
 
 # Create silence for the concatenation
 Create Sound as pure tone: "silence", 1, 0, 0.2, 16000, 440, 0.2, 0.01, 0.01
@@ -20,6 +22,7 @@ for thisdir to ndir
 	thisdir$=Get string... 'thisdir'
 	# Go over the annotations in the 5-minute extracts' folder
 	Create Strings as file list... wavs 'folder$''thisdir$'/CHI/*.wav
+	Randomize
 	nwav=Get number of strings
 
 	thischild$=left$(thisdir$,11)

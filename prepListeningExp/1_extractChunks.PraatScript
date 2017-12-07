@@ -8,8 +8,9 @@ thistier=1
 #corresponds to chi
 
 # Get the folders ready
-folder$="/Volumes/Seagate Expansion Drive/en_cours/"
-out$="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials/"
+folder$="/Volumes/Seagate Expansion Drive/Namibie_m1/"
+#out$="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials/"
+out$="/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials_1128/"
 
 # Prepare the csv files for child voice proportions
 data_tests$="test.csv"
@@ -94,6 +95,8 @@ for i to nrecs
 			chunkstart=chunkstart+chunk
 #pause 'chunkstart' 'totaldur'
 		endwhile
+		select Sound 'f$'
+		Remove
 	endfor
 endfor
 

@@ -58,13 +58,13 @@ for thisdir to ndir
 							endif
 						endfor
 
-						if thisdur< maxdur & noOverlap=0
+						#if thisdur< maxdur & noOverlap=0
 							select Sound 'clean$'
 							Extract part... 'start' 'end' rectangular 1.0 0
 							filename$=folder$+thisdir$+"/CHI/"+ fixed$(start,0)
 							Save as WAV file... 'filename$'.wav
 							Remove
-						endif
+						#endif
 						nintFound=nintFound+1
 						totaldur=totaldur+thisdur
 					endif
