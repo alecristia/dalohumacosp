@@ -1,0 +1,139 @@
+---
+title: "Analysis VM results Namibia data"
+author: "Alejandrina Cristia"
+date: "2/21/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Key outcomes
+
+- LDC outperforms OpenSat
+- overall performance for SAD looks ok, for DiarTK dismal -- but may relate to databsae coding
+
+*To do's*
+
+- URGENT add clip identity
+- For evaluation of diartk in Namibia data, merge C1 and C2, F2 and F3, M1 and M2. Might need to also change the procedure.
+- see what may explain variance between clips: overall sound, number of turns, presence of background noise,..
+- also, check that the right speakers are being considered (ie not LF2P, noise)
+
+*Questions*
+- why so many files with DER above 100%?
+- Is performance systematically above .5 B3F1 for SAD related to a chance level?
+
+
+```{r read-in, echo=FALSE}
+alltools=NULL
+dir(pattern=".df")->res
+for(method in res){
+  read.table(method,header=T)->thistool
+  alltools=rbind(alltools,cbind(method,thistool))
+}
+
+alltools$method=gsub(".df","",as.character(alltools$method))
+
+```
+
+## First description
+`r table(alltools$method)`
+
+LDC has analyzed 1081 segments, whereas opensat managed 978. The fact that the number for diartk is lower probably relates to the fact that only segments with some speech get analyzed.
+
+`r summary(alltools$DER)`
+
+As usual, DER returns some ridiculous values. Since DER is a rate, it should go from 0 to 100. We NA values above 100, namely `r round(sum(alltools$DER>100)/length(alltools$DER)*100)`% of the values.
+
+`r alltools$DER[alltools$DER>100]<-NA`
+
+`r summary(alltools$B3F1)`
+
+There is nothing to be said of B3 F1. It goes from 0 to 1, as it should.
+
+`r summary(alltools$MI)`
+
+I don't know enough about MI to say much about it, except that there seem to be some outlier values.
+
+## Speech activity detection
+
+3 options: opensat no sum, opensat sum, ldc
+
+### overall performance
+
+```{r overall-sad, echo=FALSE}
+subset(alltools, method!="diartk")->sad
+sad$method=factor(sad$method)
+#library(sm)
+#library(viridis)
+#mycols=viridis(length(levels(sad$method)))
+
+#sm.density.compare(sad$B3F1, sad$method, xlab="B-cubed F1",col=mycols)
+#for(i in 1:length(levels(sad$method)))  text(max(sad$B3F1),i,levels(sad$method)[i],col=mycols[i])
+
+
+plot(sad$B3F1 ~ jitter(as.numeric(as.factor(sad$method)),factor=1.3),pch=20,xaxt="n",ylab="b^3 F1",xlab="",cex=.5)
+axis(1,at=1:length(levels(as.factor(sad$method))),labels=levels(as.factor(sad$method)),las=3) #las not working
+
+#,xlim=c(0.5,3.5)
+```
+
+### direct comparison for individual recordings CANNOT BE DONE BECAUSE OUTPUT DOESN'T CONTAIN CLIP NAME
+
+```{r dircomp,echo=F,eval=F}
+merge(sad[sad$method=="ldc",],sad[sad$method=="opensat_noSum",],by="clip")
+
+library(lattice)
+splom()
+```
+
+### Statistical comparison
+
+The following regression does not take into account repeated measures, which could change results making them more stark, or by losing significance. It is unlikely that this will change the fact that there is a slight trend towards lower performance for openSat than ldc.
+
+```{r statcomp,echo=F}
+summary(lm(B3F1 ~ method, data=sad)) #opensat has lower F1
+
+summary(lm(DER ~ method, data=sad)) #opensat has higher error rate
+
+summary(lm(MI ~ method, data=sad)) #opensat has lower Mutual Info
+```
+
+Next a direct comparison between the two opensat. The difference is not significant, and numerically very small. Taking into account repeated measures would be important.
+
+```{r statcomp2,echo=F}
+t.test(B3F1 ~ method, data=sad,subset=c(method!="ldc")) 
+
+t.test(DER ~ method, data=sad,subset=c(method!="ldc")) 
+
+t.test(MI ~ method, data=sad,subset=c(method!="ldc")) 
+
+```
+
+### precision against recall
+
+```{r precrec, echo=FALSE}
+
+for(onetool in levels(method)){
+  plot(B3Precision ~ B3Recall, data=sad,col=as.numeric(method), pch=20, main=onetool)
+}
+
+```
+
+## Diarization
+
+This dataset is not good for diarization because C1 and C2, F2 and F3, and M1 and M2 are interchangeable. Nonetheless, for what it's worth, here are the results.
+
+```{r diar, echo=FALSE}
+
+plot(B3Precision ~ B3Recall, data=alltools, subset=c(method=="diartk"), pch=20, main="DiarTK")
+
+hist(alltools$B3F1[alltools$method=="diartk"])
+
+hist(alltools$DER[alltools$method=="diartk"])
+
+hist(alltools$MI[alltools$method=="diartk"])
+
+```

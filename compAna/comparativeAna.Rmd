@@ -291,26 +291,42 @@ I am suspicious of the low number of coded minutes for van4 and va10. It is also
 ```{r prodsfunctions}
 dokidageplot<-function(sumchi,dvname,fancydvname){
   #dvname="prop";fancydvname="prop"
-  mycols=ifelse(substr(sumchi$child,1,1)=="v","red","blue")
-  plot(sumchi[,dvname]~sumchi$age,type="n",main=fancydvname,xlab="Age (months)",ylab=dvname)
+  #dvname="ling.CFRL";fancydvname=""
+
+  plot(sumchi[,dvname]~sumchi$age,type="n",main="",yaxt="n",ylab="",xaxt="n",xlab="")
+  mtext(fancydvname,2,line=1)
+  axis(2,line=-1,tick=F)
+  mtext("Age (months)",1,line=1)
+  axis(1,line=-1,tick=F)
+  
+  mycols=rainbow(length(levels(factor(sumchi$chag))))
+names(mycols)<-levels(factor(sumchi$chag))
+
 for(kidag in levels(factor(sumchi$chag))){ 
   age=mean(sumchi$age[sumchi$chag==kidag],na.rm=T)
   prop=mean(sumchi[sumchi$chag==kidag,dvname],na.rm=T)
   err=sd(sumchi[sumchi$chag==kidag,dvname],na.rm=T)
-  text(age,prop,substr(kidag,1,3),col=mycols)
+  text(age,prop,substr(kidag,1,3),col=mycols[kidag])
   lines(c(age,age),c(prop-err,prop+err),col="gray")
 }
-
-for(kid in levels(factor(sumchi$child))){ 
+ 
+  for(kid in levels(factor(sumchi$child))){ 
   props = aggregate(sumchi[sumchi$child==kid,dvname],by=list(sumchi$age[sumchi$child==kid]),mean,na.rm=T)
-  for(thisline in 1:(dim(props)[1]-1)) lines(c(props$Group.1[thisline],props$Group.1[thisline+1]),c(props$x[thisline],props$x[thisline+1]),lty=2,col=ifelse(substr(kid,1,1)=="v","red","blue"))
+  for(thisline in 1:(dim(props)[1]-1)) lines(c(props$Group.1[thisline],props$Group.1[thisline+1]),c(props$x[thisline],props$x[thisline+1]),lty=2,col="gray")
 }
+}
+
+dokidageplot_points<-function(sumchi,dvname,fancydvname){
+    #dvname="prop";fancydvname="prop"
+mycols=rainbow(length(levels(factor(sumchi$child))))
+names(mycols)<-levels(factor(sumchi$child))
+
+
   
     plot(sumchi[,dvname]~sumchi$age,cex=(sumchi[,dvname]/max(sumchi[,dvname],na.rm=T)),main="Data per recording day",xlab="Age (months)",ylab=dvname)
-text(sumchi$age,sumchi[,dvname],as.character(sumchi$child),cex=.5,pos=4,col=mycols)
- 
-}
+text(sumchi$age,sumchi[,dvname],as.character(sumchi$child),cex=.5,pos=4,col=ifelse(substr(kid,1,1)=="v","black",mycols))
 
+}
 ```
 
 In all of the following analyses, we will consider four possible dependent measures, all of which control for the fact that we have a lot more coded data for some kids than others:
@@ -328,8 +344,11 @@ Focus on linguistic vocalizations:
 
 ```{r prod-age-ling}
 read.table("../derivedFiles/propling_age.txt",header=T)->sumchi
-
-dokidageplot(sumchi,"ling.CFRL","Quantity of CHI ling vocs (controlling for rec length)")
+subset(sumchi,substr(sumchi$child,1,1)!="v")->sumchi
+pdf("ling_age.pdf", height=10, width=15,pointsize = 36)
+  par(mar=c(2.5, 2.5, 1, 1))
+dokidageplot(sumchi,"ling.CFRL","CHI voc quantity")
+dev.off()
 ```
 
 Now non-linguistic vocalizations:
@@ -426,3 +445,52 @@ Considering only MOT
 - add recording onset time
 - only then describe quant over hours
 
+# Stability section
+
+```{r prod-ling-stab-chi}
+read.table("../derivedFiles/propling_age.txt", header=T)->sumchi
+selvars=c("ling","nonling","tot","prop","ling.CFRL","nonling.CFRL")
+
+twodays=NULL
+for(eachkid in names(table(sumchi$chag))[table(sumchi$chag)>1 & substring(names(table(sumchi$chag)),1,1)!="v"]){
+  subset(sumchi,chag==eachkid)->thischidat
+  odd_days=cbind(thischidat[1,c("child","age","chag")],
+             t( colMeans(thischidat[seq(1,dim(thischidat)[1],by=2),selvars],na.rm=T)),
+              sum(thischidat[seq(1,dim(thischidat)[1],by=2),c("nchunks")],na.rm=T),1)
+  names(odd_days)[10:11]<-c("nchunks","day")
+  
+   even_days=cbind(thischidat[1,c("child","age","chag")],
+             t( colMeans(thischidat[seq(2,dim(thischidat)[1],by=2),selvars],na.rm=T)),
+              sum(thischidat[seq(2,dim(thischidat)[1],by=2),c("nchunks")],na.rm=T),2)
+  names(even_days)[10:11]<-c("nchunks","day")
+    twodays=rbind(twodays, odd_days,even_days ) 
+}
+
+#thisdv="ling.CFRL"
+for(thisdv in "ling.CFRL"){
+  temp=table(twodays$chag[!is.na(twodays[,thisdv])])
+  goodkids=names(temp)[temp==2]
+ 
+   pdf(paste0(thisdv,".pdf"),height=15,width=15,pointsize = 36)
+  par(mar=c(2.5, 2.5, 1, 1))
+
+  plot(twodays[twodays$day==2 & twodays$chag %in% goodkids,thisdv]~twodays[twodays$day==1 & twodays$chag %in% goodkids,thisdv],xaxt="n",yaxt="n", main="",xlim=range(twodays[,thisdv],na.rm=T),ylim=range(twodays[,thisdv],na.rm=T), type="n")
+  axis(1,tick=F,line=-1)
+  axis(2,tick=F,line=-1)
+  mtext("Odd days",1,line=1)
+  mtext("Even days",2,line=1)
+
+  text(twodays[twodays$day==1 & twodays$chag %in% goodkids,thisdv],twodays[twodays$day==2 & twodays$chag %in% goodkids,thisdv], twodays[twodays$day==2 & twodays$chag %in% goodkids,"chag"],
+       col=rainbow(length(twodays$day==2 & twodays$chag %in% goodkids)))
+  mylm=lm(twodays[twodays$day==2,thisdv]~twodays[twodays$day==1,thisdv] + (1/twodays$child[twodays$day==2]),subset=c(twodays$chag %in% goodkids))
+abline(mylm)
+dev.off()
+
+print(summary(mylm))
+print(cor.test(twodays[twodays$day==2 & twodays$chag %in% goodkids ,thisdv],twodays[twodays$day==1 & twodays$chag %in% goodkids,thisdv],method="s"))
+difvec=abs(twodays[twodays$day==2 & twodays$chag %in% goodkids,thisdv] - twodays[twodays$day==1 & twodays$chag %in% goodkids,thisdv])
+print(summary(difvec*100))
+print(cbind(as.character(twodays[twodays$day==2 & twodays$chag %in% goodkids,"chag"]),difvec))
+} 
+
+```
