@@ -9,6 +9,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 redoALL=FALSE ## LOOK HERE!!!
 
+
+#!! BUG !!
 ```
 # Instructions for use
 
@@ -186,8 +188,11 @@ write.table(sums,"../derivedFiles/line_per_chunk.txt", row.names=F,quote=T,sep="
 ```{r dopropCHI,eval= redoALL, include=redoALL}
 aggregate(all$dur,by=list(all$child,all$age,all$speakerID,all$type,all$date),sum,na.rm=T)->sumdur
 names(sumdur)<-c("child","age","speakerID","type","date","totdur")
+
+#take only chi vocs
 sumdur[sumdur$speakerID=="CHI" ,]->sumchi
 
+#id chi based on visit
 sumchi$chidate=paste0(sumchi$child,sumchi$date)
 sumchi[sumchi$type==0,c("chidate","totdur")]->chinonling
 colnames(chinonling)[2]<-"nonling"
@@ -195,7 +200,7 @@ sumchi[sumchi$type==1,]->chiling
 colnames(chiling)[dim(chiling)[2]-1]<-"ling"
 merge(chiling,chinonling,all.x=T,all.y=T)->sumchi
 sumchi$ling[is.na(sumchi$ling)]<-0
-sumchi$nonling[is.na(sumchi$ling)]<-0
+sumchi$nonling[is.na(sumchi$ling)]<-0 #this is probably wrong !!!!!
 sumchi$tot=sumchi$ling+sumchi$nonling
 sumchi$prop=sumchi$ling/sumchi$tot
 sumchi$chag=paste0(sumchi$child,sumchi$age)

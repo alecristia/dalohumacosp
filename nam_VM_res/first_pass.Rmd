@@ -16,10 +16,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 *To do's*
 
-- URGENT add clip identity
+- URGENT add clip identity to current results
 - For evaluation of diartk in Namibia data, merge C1 and C2, F2 and F3, M1 and M2. Might need to also change the procedure.
 - see what may explain variance between clips: overall sound, number of turns, presence of background noise,..
 - also, check that the right speakers are being considered (ie not LF2P, noise)
+- for opensat check clips with noise?
 
 *Questions*
 
@@ -89,14 +90,11 @@ axis(1,at=1:length(levels(as.factor(sad$method))),labels=levels(as.factor(sad$me
 
 ```
 
-### direct comparison for individual recordings CANNOT BE DONE BECAUSE OUTPUT DOESN'T CONTAIN CLIP NAME
+### direct comparison for individual recordings 
 
-```{r dircomp,echo=F,eval=F}
-merge(sad[sad$method=="ldc",],sad[sad$method=="opensat_noSum",],by="clip")
+ADD LINE NAMES HAVE CLIP ID,
+but odd looking...
 
-library(lattice)
-splom()
-```
 
 ### Statistical comparison
 
@@ -144,5 +142,132 @@ hist(alltools$B3F1[alltools$method=="diartk"])
 hist(alltools$DER[alltools$method=="diartk"])
 
 hist(alltools$MI[alltools$method=="diartk"])
+
+```
+
+
+## Old results
+
+```{r read-in-old}
+methods=dir("old_res/",pattern="txt")
+oldres=NULL
+for(method in methods){
+  read.table(paste0("old_res/",method),header=F,skip=1)->x
+  oldres=rbind(oldres,cbind(method,x))
+}
+names(oldres)<-c("method","clip","prec","rec","f1")
+summary(oldres)
+
+```
+
+For LCD, there are 3  clips more in the old results versus the latest batch.
+
+For opensat's, there is 1 clip more in the old results versus the latest batch, when considering 12-- but there is a lot more when considering 1+2 and 123478.
+
+Why different N's for 12, 1+2 and 123478??
+
+
+```{r comp-old-new}
+t.test(oldres$f1, sad$B3F1[sad$method=="ldc"])
+```
+
+Strange, LDC yielded better results before than it does in the latest batch...
+
+### Comparisons across systems
+
+```{r reg}
+summary(lm(f1~method+(1/clip),data=oldres))
+
+```
+
+The best is _12, which is indistinguishable from _1234; a little odd that 123478 and same with 9 give exactly the same numbers. Notice that here OpenSat outperforms LDC!
+
+
+```{r dircomp,echo=F}
+merge(oldres[oldres$method=="score_ldc.txt",],oldres[oldres$method=="score_openSAT_12.txt",],by="clip")->tocomp
+names(tocomp)<-gsub(".x",".ldc",names(tocomp))
+names(tocomp)<-gsub(".y",".os",names(tocomp))
+
+myrange=range(tocomp[,grep("f1",names(tocomp))])
+plot(tocomp[,grep("f1",names(tocomp))],pch=20,col="gray",xlim=myrange,ylim=myrange,xlab="LDC B^3 F1", ylab="OpenSat_12 B^3 F1")
+lines(c(0,1.2),c(0,1.2))
+
+```
+
+
+## Source of variability in performance
+Ideas for what might be harder:
+
+- presence of noise --> convert presence of noise to boolean
+- kids who are young --> get age
+- kids who cry a lot --> get proportion of clip that is 0 versus 1
+- lots of changes --> get n of segments in a clip
+
+
+```{r get-hum-ann}
+read.table("../derivedFiles/line_per_segment_age.txt",header=T)->human
+human$recstart=ifelse(human$recn==1,0,15*60*60)
+human$clip=paste0(human$child,"_",substr(human$date,1,4),
+                  substr(human$date,6,7),
+                  substr(human$date,9,10),"_",
+                  human$recstart + human$chunkstart+180
+                  )
+
+length(levels(factor(human$File)))
+length(levels(factor(human$clip))) #the number we should end up with
+
+aggregate(human$dur,by=list(human$clip,human$speakerID),sum)->sums
+sums[sums$Group.2=="Noise","Group.1"]->withnoise
+length(withnoise) #N of clips with noted noise
+
+aggregate(human$age,by=list(human$clip),mean)->age
+names(age)<-c("clip","age")
+dim(age) #N ok
+
+aggregate(human$dur[human$type==0],by=list(human$clip[human$type==0]),sum)->durnonling
+names(durnonling)<-c("clip","durnonling")
+dim(durnonling)
+
+merge(age,durnonling,by="clip",all=T)->mytab
+mytab$durnonling[is.na(mytab$durnonling)]<-0
+data.frame(table(human$clip))->nsegs
+names(nsegs)<-c("clip","nsegs")
+merge(mytab,nsegs, all=T)->mytab
+
+mytab$withnoise<-ifelse(mytab$clip %in% withnoise,1,0)
+dim(mytab)
+
+
+tocomp$clip=gsub(".rttm","",tocomp$clip)
+merge(tocomp,mytab,all=T)->x
+dim(x)
+```
+
+```{r factors}
+lm(f1.ldc ~ age+durnonling+nsegs+withnoise,data=x)->mylm
+plot(mylm)
+
+zscore=function(x) (x-mean(x, na.rm=T))/sd(x,na.rm=T)
+x$age.z=zscore(x$age)
+x$nsegs.z=zscore(x$nsegs)
+x$durnonling.z=zscore(x$durnonling)
+
+lm(f1.ldc ~ age.z+durnonling.z+nsegs.z+withnoise,data=x)->mylm2
+plot(mylm2)
+
+lm(f1.ldc ~ age.z+durnonling.z+nsegs.z+withnoise,data=x,subset(age.z<3,durnonling.z<3,nsegs.z<3))->mylm3
+plot(mylm3)
+
+summary(mylm3)
+
+```
+
+Interpret carefully: looks like there are a few points with too much impact. In any case, the regression overall is not significant, and a minute portion of variance is explained (less than 1 pc). The only significant predictor is the number of coded segments (i.e. complexity of the conversation).
+
+```{r nseg-effect}
+plot(x$f1.ldc~x$nsegs,pch=20,xlim=c(0,55))
+abline(lm(x$f1.ldc[x$nsegs<55]~x$nsegs[x$nsegs<55]),col="red")
+
+boxplot(x$f1.ldc~x$withnoise,name="Performance as a function of whether there is background noise")
 
 ```
