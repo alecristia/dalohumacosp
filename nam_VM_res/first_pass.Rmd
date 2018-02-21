@@ -22,7 +22,8 @@ knitr::opts_chunk$set(echo = TRUE)
 - also, check that the right speakers are being considered (ie not LF2P, noise)
 
 *Questions*
-- why so many files with DER above 100%?
+
+- why so many (34%) files with DER above 100%?
 - Is performance systematically above .5 B3F1 for SAD related to a chance level?
 
 
@@ -35,25 +36,26 @@ for(method in res){
 }
 
 alltools$method=gsub(".df","",as.character(alltools$method))
-
 ```
 
 ## First description
-`r table(alltools$method)`
+
+```{r describe, echo=T}
+table(alltools$method)
+
+summary(alltools$DER)
+alltools$DER[alltools$DER>100]<-NA
+
+summary(alltools$B3F1)
+
+summary(alltools$MI)
+```
 
 LDC has analyzed 1081 segments, whereas opensat managed 978. The fact that the number for diartk is lower probably relates to the fact that only segments with some speech get analyzed.
 
-`r summary(alltools$DER)`
-
-As usual, DER returns some ridiculous values. Since DER is a rate, it should go from 0 to 100. We NA values above 100, namely `r round(sum(alltools$DER>100)/length(alltools$DER)*100)`% of the values.
-
-`r alltools$DER[alltools$DER>100]<-NA`
-
-`r summary(alltools$B3F1)`
+As usual, DER returns some ridiculous values. Since DER is a rate, it should go from 0 to 100. We NA values above 100, namely `r round(sum(is.na(alltools$DER))/length(alltools$DER)*100)`% of the values.
 
 There is nothing to be said of B3 F1. It goes from 0 to 1, as it should.
-
-`r summary(alltools$MI)`
 
 I don't know enough about MI to say much about it, except that there seem to be some outlier values.
 
@@ -78,6 +80,13 @@ plot(sad$B3F1 ~ jitter(as.numeric(as.factor(sad$method)),factor=1.3),pch=20,xaxt
 axis(1,at=1:length(levels(as.factor(sad$method))),labels=levels(as.factor(sad$method)),las=3) #las not working
 
 #,xlim=c(0.5,3.5)
+
+plot(sad$DER ~ jitter(as.numeric(as.factor(sad$method)),factor=1.3),pch=20,xaxt="n",ylab="DER (Diarization Error Rate)",xlab="",cex=.5)
+axis(1,at=1:length(levels(as.factor(sad$method))),labels=levels(as.factor(sad$method)),las=3) 
+
+plot(sad$MI ~ jitter(as.numeric(as.factor(sad$method)),factor=1.3),pch=20,xaxt="n",ylab="Mutual Information",xlab="",cex=.5)
+axis(1,at=1:length(levels(as.factor(sad$method))),labels=levels(as.factor(sad$method)),las=3) 
+
 ```
 
 ### direct comparison for individual recordings CANNOT BE DONE BECAUSE OUTPUT DOESN'T CONTAIN CLIP NAME
