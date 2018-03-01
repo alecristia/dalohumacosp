@@ -37,6 +37,7 @@ for(method in res){
 }
 
 alltools$method=gsub(".df","",as.character(alltools$method))
+write.table(alltools,"alltools.txt",row.names = F,quote = F,sep="\t")
 ```
 
 ## First description
