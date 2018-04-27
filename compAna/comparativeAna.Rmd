@@ -9,6 +9,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 redoALL=FALSE ## LOOK HERE!!!
 
+
+
 ```
 # Instructions for use
 
@@ -21,7 +23,7 @@ If this is first time that you are running this script, change the redoALL param
 
 Convert textgrids into csv's.
 
-```{bash convert,eval=redoALL, include=redoALL}
+```{bash convert,eval=F, include=redoALL}
 final_folder="/Users/acristia/Documents/namvan_coded/" #where coded files lie
 /Applications/Praat.app/Contents/MacOS/Praat --run "1_compareCoding_praat.PraatScript" $final_folder
 mkdir ../derivedFiles/coded
@@ -70,13 +72,20 @@ all$type[all$type %in% c(" ","\177")]<-NA
 all$type[all$type %in% c("1&","11")]<-"1"
 table(all$type)
 
+all$end[all$beg<180 & !is.na(all$beg)]<-180
 all$end[all$end>240 & !is.na(all$end)]<-240
 
 all$dur=all$end-all$beg
+all$dur[all$dur>60]<-60
 
 all$date=as.Date(paste(substr(all$date,1,4),substr(all$date,5,6),substr(all$date,7,8),sep="-"))
 
 all$site=ifelse(substr(all$File,1,1)=="v","Van","Nam")
+
+all$speakerID_broad<-substr(all$speakerID,1,1)
+all$speakerID_broad[all$speakerID=='FA1']<-'MOT'
+all$speakerID_broad[all$speakerID=='CHI']<-'CHI'
+
 
 write.table(all,"../derivedFiles/line_per_segment.txt", row.names=F,quote=T,sep="\t")
 
@@ -97,6 +106,7 @@ all$chidate=paste0(all$child,all$date)
 
 all$totNchunks=NA
 for(eachchidate in levels(all$chidate)) all$totNchunks[all$chidate==eachchidate]<-length(levels(factor(all$File[all$chidate==eachchidate])))
+
 
 write.table(all,"../derivedFiles/line_per_segment_age.txt", row.names=F,quote=T,sep="\t")
 
@@ -124,6 +134,10 @@ sum_length_of_overlaps <- function(v1,v2) {
   if(length(idx)) sum(sapply(idx,function(i) m[3,i+1]-m[3,i]))
   else 0
 }
+
+read.table("../derivedFiles/line_per_segment_age.txt",header=T)->all
+#Filtering only with linguistic input estimations
+all_df=all[all$type ==1 & !is.na(all$beg),]
 
 all_df=all[all$speakerID!="Noise" &    all$speakerID!="SP" & !is.na(all$beg),]
 
@@ -156,11 +170,20 @@ for(thisf in levels(all$File)){
     sums=rbind(sums, x)}
 }
 
+sums$propChunk=sums$dur/60 #since all durations are summed within a chunk, that means the max possible is 60 seconds. This # should not be greater than 1 !! if it is, that means that something went horribly wrong before
+
 sums[!is.na(sums$child),]->sums
 #we remove all the NA files CHECK
 
 sums$key=paste0(substr(gsub("-","",sums$date),1,6),sums$child)
 sums$key[substr(sums$child,1,1)=="v"]<-paste0("201703",sums$child[substr(sums$child,1,1)=="v"])
+sums$unique=paste(sums$File,sums$source)
+
+### BUG!!!
+table(sums[sums$File=="uoga_20170312_12600_m1.csv","source"]) #REPEATS!!!
+dim(sums)
+sums[!duplicated(sums$unique),]-> sums ### BIG BUG HERE!!!!
+dim(sums)
 
 read.table("../derivedFiles/info.txt",header=T)->ages
 cbind(stack(ages[,c(1:3)]),ages$Code)->x
@@ -170,24 +193,49 @@ x=x[,c(1,3)]
 names(x)<-c("age","key")
 
 merge(sums,x,all.x=T,all.y=F)->sums
+dim(sums)
+write.table(sums,"../derivedFiles/line_per_chunk_original.txt", row.names=F,quote=T,sep="\t")
 
 sums$totNchunks=NA
 for(eachchivisit in levels(factor(sums$key))) sums$totNchunks[sums$key==eachchivisit]<-length(levels(factor(sums$File[sums$key==eachchivisit])))
-
 sums$maxtot=sums$totNchunks*60
 
-sums$propTot=sums$dur/60
+#next sum over all the chunks in a given visit
+aggregate(sums$dur,by=list(sums$key,sums$age,sums$child,sums$source,sums$clean,sums$totNchunks,sums$maxtot),sum,na.rm=T)->sums_visit
+names(sums_visit)<-c("key","age","child","source","clean","totNchunks","maxtot","visit_sum")
+
+sums_visit$prop=sums_visit$visit_sum/sums_visit$maxtot
+summary(sums_visit$prop)
+
+write.table(sums_visit,"../derivedFiles/sum_per_visit_per_type.txt", row.names=F,quote=T,sep="\t")
+
+# dim(sums)
+# for(thisf in levels(sums$File))for(thistype in c("UC1","UC2","FA1","FA2","FA3","MA1","MA2","CHI")){
+#   if(dim(sums[sums$File==thisf & sums$source==thistype,])[1]==0) {
+#       newline=cbind(sums[sums$File==thisf,1:4][1,],as.character(thistype),0,F,0,sums[sums$File==thisf,9:11][1,],0,sums[sums$File==thisf,13][1])
+#       colnames(newline)<-colnames(sums)
+#       sums=rbind(sums,newline)
+# }}
+# sums$unique=paste(sums$File,sums$source)
+
 
 write.table(sums,"../derivedFiles/line_per_chunk.txt", row.names=F,quote=T,sep="\t")
 ```
 
+
+
+
 ## Generating Proportions & quantities of CHI vocalizations of different types
 
 ```{r dopropCHI,eval= redoALL, include=redoALL}
+read.table("../derivedFiles/line_per_segment_age.txt",header=T)->all
 aggregate(all$dur,by=list(all$child,all$age,all$speakerID,all$type,all$date),sum,na.rm=T)->sumdur
 names(sumdur)<-c("child","age","speakerID","type","date","totdur")
+
+#take only chi vocs
 sumdur[sumdur$speakerID=="CHI" ,]->sumchi
 
+#id chi based on visit
 sumchi$chidate=paste0(sumchi$child,sumchi$date)
 sumchi[sumchi$type==0,c("chidate","totdur")]->chinonling
 colnames(chinonling)[2]<-"nonling"
@@ -195,7 +243,7 @@ sumchi[sumchi$type==1,]->chiling
 colnames(chiling)[dim(chiling)[2]-1]<-"ling"
 merge(chiling,chinonling,all.x=T,all.y=T)->sumchi
 sumchi$ling[is.na(sumchi$ling)]<-0
-sumchi$nonling[is.na(sumchi$ling)]<-0
+sumchi$nonling[is.na(sumchi$nonling)]<-0 
 sumchi$tot=sumchi$ling+sumchi$nonling
 sumchi$prop=sumchi$ling/sumchi$tot
 sumchi$chag=paste0(sumchi$child,sumchi$age)
@@ -206,7 +254,9 @@ for(eachchidate in levels(factor(all$chidate))) sumchi$nchunks[sumchi$chidate==e
 sumchi$ling.CFRL=sumchi$ling/(sumchi$nchunks*60)
 sumchi$nonling.CFRL=sumchi$nonling/(sumchi$nchunks*60)
 sumchi$all.CFRL=sumchi$ling.CFRL+sumchi$nonling.CFRL
-  
+
+for(thisvar in names(sumchi)[grep("CFRL",names(sumchi))]) sumchi[,paste0(thisvar,".ph")]<-sumchi[,thisvar]*60
+
 write.table(sumchi,"../derivedFiles/propling_age.txt",row.names=F,sep="\t")
 ```
 
@@ -224,7 +274,7 @@ summot[summot$type==1,]->motling
 colnames(motling)[dim(motling)[2]-1]<-"ling"
 merge(motling,motnonling,all.x=T,all.y=T)->summot
 summot$ling[is.na(summot$ling)]<-0
-summot$nonling[is.na(summot$ling)]<-0
+summot$nonling[is.na(summot$nonling)]<-0
 summot$tot=summot$ling+summot$nonling
 summot$prop=summot$ling/summot$tot
 summot$chag=paste0(summot$child,summot$age)
@@ -236,9 +286,13 @@ summot$ling.CFRL=summot$ling/(summot$nchunks*60)
 summot$nonling.CFRL=summot$nonling/(summot$nchunks*60)
 summot$all.CFRL=summot$ling.CFRL+summot$nonling.CFRL
 
+for(thisvar in names(summot)[grep("CFRL",names(summot))]) summot[,paste0(thisvar,".ph")]<-summot[,thisvar]*60
+
 
 write.table(summot,"../derivedFiles/propling_age_MOT.txt",row.names=F,sep="\t")
 ```
+
+
 
 
 
@@ -289,28 +343,44 @@ I am suspicious of the low number of coded minutes for van4 and va10. It is also
 
 # Theory-relevant analyses
 ```{r prodsfunctions}
-dokidageplot<-function(sumchi,dvname,fancydvname){
+dokidageplot<-function(sumchi,dvname,fancydvname,do_min){
   #dvname="prop";fancydvname="prop"
-  mycols=ifelse(substr(sumchi$child,1,1)=="v","red","blue")
-  plot(sumchi[,dvname]~sumchi$age,type="n",main=fancydvname,xlab="Age (months)",ylab=dvname)
+  #dvname="ling.CFRL";fancydvname=""
+
+  plot(sumchi[,dvname] ~sumchi$age,type="n",main="",yaxt="n",ylab="",xaxt="n",xlab="")
+  mtext(fancydvname,2,line=1)
+  axis(2,line=-1,tick=F)
+  mtext("Age (months)",1,line=1)
+  axis(1,line=-1,tick=F)
+  
+  mycols=rainbow(length(levels(factor(sumchi$chag))))
+names(mycols)<-levels(factor(sumchi$chag))
+
 for(kidag in levels(factor(sumchi$chag))){ 
   age=mean(sumchi$age[sumchi$chag==kidag],na.rm=T)
   prop=mean(sumchi[sumchi$chag==kidag,dvname],na.rm=T)
   err=sd(sumchi[sumchi$chag==kidag,dvname],na.rm=T)
-  text(age,prop,substr(kidag,1,3),col=mycols)
+  text(age,prop,substr(kidag,1,3),col=mycols[kidag])
   lines(c(age,age),c(prop-err,prop+err),col="gray")
 }
-
-for(kid in levels(factor(sumchi$child))){ 
+ 
+  for(kid in levels(factor(sumchi$child))){ 
   props = aggregate(sumchi[sumchi$child==kid,dvname],by=list(sumchi$age[sumchi$child==kid]),mean,na.rm=T)
-  for(thisline in 1:(dim(props)[1]-1)) lines(c(props$Group.1[thisline],props$Group.1[thisline+1]),c(props$x[thisline],props$x[thisline+1]),lty=2,col=ifelse(substr(kid,1,1)=="v","red","blue"))
+  for(thisline in 1:(dim(props)[1]-1)) lines(c(props$Group.1[thisline],props$Group.1[thisline+1]),c(props$x[thisline],props$x[thisline+1]),lty=2,col="gray")
 }
+}
+
+dokidageplot_points<-function(sumchi,dvname,fancydvname){
+    #dvname="prop";fancydvname="prop"
+mycols=rainbow(length(levels(factor(sumchi$child))))
+names(mycols)<-levels(factor(sumchi$child))
+
+
   
     plot(sumchi[,dvname]~sumchi$age,cex=(sumchi[,dvname]/max(sumchi[,dvname],na.rm=T)),main="Data per recording day",xlab="Age (months)",ylab=dvname)
-text(sumchi$age,sumchi[,dvname],as.character(sumchi$child),cex=.5,pos=4,col=mycols)
- 
-}
+text(sumchi$age,sumchi[,dvname],as.character(sumchi$child),cex=.5,pos=4,col=ifelse(substr(kid,1,1)=="v","black",mycols))
 
+}
 ```
 
 In all of the following analyses, we will consider four possible dependent measures, all of which control for the fact that we have a lot more coded data for some kids than others:
@@ -329,19 +399,22 @@ Focus on linguistic vocalizations:
 ```{r prod-age-ling}
 read.table("../derivedFiles/propling_age.txt",header=T)->sumchi
 
-dokidageplot(sumchi,"ling.CFRL","Quantity of CHI ling vocs (controlling for rec length)")
+#pdf("ling_age.pdf", height=10, width=15,pointsize = 36)
+  par(mar=c(2.5, 2.5, 1, 1))
+dokidageplot(sumchi,"ling.CFRL.ph","CHI voc quantity")
+#dev.off()
 ```
 
 Now non-linguistic vocalizations:
 
 ```{r prod-age-nonling}
-dokidageplot(sumchi,"nonling.CFRL","Quantity of CHI non-ling vocs (controlling for rec length)")
+dokidageplot(sumchi,"nonling.CFRL.ph","Quantity of CHI non-ling vocs (controlling for rec length)")
 ```
 
 Now total vocalizations:
 
 ```{r prod-age-all}
-dokidageplot(sumchi,"all.CFRL","Quantity of CHI vocs (controlling for rec length)")
+dokidageplot(sumchi,"all.CFRL.ph","Quantity of CHI vocs (controlling for rec length)")
 ```
 
 And finally, the ratio of ling to all vocs:
@@ -361,25 +434,142 @@ Focus on linguistic vocalizations:
 read.table("../derivedFiles/propling_age_MOT.txt",header=T)->summot
 
 
-dokidageplot(summot,"ling.CFRL","Quantity of MOT ling vocs (controlling for rec length)")
+dokidageplot(summot,"ling.CFRL.ph","Quantity of MOT ling vocs (controlling for rec length)")
 ```
 
 Now total vocalizations:
 
 ```{r prod-age-all-mot}
-dokidageplot(summot,"all.CFRL","Quantity of MOT vocs (controlling for rec length)")
+dokidageplot(summot,"all.CFRL.ph","Quantity of MOT vocs (controlling for rec length)")
 ```
 
 ## How much input is there, as a function of age?
 
 Since overheard versus child-directed has not yet been coded, this is total input
 
-```{r input-age,eval=F}
+ATTENTION, CONVERTING INTO MINUTES BELOW
+
+```{r input-age}
+
+read.table("../derivedFiles/sum_per_visit_per_type.txt",header=T)-> sums_visit
+sums_visit$speakerID_broad=substr(sums_visit$source,1,1)
+sums_visit$speakerID_broad[grep(" ",sums_visit$source)]  <-"overlap"
+sums_visit$speakerID_broad[sums_visit$source=="XOL"]  <-"overlap"
+sums_visit$speakerID_broad[sums_visit$source=="FA1"]  <-"MOT"
+table(sums_visit$speakerID_broad)
+
+#NO SPLITS
+aggregate(sums_visit$prop,by=list(sums_visit$key,sums_visit$age,sums_visit$totNchunks),sum,na.rm=T)->sum_tot #since here we are collapsing across subtypes, we should do SUM, not MEAN
+colnames(sum_tot)<-c("key","age","totNchunks","propTime")
+
+
+sums_visit[grep("CHI",sums_visit$source,invert=T),]->sums_visit_nokid
+#NO SPLITS
+aggregate(sums_visit_nokid$prop,by=list(sums_visit_nokid$key,sums_visit_nokid$age,sums_visit_nokid$totNchunks),sum,na.rm=T)->sum_tot_nokid #since here we are collapsing across subtypes, we should do SUM, not MEAN
+colnames(sum_tot_nokid)<-c("key","age","totNchunks","propTime")
+
+
+layout(matrix(c(1:2),1,2))
+plot(sum_tot$propTime*60 ~ sum_tot$age,col=ifelse(substr(as.character(sum_tot$key),7,7)=="v","red","blue"),pch=20,main="Total with CHI",cex=sum_tot$totNchunks/max(sum_tot$totNchunks)*5*
+       ifelse(substr(as.character(sum_tot$key),7,7)=="v",5,1)
+     ,ylim=c(0,35))
+
+abline(lm(sum_tot$propTime*60 ~ sum_tot$age))
+lines(lowess(sum_tot$propTime*60 ~ sum_tot$age))
+
+plot(sum_tot_nokid$propTime*60 ~ sum_tot_nokid$age,col=ifelse(substr(as.character(sum_tot_nokid$key),7,7)=="v","red","blue"),pch=20,main="Total withOUT CHI",cex=sum_tot_nokid$totNchunks/max(sum_tot_nokid$totNchunks)*5*
+       ifelse(substr(as.character(sum_tot_nokid$key),7,7)=="v",5,1)
+     ,ylim=c(0,35))
+
+abline(lm(sum_tot_nokid$propTime*60 ~ sum_tot_nokid$age))
+lines(lowess(sum_tot_nokid$propTime*60 ~ sum_tot_nokid$age))
+```
+## How much of the input comes from mother versus other adults versus other kids?
+
+```{r props-sources}
+
+
+
+#SPLIT BY BROAD TYPES
+aggregate(sums_visit$prop,by=list(sums_visit$key,sums_visit$speakerID_broad,sums_visit$age),sum,na.rm=T)->sum_tot_broad_type #since here we are collapsing across subtypes, we should do SUM, not MEAN
+colnames(sum_tot_broad_type)<-c("key","speakerID_broad","age","propTime")
+
+
+plot(sum_tot_broad_type$propTime*60 ~ sum_tot_broad_type$age,col=ifelse(substr(as.character(sum_tot_broad_type$key),7,7)=="v","red","blue"),pch=substr(sum_tot_broad_type$speakerID_broad,1,1),main="Split by source")
+
+for(thistype in levels(as.factor(sum_tot_broad_type$speakerID_broad))){
+  plot(sum_tot_broad_type$propTime*60 ~ sum_tot_broad_type$age,col=ifelse(substr(as.character(sum_tot_broad_type$key),7,7)=="v","red","blue"),subset=c(sum_tot_broad_type$speakerID_broad==thistype),pch=20,main=thistype)
+}
+
+```
+
+```{r dump,eval=F}
+read.table("line_per_segment_age.txt",header=T)->really_all
+length(levels(really_all$File))
+really_all[substr(really_all$child,1,1)!="v",]->really_all
+factor(really_all$File)->really_all$File
+length(levels(really_all$File)) #check the van are really gone
+
+data.frame(table(really_all$File))->ns
+data.frame(table(substr(ns$Var1,1,13)))->nchunks
+
+#now repeat with just the children
+really_all[really_all$speakerID=="CHI" & !is.na(really_all$speakerID),]->withChi
+factor(withChi$File)->withChi$File
+length(levels(withChi$File))
+
+data.frame(table(withChi$File))->ns
+data.frame(table(substr(ns$Var1,1,13)))->nchunks_with_CHI
+
+sum(nchunks$Freq==nchunks_with_CHI$Freq)
+sum(nchunks$Freq > nchunks_with_CHI$Freq)
+#check ok
+
+nchunks=cbind(nchunks,nchunks_with_CHI$Freq)
+colnames(nchunks)<-c("keyn","totChunks","chunksWithChi")
+nchunks$chidate=paste0(substr(nchunks$keyn,1,4),"_",gsub("-","",substr(nchunks$keyn,6,100)))
+nchunks[,-1]->nchunks
+
+write.table(nchunks,"nchunks.txt",row.names = F,quote = F,sep="\t")
+
 read.table("../derivedFiles/line_per_chunk.txt",header=T)->sums
 
-aggregate(sums$dur,by=list(sums$key,sums$source,sums$maxtot,sums$age),sum,na.rm=T)->sum_visit
-colnames(sum_visit)<-c("key","source","maxtot","age","tot")
-sum_visit$tot.CFRL=sum_visit$tot/sum_visit$maxtot
+sums[grep("CHI",sums$source,invert=T),]->sums #get rid of all CHI and overlaps with CHI
+
+sums$dur.prop=sums$dur/60 # since these are sums per chunk with overlap accounted for, the max possible is 60
+
+# now we have a table with one line summing over individual speakers and overlap segments
+# We want a table with one line per kid per visit with total proportions
+
+# so next step is to sum WITHIN CHUNK/FILE collapsing within broad classes
+#this table has proportions of time per FILE/CHUNK per speaker class
+aggregate(sums$dur.prop,by=list(sums$key,sums$File,sums$speakerID_broad,sums$age),sum,na.rm=T)->sum_file_tot_type #since here we are collapsing across subtypes, we should do SUM, not MEAN
+colnames(sum_file_tot_type)<-c("key","File","speakerID_broad","age","propTime")
+
+#and now we can just do averages across all chunks within a given child visit
+aggregate(sum_file_tot_type$propTime,by=list(sum_file_tot_type$key,sum_file_tot_type$speakerID_broad,sum_file_tot_type$age),mean,na.rm=T)->input_averages #since here we are deriving the overall averages, we should do MEAN
+colnames(input_averages)<-c("key","speakerID_broad","age","propTime")
+
+#and finally sums
+aggregate(input_averages$propTime,by=list(input_averages$key,input_averages$age),sum,na.rm=T)->overall_sum
+colnames(overall_sum)<-c("key","age","propTime")
+
+
+aggregate(sum_visit$tot.CFRL[sum_visit$source %in% nonOLnonCHI],by=list(sum_visit$key[sum_visit$source %in% nonOLnonCHI],sum_visit$source[sum_visit$source %in% nonOLnonCHI],sum_visit$age[sum_visit$source %in% nonOLnonCHI]),sum)->tot_talking_nonOL
+colnames(tot_talking_nonOL)<-c("key","source","age","tot")
+
+aggregate(sum_visit$tot.CFRL[sum_visit$source %in% nonCHI],by=list(sum_visit$key[sum_visit$source %in% nonCHI],sum_visit$source[sum_visit$source %in% nonCHI],sum_visit$age[sum_visit$source %in% nonCHI]),sum)->tot_talking
+colnames(tot_talking)<-c("key","source","age","tot")
+
+summary(tot_talking)
+tot_talking$broad=substr(tot_talking$source,1,1)
+tot_talking$broad[tot_talking$source=="FA1"]<-"MOT"
+tot_talking$broad[grep(" ",tot_talking$source)]<-"overlap"
+
+plot(tot_talking$tot ~ tot_talking$age,xlab="age (m)",ylab="tot")
+#########
+aggregate(sums$propTot,by=list(sums$key,sums$source,sums$age),sum,na.rm=T)->sum_visit 
+colnames(sum_visit)<-c("key","source","age","propTot")
 
 all_sources=as.character(levels(sum_visit$source))
 nonCHI=all_sources[-grep("CHI",all_sources)]
@@ -388,27 +578,12 @@ nonOL=all_sources[-grep(" ",all_sources)]
 nonOL=nonOL[-grep("XOL",nonOL)]
 nonOLnonCHI=nonOL[-grep("CHI",nonOL)]
 
-
-
-aggregate(sum_visit$tot.CFRL[sum_visit$source %in% nonOLnonCHI],by=list(sum_visit$key[sum_visit$source %in% nonOLnonCHI],sum_visit$age[sum_visit$source %in% nonOLnonCHI]),sum)->tot_talking_nonOL
+aggregate(sum_visit$propTot[sum_visit$source %in% nonOLnonCHI],by=list(sum_visit$key[sum_visit$source %in% nonOLnonCHI],sum_visit$age[sum_visit$source %in% nonOLnonCHI]),sum)->tot_talking_nonOL
 colnames(tot_talking_nonOL)<-c("key","age","tot")
 
-aggregate(sum_visit$tot.CFRL[sum_visit$source %in% nonCHI],by=list(sum_visit$key[sum_visit$source %in% nonCHI],sum_visit$age[sum_visit$source %in% nonCHI]),sum)->tot_talking
+aggregate(sum_visit$propTot[sum_visit$source %in% nonCHI],by=list(sum_visit$key[sum_visit$source %in% nonCHI],sum_visit$age[sum_visit$source %in% nonCHI]),sum)->tot_talking
 colnames(tot_talking)<-c("key","age","tot")
 
-
-plot(tot_talking$tot ~ tot_talking$age,col=ifelse(substr(as.character(tot_talking$key),7,7)=="v","red","blue"),main="Total non-CHI talking with overlap")
-
-plot(tot_talking_nonOL$tot ~ tot_talking_nonOL$age,col=ifelse(substr(as.character(tot_talking$key),7,7)=="v","red","blue"),main="Total non-CHI talking, NO overlap")
-```
-## How much of the input comes from mother versus other adults versus other kids?
-
-```{r props-sources,eval=F}
-aggregate(sum_visit$tot.CFRL[sum_visit$source %in% nonOLnonCHI],by=list(sum_visit$key[sum_visit$source %in% nonOLnonCHI],sum_visit$source[sum_visit$source %in% nonOLnonCHI],sum_visit$age[sum_visit$source %in% nonOLnonCHI]),sum)->tot_talking_nonOL
-colnames(tot_talking_nonOL)<-c("key","source","age","tot")
-
-aggregate(sum_visit$tot.CFRL[sum_visit$source %in% nonCHI],by=list(sum_visit$key[sum_visit$source %in% nonCHI],sum_visit$source[sum_visit$source %in% nonCHI],sum_visit$age[sum_visit$source %in% nonCHI]),sum)->tot_talking
-colnames(tot_talking)<-c("key","source","age","tot")
 ```
 
 ## Is there a relationship between input quantity and output quantity?
@@ -426,3 +601,52 @@ Considering only MOT
 - add recording onset time
 - only then describe quant over hours
 
+# Stability section
+
+```{r prod-ling-stab-chi}
+read.table("../derivedFiles/propling_age.txt", header=T)->sumchi
+selvars=c("ling","nonling","tot","prop","ling.CFRL","nonling.CFRL")
+
+twodays=NULL
+for(eachkid in names(table(sumchi$chag))[table(sumchi$chag)>1 & substring(names(table(sumchi$chag)),1,1)!="v"]){
+  subset(sumchi,chag==eachkid)->thischidat
+  odd_days=cbind(thischidat[1,c("child","age","chag")],
+             t( colMeans(thischidat[seq(1,dim(thischidat)[1],by=2),selvars],na.rm=T)),
+              sum(thischidat[seq(1,dim(thischidat)[1],by=2),c("nchunks")],na.rm=T),1)
+  names(odd_days)[10:11]<-c("nchunks","day")
+  
+   even_days=cbind(thischidat[1,c("child","age","chag")],
+             t( colMeans(thischidat[seq(2,dim(thischidat)[1],by=2),selvars],na.rm=T)),
+              sum(thischidat[seq(2,dim(thischidat)[1],by=2),c("nchunks")],na.rm=T),2)
+  names(even_days)[10:11]<-c("nchunks","day")
+    twodays=rbind(twodays, odd_days,even_days ) 
+}
+
+#thisdv="ling.CFRL"
+for(thisdv in "ling.CFRL"){
+  temp=table(twodays$chag[!is.na(twodays[,thisdv])])
+  goodkids=names(temp)[temp==2]
+ 
+   pdf(paste0(thisdv,".pdf"),height=15,width=15,pointsize = 36)
+  par(mar=c(2.5, 2.5, 1, 1))
+
+  plot(twodays[twodays$day==2 & twodays$chag %in% goodkids,thisdv]~twodays[twodays$day==1 & twodays$chag %in% goodkids,thisdv],xaxt="n",yaxt="n", main="",xlim=range(twodays[,thisdv],na.rm=T),ylim=range(twodays[,thisdv],na.rm=T), type="n")
+  axis(1,tick=F,line=-1)
+  axis(2,tick=F,line=-1)
+  mtext("Odd days",1,line=1)
+  mtext("Even days",2,line=1)
+
+  text(twodays[twodays$day==1 & twodays$chag %in% goodkids,thisdv],twodays[twodays$day==2 & twodays$chag %in% goodkids,thisdv], twodays[twodays$day==2 & twodays$chag %in% goodkids,"chag"],
+       col=rainbow(length(twodays$day==2 & twodays$chag %in% goodkids)))
+  mylm=lm(twodays[twodays$day==2,thisdv]~twodays[twodays$day==1,thisdv] + (1/twodays$child[twodays$day==2]),subset=c(twodays$chag %in% goodkids))
+abline(mylm)
+dev.off()
+
+print(summary(mylm))
+print(cor.test(twodays[twodays$day==2 & twodays$chag %in% goodkids ,thisdv],twodays[twodays$day==1 & twodays$chag %in% goodkids,thisdv],method="s"))
+difvec=abs(twodays[twodays$day==2 & twodays$chag %in% goodkids,thisdv] - twodays[twodays$day==1 & twodays$chag %in% goodkids,thisdv])
+print(summary(difvec*100))
+print(cbind(as.character(twodays[twodays$day==2 & twodays$chag %in% goodkids,"chag"]),difvec))
+} 
+
+```

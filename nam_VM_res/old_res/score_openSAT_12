@@ -1,0 +1,3916 @@
+filename: aiku_20160714_16380.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.81
+B-cubed F1: 0.65
+filename: aiku_20160714_19980.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.84
+B-cubed F1: 0.69
+filename: aiku_20160714_1980.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.76
+B-cubed F1: 0.64
+filename: aiku_20160714_5580.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.87
+B-cubed F1: 0.69
+filename: aiku_20160714_30780.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.95
+B-cubed F1: 0.77
+filename: aiku_20160714_12780.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.87
+B-cubed F1: 0.68
+filename: aiku_20160714_37980.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.96
+B-cubed F1: 0.67
+filename: aiku_20160714_34380.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.96
+B-cubed F1: 0.78
+filename: aiku_20160714_41580.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.95
+B-cubed F1: 0.85
+filename: aiku_20160714_27180.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.89
+B-cubed F1: 0.84
+filename: aiku_20160715_16380.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.81
+B-cubed F1: 0.66
+filename: aiku_20160714_77880.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.89
+B-cubed F1: 0.65
+filename: aiku_20160714_9180.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.63
+B-cubed F1: 0.57
+filename: aiku_20160715_23580.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.80
+B-cubed F1: 0.66
+filename: aiku_20160715_1980.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.67
+B-cubed F1: 0.70
+filename: aiku_20160715_19980.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.51
+B-cubed F1: 0.53
+filename: aiku_20160715_34380.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.76
+B-cubed F1: 0.78
+filename: aiku_20160715_27180.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.57
+B-cubed F1: 0.65
+filename: aiku_20160715_12780.rttm
+B-cubed precision: 0.90
+B-cubed recall: 0.97
+B-cubed F1: 0.93
+filename: aiku_20160715_37980.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.85
+B-cubed F1: 0.67
+filename: aiku_20160715_5580.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.86
+B-cubed F1: 0.81
+filename: aiku_20160715_9180.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.97
+B-cubed F1: 0.69
+filename: aiku_20160716_1980.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.82
+B-cubed F1: 0.70
+filename: aiku_20160715_77880.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.62
+B-cubed F1: 0.58
+filename: aiku_20160716_27180.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.66
+B-cubed F1: 0.74
+filename: aiku_20160716_16380.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.69
+B-cubed F1: 0.61
+filename: aiku_20160716_23580.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.78
+B-cubed F1: 0.68
+filename: aiku_20160716_19980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.73
+B-cubed F1: 0.66
+filename: aiku_20160716_12780.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.65
+B-cubed F1: 0.62
+filename: aiku_20160716_30780.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.75
+B-cubed F1: 0.71
+filename: aiku_20160716_37980.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.80
+B-cubed F1: 0.81
+filename: aiku_20160716_41580.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.77
+B-cubed F1: 0.67
+filename: aiku_20160716_5580.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.62
+B-cubed F1: 0.66
+filename: aiku_20160717_12780.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.94
+B-cubed F1: 0.69
+filename: aiku_20160717_1980.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.77
+B-cubed F1: 0.63
+filename: aiku_20160717_19980.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.84
+B-cubed F1: 0.74
+filename: aiku_20160717_27180.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.83
+B-cubed F1: 0.64
+filename: aiku_20160717_16380.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.71
+B-cubed F1: 0.67
+filename: aiku_20160717_23580.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.90
+B-cubed F1: 0.66
+filename: aiku_20160717_30780.rttm
+B-cubed precision: 0.91
+B-cubed recall: 0.73
+B-cubed F1: 0.81
+filename: aiku_20160716_9180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.77
+B-cubed F1: 0.66
+filename: aiku_20160717_37980.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.76
+B-cubed F1: 0.74
+filename: aiku_20160717_34380.rttm
+B-cubed precision: 0.75
+B-cubed recall: 0.60
+B-cubed F1: 0.67
+filename: aiku_20160717_41580.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.79
+B-cubed F1: 0.66
+filename: aiku_20160717_5580.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.71
+B-cubed F1: 0.78
+filename: aiku_20160717_9180.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.78
+B-cubed F1: 0.66
+filename: aiku_20161109_12780.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.56
+B-cubed F1: 0.65
+filename: aiku_20161109_16380.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.56
+B-cubed F1: 0.70
+filename: aiku_20161109_27180.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.77
+B-cubed F1: 0.61
+filename: aiku_20161109_23580.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.56
+B-cubed F1: 0.54
+filename: aiku_20161109_1980.rttm
+B-cubed precision: 0.91
+B-cubed recall: 0.72
+B-cubed F1: 0.80
+filename: aiku_20161109_30780.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.54
+B-cubed F1: 0.62
+filename: aiku_20161109_34380.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.62
+B-cubed F1: 0.66
+filename: aiku_20161109_37980.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.86
+B-cubed F1: 0.66
+filename: aiku_20161109_19980.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.73
+B-cubed F1: 0.64
+filename: aiku_20161109_41580.rttm
+B-cubed precision: 0.99
+B-cubed recall: 0.99
+B-cubed F1: 0.99
+filename: aiku_20161109_45180.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.90
+B-cubed F1: 0.75
+filename: aiku_20161109_5580.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.65
+B-cubed F1: 0.65
+filename: aiku_20161109_77880.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.79
+B-cubed F1: 0.72
+filename: aiku_20161110_12780.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.70
+B-cubed F1: 0.64
+filename: aiku_20161110_16380.rttm
+B-cubed precision: 0.72
+B-cubed recall: 0.72
+B-cubed F1: 0.72
+filename: aiku_20161110_19980.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.89
+B-cubed F1: 0.69
+filename: aiku_20161110_1980.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.54
+B-cubed F1: 0.64
+filename: aiku_20161109_9180.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.50
+B-cubed F1: 0.67
+filename: aiku_20161110_23580.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.83
+B-cubed F1: 0.81
+filename: aiku_20161110_27180.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.63
+B-cubed F1: 0.65
+filename: aiku_20161110_30780.rttm
+B-cubed precision: 0.85
+B-cubed recall: 0.95
+B-cubed F1: 0.90
+filename: aiku_20161110_34380.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.67
+B-cubed F1: 0.80
+filename: aiku_20161110_5580.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.66
+B-cubed F1: 0.67
+filename: aiku_20161110_74280.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.76
+B-cubed F1: 0.66
+filename: aiku_20161110_9180.rttm
+B-cubed precision: 0.98
+B-cubed recall: 0.97
+B-cubed F1: 0.98
+filename: aiku_20161111_16380.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.61
+B-cubed F1: 0.64
+filename: aiku_20161110_77880.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.66
+B-cubed F1: 0.64
+filename: aiku_20161111_1980.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.65
+B-cubed F1: 0.61
+filename: aiku_20161111_23580.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.82
+B-cubed F1: 0.85
+filename: aiku_20161111_12780.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.75
+B-cubed F1: 0.66
+filename: aiku_20161111_30780.rttm
+B-cubed precision: 0.95
+B-cubed recall: 0.77
+B-cubed F1: 0.85
+filename: aiku_20161111_27180.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.78
+B-cubed F1: 0.83
+filename: aiku_20161111_19980.rttm
+B-cubed precision: 0.85
+B-cubed recall: 0.54
+B-cubed F1: 0.66
+filename: aiku_20161111_34380.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.95
+B-cubed F1: 0.67
+filename: aiku_20161111_37980.rttm
+B-cubed precision: 0.92
+B-cubed recall: 0.57
+B-cubed F1: 0.71
+filename: aiku_20161111_48780.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.93
+B-cubed F1: 0.91
+filename: aiku_20161111_41580.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.53
+B-cubed F1: 0.63
+filename: aiku_20161111_5580.rttm
+B-cubed precision: 0.85
+B-cubed recall: 0.53
+B-cubed F1: 0.65
+filename: aiku_20170314_12780.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.74
+B-cubed F1: 0.70
+filename: aiku_20161111_77880.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.75
+B-cubed F1: 0.70
+filename: aiku_20161111_9180.rttm
+B-cubed precision: 0.95
+B-cubed recall: 0.63
+B-cubed F1: 0.76
+filename: aiku_20170314_16380.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.66
+B-cubed F1: 0.72
+filename: aiku_20170314_1980.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.74
+B-cubed F1: 0.70
+filename: aiku_20170314_27180.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.75
+B-cubed F1: 0.67
+filename: aiku_20170314_23580.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.80
+B-cubed F1: 0.66
+filename: aiku_20170314_30780.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.53
+B-cubed F1: 0.52
+filename: aiku_20170314_19980.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.84
+B-cubed F1: 0.75
+filename: aiku_20170314_34380.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.89
+B-cubed F1: 0.77
+filename: aiku_20170314_41580.rttm
+B-cubed precision: 0.98
+B-cubed recall: 0.96
+B-cubed F1: 0.97
+filename: aiku_20170314_45180.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.85
+B-cubed F1: 0.79
+filename: aiku_20170314_37980.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.65
+B-cubed F1: 0.71
+filename: aiku_20170314_52380.rttm
+B-cubed precision: 0.92
+B-cubed recall: 0.95
+B-cubed F1: 0.93
+filename: aiku_20170314_48780.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.96
+B-cubed F1: 0.98
+filename: aiku_20170314_5580.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.89
+B-cubed F1: 0.66
+filename: aiku_20170314_77880.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.79
+B-cubed F1: 0.65
+filename: aiku_20170314_81480.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.89
+B-cubed F1: 0.75
+filename: aiku_20170315_12780.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.55
+B-cubed F1: 0.66
+filename: aiku_20170314_9180.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.85
+B-cubed F1: 0.70
+filename: aiku_20170315_16380.rttm
+B-cubed precision: 0.75
+B-cubed recall: 0.55
+B-cubed F1: 0.63
+filename: aiku_20170315_1980.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.92
+B-cubed F1: 0.67
+filename: aiku_20170315_19980.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.58
+B-cubed F1: 0.66
+filename: aiku_20170315_27180.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.86
+B-cubed F1: 0.93
+filename: aiku_20170315_23580.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.75
+B-cubed F1: 0.68
+filename: aiku_20170315_30780.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.53
+B-cubed F1: 0.60
+filename: aiku_20170315_41580.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.75
+B-cubed F1: 0.67
+filename: aiku_20170315_34380.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.61
+B-cubed F1: 0.64
+filename: aiku_20170315_5580.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.78
+B-cubed F1: 0.70
+filename: aiku_20170315_81480.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.73
+B-cubed F1: 0.77
+filename: aiku_20170315_9180.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.92
+B-cubed F1: 0.82
+filename: aoaa_20160714_12780.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.66
+B-cubed F1: 0.64
+filename: aoaa_20160714_16380.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.89
+B-cubed F1: 0.75
+filename: aoaa_20160714_23580.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.55
+B-cubed F1: 0.66
+filename: aoaa_20160714_27180.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.84
+B-cubed F1: 0.73
+filename: aoaa_20160714_41580.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.78
+B-cubed F1: 0.67
+filename: aoaa_20160714_30780.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.73
+B-cubed F1: 0.67
+filename: aoaa_20160714_34380.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.91
+B-cubed F1: 0.96
+filename: aoaa_20160714_37980.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.70
+B-cubed F1: 0.82
+filename: aoaa_20160714_5580.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.93
+B-cubed F1: 0.89
+filename: aoaa_20160714_9180.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.84
+B-cubed F1: 0.75
+filename: aoaa_20160715_1980.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.80
+B-cubed F1: 0.69
+filename: aoaa_20160715_23580.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.77
+B-cubed F1: 0.62
+filename: aoaa_20160715_27180.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.92
+B-cubed F1: 0.68
+filename: aoaa_20160715_30780.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.90
+B-cubed F1: 0.65
+filename: aoaa_20160715_19980.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.74
+B-cubed F1: 0.70
+filename: aoaa_20160715_34380.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.90
+B-cubed F1: 0.83
+filename: aoaa_20160715_37980.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.72
+B-cubed F1: 0.66
+filename: aoaa_20160715_52380.rttm
+B-cubed precision: 0.90
+B-cubed recall: 0.95
+B-cubed F1: 0.92
+filename: aoaa_20160715_9180.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.79
+B-cubed F1: 0.71
+filename: aoaa_20160716_12780.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.82
+B-cubed F1: 0.72
+filename: aoaa_20160716_1980.rttm
+B-cubed precision: 0.97
+B-cubed recall: 0.68
+B-cubed F1: 0.80
+filename: aoaa_20160716_16380.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.89
+B-cubed F1: 0.87
+filename: aoaa_20160716_19980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.87
+B-cubed F1: 0.71
+filename: aoaa_20160716_30780.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.56
+B-cubed F1: 0.66
+filename: aoaa_20160716_45180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.84
+B-cubed F1: 0.68
+filename: aoaa_20160716_34380.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.75
+B-cubed F1: 0.86
+filename: aoaa_20160716_23580.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.71
+B-cubed F1: 0.67
+filename: aoaa_20160716_41580.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.59
+B-cubed F1: 0.63
+filename: aoaa_20160716_27180.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.86
+B-cubed F1: 0.67
+filename: aoaa_20160716_37980.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.67
+B-cubed F1: 0.71
+filename: aoaa_20160716_5580.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.93
+B-cubed F1: 0.71
+filename: aoaa_20160717_16380.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.84
+B-cubed F1: 0.72
+filename: aoaa_20160716_9180.rttm
+B-cubed precision: 0.78
+B-cubed recall: 0.94
+B-cubed F1: 0.85
+filename: aoaa_20160717_12780.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.79
+B-cubed F1: 0.72
+filename: aoaa_20160717_1980.rttm
+B-cubed precision: 0.97
+B-cubed recall: 0.55
+B-cubed F1: 0.70
+filename: aoaa_20160717_19980.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.55
+B-cubed F1: 0.65
+filename: aoaa_20160717_23580.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.61
+B-cubed F1: 0.61
+filename: aoaa_20160717_30780.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.72
+B-cubed F1: 0.64
+filename: aoaa_20160717_27180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.81
+B-cubed F1: 0.67
+filename: aoaa_20160717_34380.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.91
+B-cubed F1: 0.95
+filename: aoaa_20160717_41580.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.65
+B-cubed F1: 0.61
+filename: aoaa_20160717_45180.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.63
+B-cubed F1: 0.60
+filename: aoaa_20160717_5580.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.83
+B-cubed F1: 0.76
+filename: aoaa_20161112_1980.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.63
+B-cubed F1: 0.63
+filename: aoaa_20160717_9180.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.97
+B-cubed F1: 0.68
+filename: aoaa_20161112_12780.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.67
+B-cubed F1: 0.66
+filename: aoaa_20161112_16380.rttm
+B-cubed precision: 0.72
+B-cubed recall: 0.59
+B-cubed F1: 0.65
+filename: aoaa_20161112_19980.rttm
+B-cubed precision: 0.90
+B-cubed recall: 0.95
+B-cubed F1: 0.92
+filename: aoaa_20161112_23580.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.52
+B-cubed F1: 0.64
+filename: aoaa_20161112_37980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.70
+B-cubed F1: 0.65
+filename: aoaa_20161112_34380.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.84
+B-cubed F1: 0.78
+filename: aoaa_20161112_27180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.72
+B-cubed F1: 0.64
+filename: aoaa_20161112_41580.rttm
+B-cubed precision: 0.98
+B-cubed recall: 0.88
+B-cubed F1: 0.93
+filename: aoaa_20161112_30780.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.71
+B-cubed F1: 0.67
+filename: aoaa_20161112_5580.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.73
+B-cubed F1: 0.66
+filename: aoaa_20161113_12780.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.84
+B-cubed F1: 0.67
+filename: aoaa_20161112_9180.rttm
+B-cubed precision: 0.94
+B-cubed recall: 0.52
+B-cubed F1: 0.67
+filename: aoaa_20161113_16380.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.85
+B-cubed F1: 0.67
+filename: aoaa_20161113_1980.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.62
+B-cubed F1: 0.61
+filename: aoaa_20161113_19980.rttm
+B-cubed precision: 0.92
+B-cubed recall: 0.62
+B-cubed F1: 0.74
+filename: aoaa_20161113_23580.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.96
+B-cubed F1: 0.98
+filename: aoaa_20161113_27180.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.63
+B-cubed F1: 0.57
+filename: aoaa_20161113_34380.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.90
+B-cubed F1: 0.95
+filename: aoaa_20161113_30780.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.63
+B-cubed F1: 0.66
+filename: aoaa_20161113_9180.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.79
+B-cubed F1: 0.71
+filename: aoaa_20161114_12780.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.59
+B-cubed F1: 0.70
+filename: aoaa_20161113_5580.rttm
+B-cubed precision: 0.96
+B-cubed recall: 0.58
+B-cubed F1: 0.72
+filename: aoaa_20161114_1980.rttm
+B-cubed precision: 0.95
+B-cubed recall: 0.67
+B-cubed F1: 0.79
+filename: aoaa_20161114_16380.rttm
+B-cubed precision: 1.00
+B-cubed recall: 1.00
+B-cubed F1: 1.00
+filename: aoaa_20161114_19980.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.74
+B-cubed F1: 0.74
+filename: aoaa_20161114_27180.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.65
+B-cubed F1: 0.79
+filename: aoaa_20161114_34380.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.80
+B-cubed F1: 0.72
+filename: aoaa_20161114_30780.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.64
+B-cubed F1: 0.61
+filename: aoaa_20161114_5580.rttm
+B-cubed precision: 0.99
+B-cubed recall: 0.50
+B-cubed F1: 0.67
+filename: aoaa_20161114_9180.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.74
+B-cubed F1: 0.70
+filename: aoaa_20170311_16380.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.97
+B-cubed F1: 0.77
+filename: aoaa_20170311_1980.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.95
+B-cubed F1: 0.88
+filename: aoaa_20170311_12780.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.66
+B-cubed F1: 0.72
+filename: aoaa_20170311_23580.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.62
+B-cubed F1: 0.65
+filename: aoaa_20170311_19980.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.80
+B-cubed F1: 0.78
+filename: aoaa_20170311_27180.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.69
+B-cubed F1: 0.73
+filename: aoaa_20170311_30780.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.62
+B-cubed F1: 0.71
+filename: aoaa_20170311_34380.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.94
+B-cubed F1: 0.90
+filename: aoaa_20170311_37980.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.97
+B-cubed F1: 0.72
+filename: aoaa_20170311_52380.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.85
+B-cubed F1: 0.84
+filename: aoaa_20170311_45180.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.74
+B-cubed F1: 0.69
+filename: aoaa_20170311_5580.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.69
+B-cubed F1: 0.68
+filename: aoaa_20170312_12780.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.68
+B-cubed F1: 0.67
+filename: aoaa_20170312_16380.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.75
+B-cubed F1: 0.65
+filename: aoaa_20170312_19980.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.70
+B-cubed F1: 0.61
+filename: aoaa_20170311_9180.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.69
+B-cubed F1: 0.73
+filename: aoaa_20170312_1980.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.86
+B-cubed F1: 0.79
+filename: aoaa_20170312_27180.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.98
+B-cubed F1: 0.74
+filename: aoaa_20170312_23580.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.91
+B-cubed F1: 0.81
+filename: aoaa_20170312_34380.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.70
+B-cubed F1: 0.60
+filename: aoaa_20170312_30780.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.79
+B-cubed F1: 0.67
+filename: aoaa_20170313_12780.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.87
+B-cubed F1: 0.67
+filename: aoaa_20170312_9180.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.92
+B-cubed F1: 0.89
+filename: aoaa_20170312_5580.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.93
+B-cubed F1: 0.72
+filename: aoaa_20170313_1980.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.64
+B-cubed F1: 0.62
+filename: aoaa_20170313_16380.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.83
+B-cubed F1: 0.73
+filename: aoaa_20170313_23580.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.70
+B-cubed F1: 0.66
+filename: aoaa_20170313_30780.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.78
+B-cubed F1: 0.67
+filename: aoaa_20170313_27180.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.91
+B-cubed F1: 0.83
+filename: aoaa_20170313_41580.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.71
+B-cubed F1: 0.67
+filename: aoaa_20170313_34380.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.64
+B-cubed F1: 0.64
+filename: aoaa_20170313_37980.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.93
+B-cubed F1: 0.88
+filename: aoaa_20170313_45180.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.78
+B-cubed F1: 0.74
+filename: aoaa_20170313_5580.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.87
+B-cubed F1: 0.78
+filename: eiun_20160711_12780.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.68
+B-cubed F1: 0.66
+filename: aoaa_20170313_9180.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.74
+B-cubed F1: 0.65
+filename: aoaa_20170313_48780.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.87
+B-cubed F1: 0.87
+filename: eiun_20160711_16380.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.62
+B-cubed F1: 0.70
+filename: eiun_20160711_1980.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.86
+B-cubed F1: 0.65
+filename: eiun_20160711_5580.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.94
+B-cubed F1: 0.74
+filename: eiun_20160711_9180.rttm
+B-cubed precision: 0.75
+B-cubed recall: 0.60
+B-cubed F1: 0.66
+filename: eiun_20160713_16380.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.88
+B-cubed F1: 0.70
+filename: eiun_20160713_12780.rttm
+B-cubed precision: 0.64
+B-cubed recall: 1.00
+B-cubed F1: 0.78
+filename: eiun_20160713_1980.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.66
+B-cubed F1: 0.65
+filename: eiun_20160713_19980.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.69
+B-cubed F1: 0.66
+filename: eiun_20160713_23580.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.72
+B-cubed F1: 0.61
+filename: eiun_20160713_27180.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.57
+B-cubed F1: 0.66
+filename: eiun_20160713_45180.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.67
+B-cubed F1: 0.66
+filename: eiun_20160713_41580.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.72
+B-cubed F1: 0.60
+filename: eiun_20160713_30780.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.52
+B-cubed F1: 0.61
+filename: eiun_20160713_37980.rttm
+B-cubed precision: 0.92
+B-cubed recall: 0.67
+B-cubed F1: 0.77
+filename: eiun_20160713_5580.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.62
+B-cubed F1: 0.68
+filename: eiun_20160713_77880.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.96
+B-cubed F1: 0.72
+filename: eiun_20160713_9180.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.76
+B-cubed F1: 0.76
+filename: eiun_20161112_12780.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.75
+B-cubed F1: 0.78
+filename: eiun_20161112_16380.rttm
+B-cubed precision: 0.95
+B-cubed recall: 0.54
+B-cubed F1: 0.69
+filename: eiun_20161112_1980.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.55
+B-cubed F1: 0.59
+filename: eiun_20161112_23580.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.57
+B-cubed F1: 0.62
+filename: eiun_20161112_19980.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.62
+B-cubed F1: 0.65
+filename: eiun_20161112_27180.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.66
+B-cubed F1: 0.64
+filename: eiun_20161112_30780.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.68
+B-cubed F1: 0.65
+filename: eiun_20161112_34380.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.54
+B-cubed F1: 0.68
+filename: eiun_20161112_41580.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.64
+B-cubed F1: 0.64
+filename: eiun_20161112_37980.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.92
+B-cubed F1: 0.87
+filename: eiun_20161112_45180.rttm
+B-cubed precision: 0.90
+B-cubed recall: 0.65
+B-cubed F1: 0.76
+filename: eiun_20161112_5580.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.79
+B-cubed F1: 0.83
+filename: eiun_20161113_12780.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.68
+B-cubed F1: 0.66
+filename: eiun_20161113_16380.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.70
+B-cubed F1: 0.65
+filename: eiun_20161112_9180.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.61
+B-cubed F1: 0.74
+filename: eiun_20161113_19980.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.91
+B-cubed F1: 0.66
+filename: eiun_20161113_41580.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.66
+B-cubed F1: 0.61
+filename: eiun_20161113_30780.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.53
+B-cubed F1: 0.65
+filename: eiun_20161113_1980.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.63
+B-cubed F1: 0.65
+filename: eiun_20161113_37980.rttm
+B-cubed precision: 0.95
+B-cubed recall: 0.96
+B-cubed F1: 0.96
+filename: eiun_20161113_5580.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.80
+B-cubed F1: 0.68
+filename: eiun_20161114_12780.rttm
+B-cubed precision: 0.92
+B-cubed recall: 0.50
+B-cubed F1: 0.65
+filename: eiun_20161113_9180.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.90
+B-cubed F1: 0.85
+filename: eiun_20161113_74280.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.94
+B-cubed F1: 0.69
+filename: eiun_20161114_1980.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.58
+B-cubed F1: 0.62
+filename: eiun_20161114_16380.rttm
+B-cubed precision: 0.91
+B-cubed recall: 0.63
+B-cubed F1: 0.74
+filename: eiun_20161114_30780.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.52
+B-cubed F1: 0.62
+filename: eiun_20161114_19980.rttm
+B-cubed precision: 0.92
+B-cubed recall: 0.72
+B-cubed F1: 0.81
+filename: eiun_20161114_27180.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.52
+B-cubed F1: 0.56
+filename: eiun_20161114_5580.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.78
+B-cubed F1: 0.74
+filename: eiun_20161114_59880.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.85
+B-cubed F1: 0.80
+filename: eiun_20161114_9180.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.53
+B-cubed F1: 0.65
+filename: eiun_20161114_77880.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.56
+B-cubed F1: 0.64
+filename: eiun_20170308_12780.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.65
+B-cubed F1: 0.66
+filename: eiun_20170308_16380.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.67
+B-cubed F1: 0.66
+filename: eiun_20170308_19980.rttm
+B-cubed precision: 0.98
+B-cubed recall: 0.98
+B-cubed F1: 0.98
+filename: eiun_20170308_1980.rttm
+B-cubed precision: 0.88
+B-cubed recall: 0.69
+B-cubed F1: 0.77
+filename: eiun_20170308_27180.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.76
+B-cubed F1: 0.68
+filename: eiun_20170308_23580.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.97
+B-cubed F1: 0.76
+filename: eiun_20170308_30780.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.64
+B-cubed F1: 0.60
+filename: eiun_20170308_41580.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.57
+B-cubed F1: 0.67
+filename: eiun_20170308_34380.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.66
+B-cubed F1: 0.76
+filename: eiun_20170308_37980.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.67
+B-cubed F1: 0.67
+filename: eiun_20170308_52380.rttm
+B-cubed precision: 0.96
+B-cubed recall: 0.97
+B-cubed F1: 0.97
+filename: eiun_20170308_5580.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.87
+B-cubed F1: 0.68
+filename: eiun_20170308_67080.rttm
+B-cubed precision: 0.92
+B-cubed recall: 0.98
+B-cubed F1: 0.95
+filename: eiun_20170308_77880.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.93
+B-cubed F1: 0.67
+filename: eiun_20170309_12780.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.63
+B-cubed F1: 0.70
+filename: eiun_20170309_16380.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.62
+B-cubed F1: 0.69
+filename: eiun_20170309_19980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.79
+B-cubed F1: 0.68
+filename: eiun_20170309_1980.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.51
+B-cubed F1: 0.64
+filename: eiun_20170309_27180.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.60
+B-cubed F1: 0.66
+filename: eiun_20170309_34380.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.70
+B-cubed F1: 0.72
+filename: eiun_20170309_23580.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.83
+B-cubed F1: 0.69
+filename: eiun_20170309_9180.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.65
+B-cubed F1: 0.74
+filename: eiun_20170309_30780.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.61
+B-cubed F1: 0.62
+filename: eiun_20170310_16380.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.75
+B-cubed F1: 0.68
+filename: eiun_20170310_1980.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.98
+B-cubed F1: 0.77
+filename: eiun_20170309_5580.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.73
+B-cubed F1: 0.73
+filename: eiun_20170310_12780.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.80
+B-cubed F1: 0.65
+filename: eiun_20170310_19980.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.55
+B-cubed F1: 0.64
+filename: eiun_20170310_23580.rttm
+B-cubed precision: 0.94
+B-cubed recall: 0.61
+B-cubed F1: 0.74
+filename: eiun_20170310_27180.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.61
+B-cubed F1: 0.58
+filename: eiun_20170310_34380.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.70
+B-cubed F1: 0.62
+filename: eiun_20170310_37980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.82
+B-cubed F1: 0.69
+filename: eiun_20170310_48780.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.69
+B-cubed F1: 0.67
+filename: eiun_20170310_5580.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.53
+B-cubed F1: 0.61
+filename: eoak_20160714_1980.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.69
+B-cubed F1: 0.70
+filename: eiun_20170310_9180.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.77
+B-cubed F1: 0.64
+filename: eoak_20160714_12780.rttm
+B-cubed precision: 0.99
+B-cubed recall: 0.99
+B-cubed F1: 0.99
+filename: eoak_20160714_23580.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.89
+B-cubed F1: 0.67
+filename: eoak_20160714_19980.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.84
+B-cubed F1: 0.73
+filename: eoak_20160714_34380.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.87
+B-cubed F1: 0.74
+filename: eoak_20160714_37980.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.53
+B-cubed F1: 0.65
+filename: eoak_20160714_41580.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.87
+B-cubed F1: 0.67
+filename: eoak_20160714_5580.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.99
+B-cubed F1: 0.80
+filename: eoak_20160714_9180.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.71
+B-cubed F1: 0.60
+filename: eoak_20160715_12780.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.60
+B-cubed F1: 0.70
+filename: eoak_20160715_23580.rttm
+B-cubed precision: 0.95
+B-cubed recall: 0.85
+B-cubed F1: 0.90
+filename: eoak_20160715_34380.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.93
+B-cubed F1: 0.67
+filename: eoak_20160715_30780.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.87
+B-cubed F1: 0.69
+filename: eoak_20160715_27180.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.75
+B-cubed F1: 0.77
+filename: eoak_20160715_41580.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.92
+B-cubed F1: 0.79
+filename: eoak_20160715_48780.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.98
+B-cubed F1: 0.90
+filename: eoak_20160715_45180.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.60
+B-cubed F1: 0.55
+filename: eoak_20160715_5580.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.52
+B-cubed F1: 0.60
+filename: eoak_20160715_9180.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.75
+B-cubed F1: 0.68
+filename: eoak_20160716_16380.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.86
+B-cubed F1: 0.68
+filename: eoak_20160716_1980.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.73
+B-cubed F1: 0.77
+filename: eoak_20160716_19980.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.91
+B-cubed F1: 0.70
+filename: eoak_20160716_12780.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.81
+B-cubed F1: 0.72
+filename: eoak_20160716_23580.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.84
+B-cubed F1: 0.72
+filename: eoak_20160716_30780.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.97
+B-cubed F1: 0.83
+filename: eoak_20160716_27180.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.96
+B-cubed F1: 0.67
+filename: eoak_20160716_37980.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.96
+B-cubed F1: 0.98
+filename: eoak_20160716_5580.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.91
+B-cubed F1: 0.74
+filename: eoak_20160717_1980.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.73
+B-cubed F1: 0.66
+filename: eoak_20160716_9180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.81
+B-cubed F1: 0.67
+filename: eoak_20160717_16380.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.85
+B-cubed F1: 0.67
+filename: eoak_20160717_27180.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.99
+B-cubed F1: 0.76
+filename: eoak_20160717_23580.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.79
+B-cubed F1: 0.68
+filename: eoak_20160717_30780.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.87
+B-cubed F1: 0.72
+filename: eoak_20160717_34380.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.94
+B-cubed F1: 0.91
+filename: eoak_20160717_37980.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.78
+B-cubed F1: 0.69
+filename: eoak_20160717_41580.rttm
+B-cubed precision: 0.85
+B-cubed recall: 0.93
+B-cubed F1: 0.89
+filename: eoak_20160717_5580.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.93
+B-cubed F1: 0.82
+filename: eoak_20161112_16380.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.67
+B-cubed F1: 0.63
+filename: eoak_20160717_9180.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.86
+B-cubed F1: 0.66
+filename: eoak_20161112_12780.rttm
+B-cubed precision: 0.50
+B-cubed recall: 0.81
+B-cubed F1: 0.62
+filename: eoak_20161112_1980.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.74
+B-cubed F1: 0.68
+filename: eoak_20161112_19980.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.58
+B-cubed F1: 0.73
+filename: eoak_20161112_23580.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.76
+B-cubed F1: 0.72
+filename: eoak_20161112_27180.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.79
+B-cubed F1: 0.68
+filename: eoak_20161112_37980.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.78
+B-cubed F1: 0.65
+filename: eoak_20161112_34380.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.84
+B-cubed F1: 0.81
+filename: eoak_20161112_41580.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.95
+B-cubed F1: 0.82
+filename: eoak_20161112_5580.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.64
+B-cubed F1: 0.65
+filename: eoak_20161113_12780.rttm
+B-cubed precision: 0.92
+B-cubed recall: 0.95
+B-cubed F1: 0.93
+filename: eoak_20161113_16380.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.72
+B-cubed F1: 0.63
+filename: eoak_20161113_1980.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.90
+B-cubed F1: 0.77
+filename: eoak_20161113_27180.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.91
+B-cubed F1: 0.85
+filename: eoak_20161113_19980.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.52
+B-cubed F1: 0.62
+filename: eoak_20161113_23580.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.91
+B-cubed F1: 0.69
+filename: eoak_20161113_30780.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.86
+B-cubed F1: 0.67
+filename: eoak_20161113_34380.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.93
+B-cubed F1: 0.71
+filename: eoak_20161113_37980.rttm
+B-cubed precision: 0.99
+B-cubed recall: 0.85
+B-cubed F1: 0.92
+filename: eoak_20161114_12780.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.77
+B-cubed F1: 0.75
+filename: eoak_20161114_16380.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.63
+B-cubed F1: 0.71
+filename: eoak_20161114_1980.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.76
+B-cubed F1: 0.75
+filename: eoak_20161114_19980.rttm
+B-cubed precision: 0.96
+B-cubed recall: 0.77
+B-cubed F1: 0.85
+filename: eoak_20161114_23580.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.71
+B-cubed F1: 0.65
+filename: eoak_20161114_30780.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.69
+B-cubed F1: 0.64
+filename: eoak_20161114_27180.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.95
+B-cubed F1: 0.87
+filename: eoak_20161114_9180.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.66
+B-cubed F1: 0.63
+filename: eoak_20170311_16380.rttm
+B-cubed precision: 0.91
+B-cubed recall: 0.69
+B-cubed F1: 0.79
+filename: eoak_20170311_12780.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.91
+B-cubed F1: 0.66
+filename: eoak_20170311_27180.rttm
+B-cubed precision: 0.88
+B-cubed recall: 1.00
+B-cubed F1: 0.93
+filename: eoak_20170311_1980.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.92
+B-cubed F1: 0.80
+filename: eoak_20170311_19980.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.87
+B-cubed F1: 0.68
+filename: eoak_20170311_34380.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.72
+B-cubed F1: 0.73
+filename: eoak_20170311_37980.rttm
+B-cubed precision: 0.78
+B-cubed recall: 0.57
+B-cubed F1: 0.66
+filename: eoak_20170311_5580.rttm
+B-cubed precision: 0.95
+B-cubed recall: 0.69
+B-cubed F1: 0.80
+filename: eoak_20170311_81480.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.74
+B-cubed F1: 0.66
+filename: eoak_20170312_12780.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.79
+B-cubed F1: 0.66
+filename: eoak_20170312_16380.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.69
+B-cubed F1: 0.66
+filename: eoak_20170312_1980.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.94
+B-cubed F1: 0.69
+filename: eoak_20170311_77880.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.87
+B-cubed F1: 0.80
+filename: eoak_20170312_19980.rttm
+B-cubed precision: 0.78
+B-cubed recall: 0.50
+B-cubed F1: 0.61
+filename: eoak_20170311_9180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.87
+B-cubed F1: 0.69
+filename: eoak_20170312_34380.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.81
+B-cubed F1: 0.63
+filename: eoak_20170312_27180.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.82
+B-cubed F1: 0.69
+filename: eoak_20170312_23580.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.92
+B-cubed F1: 0.74
+filename: eoak_20170312_30780.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.72
+B-cubed F1: 0.65
+filename: eoak_20170312_37980.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.83
+B-cubed F1: 0.74
+filename: eoak_20170312_5580.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.60
+B-cubed F1: 0.67
+filename: eoak_20170313_1980.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.76
+B-cubed F1: 0.66
+filename: eoak_20170312_81480.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.75
+B-cubed F1: 0.69
+filename: eoak_20170313_16380.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.71
+B-cubed F1: 0.72
+filename: eoak_20170313_19980.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.78
+B-cubed F1: 0.66
+filename: eoak_20170312_9180.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.55
+B-cubed F1: 0.66
+filename: eoak_20170313_12780.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.76
+B-cubed F1: 0.65
+filename: eoak_20170313_23580.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.91
+B-cubed F1: 0.66
+filename: eoak_20170313_27180.rttm
+B-cubed precision: 0.88
+B-cubed recall: 0.94
+B-cubed F1: 0.91
+filename: eoak_20170313_34380.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.59
+B-cubed F1: 0.65
+filename: eoak_20170313_37980.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.89
+B-cubed F1: 0.68
+filename: eoak_20170313_30780.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.84
+B-cubed F1: 0.76
+filename: eoak_20170313_48780.rttm
+B-cubed precision: 0.98
+B-cubed recall: 0.99
+B-cubed F1: 0.98
+filename: eoak_20170313_52380.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.92
+B-cubed F1: 0.96
+filename: eoak_20170313_5580.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.77
+B-cubed F1: 0.65
+filename: eoak_20170313_77880.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.69
+B-cubed F1: 0.60
+filename: eoxk_20170314_16380.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.86
+B-cubed F1: 0.72
+filename: eoxk_20170314_23580.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.69
+B-cubed F1: 0.66
+filename: eoxk_20170314_12780.rttm
+B-cubed precision: 0.72
+B-cubed recall: 0.91
+B-cubed F1: 0.80
+filename: eoxk_20170314_1980.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.63
+B-cubed F1: 0.67
+filename: eoxk_20170314_37980.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.94
+B-cubed F1: 0.87
+filename: eoxk_20170314_19980.rttm
+B-cubed precision: 0.97
+B-cubed recall: 0.97
+B-cubed F1: 0.97
+filename: eoxk_20170314_30780.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.96
+B-cubed F1: 0.68
+filename: eoxk_20170314_34380.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.74
+B-cubed F1: 0.62
+filename: eoxk_20170314_52380.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.74
+B-cubed F1: 0.73
+filename: eoxk_20170314_9180.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.71
+B-cubed F1: 0.61
+filename: eoxk_20170315_16380.rttm
+B-cubed precision: 0.85
+B-cubed recall: 0.62
+B-cubed F1: 0.71
+filename: eoxk_20170315_12780.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.59
+B-cubed F1: 0.65
+filename: eoxk_20170315_23580.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.87
+B-cubed F1: 0.75
+filename: eoxk_20170315_1980.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.74
+B-cubed F1: 0.81
+filename: eoxk_20170315_19980.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.71
+B-cubed F1: 0.76
+filename: eoxk_20170315_27180.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.73
+B-cubed F1: 0.66
+filename: eoxk_20170315_30780.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.79
+B-cubed F1: 0.70
+filename: eoxk_20170315_34380.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.98
+B-cubed F1: 0.92
+filename: eoxk_20170315_37980.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.88
+B-cubed F1: 0.73
+filename: eoxk_20170315_41580.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.77
+B-cubed F1: 0.71
+filename: eoxk_20170315_45180.rttm
+B-cubed precision: 0.72
+B-cubed recall: 0.91
+B-cubed F1: 0.81
+filename: eoxk_20170315_5580.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.82
+B-cubed F1: 0.90
+filename: eoxk_20170315_9180.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.81
+B-cubed F1: 0.77
+filename: noxk_20160714_12780.rttm
+B-cubed precision: 0.97
+B-cubed recall: 0.80
+B-cubed F1: 0.88
+filename: noxk_20160714_19980.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.89
+B-cubed F1: 0.86
+filename: noxk_20160714_1980.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.73
+B-cubed F1: 0.67
+filename: noxk_20160714_30780.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.72
+B-cubed F1: 0.66
+filename: noxk_20160714_37980.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.73
+B-cubed F1: 0.68
+filename: noxk_20160715_12780.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.76
+B-cubed F1: 0.64
+filename: noxk_20160714_41580.rttm
+B-cubed precision: 0.96
+B-cubed recall: 0.52
+B-cubed F1: 0.67
+filename: noxk_20160715_1980.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.74
+B-cubed F1: 0.65
+filename: noxk_20160715_19980.rttm
+B-cubed precision: 0.99
+B-cubed recall: 0.99
+B-cubed F1: 0.99
+filename: noxk_20160715_27180.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.87
+B-cubed F1: 0.77
+filename: noxk_20160715_34380.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.90
+B-cubed F1: 0.67
+filename: noxk_20160715_23580.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.67
+B-cubed F1: 0.66
+filename: noxk_20160715_30780.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.84
+B-cubed F1: 0.82
+filename: noxk_20160715_37980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.79
+B-cubed F1: 0.68
+filename: noxk_20160715_9180.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.85
+B-cubed F1: 0.75
+filename: noxk_20160715_5580.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.68
+B-cubed F1: 0.66
+filename: noxk_20160716_12780.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.67
+B-cubed F1: 0.64
+filename: noxk_20160716_1980.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.55
+B-cubed F1: 0.59
+filename: noxk_20160716_19980.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.95
+B-cubed F1: 0.76
+filename: noxk_20160716_27180.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.96
+B-cubed F1: 0.69
+filename: noxk_20160716_16380.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.97
+B-cubed F1: 0.79
+filename: noxk_20160716_23580.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.51
+B-cubed F1: 0.62
+filename: noxk_20160716_30780.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.67
+B-cubed F1: 0.63
+filename: noxk_20160716_34380.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.78
+B-cubed F1: 0.74
+filename: noxk_20160716_37980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.84
+B-cubed F1: 0.70
+filename: noxk_20160716_5580.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.83
+B-cubed F1: 0.65
+filename: noxk_20160716_55980.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.87
+B-cubed F1: 0.87
+filename: noxk_20160716_9180.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.67
+B-cubed F1: 0.66
+filename: noxk_20160717_19980.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.71
+B-cubed F1: 0.64
+filename: noxk_20160717_27180.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.93
+B-cubed F1: 0.88
+filename: noxk_20160717_1980.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.95
+B-cubed F1: 0.67
+filename: noxk_20160717_12780.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.66
+B-cubed F1: 0.66
+filename: noxk_20160717_9180.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.87
+B-cubed F1: 0.74
+filename: noxk_20160717_30780.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.76
+B-cubed F1: 0.67
+filename: noxk_20160717_23580.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.65
+B-cubed F1: 0.68
+filename: noxk_20160717_5580.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.87
+B-cubed F1: 0.67
+filename: noxk_20161109_16380.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.73
+B-cubed F1: 0.69
+filename: noxk_20160717_34380.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.78
+B-cubed F1: 0.67
+filename: noxk_20161109_12780.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.57
+B-cubed F1: 0.63
+filename: noxk_20161109_1980.rttm
+B-cubed precision: 0.78
+B-cubed recall: 0.58
+B-cubed F1: 0.67
+filename: noxk_20161109_23580.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.78
+B-cubed F1: 0.72
+filename: noxk_20161109_27180.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.88
+B-cubed F1: 0.75
+filename: noxk_20161109_34380.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.85
+B-cubed F1: 0.64
+filename: noxk_20161109_30780.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.90
+B-cubed F1: 0.66
+filename: noxk_20161109_5580.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.66
+B-cubed F1: 0.67
+filename: noxk_20161109_9180.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.75
+B-cubed F1: 0.75
+filename: noxk_20161110_1980.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.57
+B-cubed F1: 0.56
+filename: noxk_20161110_19980.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.66
+B-cubed F1: 0.70
+filename: noxk_20161110_16380.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.86
+B-cubed F1: 0.90
+filename: noxk_20161110_12780.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.53
+B-cubed F1: 0.59
+filename: noxk_20161110_27180.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.81
+B-cubed F1: 0.76
+filename: noxk_20161110_23580.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.62
+B-cubed F1: 0.61
+filename: noxk_20161110_30780.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.88
+B-cubed F1: 0.94
+filename: noxk_20161110_5580.rttm
+B-cubed precision: 0.72
+B-cubed recall: 0.75
+B-cubed F1: 0.73
+filename: noxk_20161110_9180.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.52
+B-cubed F1: 0.54
+filename: noxk_20161111_12780.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.82
+B-cubed F1: 0.79
+filename: noxk_20161111_34380.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.89
+B-cubed F1: 0.86
+filename: noxk_20161111_1980.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.58
+B-cubed F1: 0.63
+filename: noxk_20170311_12780.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.75
+B-cubed F1: 0.81
+filename: noxk_20161111_9180.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.97
+B-cubed F1: 0.89
+filename: noxk_20170311_16380.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.89
+B-cubed F1: 0.71
+filename: noxk_20170311_19980.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.62
+B-cubed F1: 0.69
+filename: noxk_20170311_27180.rttm
+B-cubed precision: 0.78
+B-cubed recall: 0.98
+B-cubed F1: 0.87
+filename: noxk_20170311_34380.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.59
+B-cubed F1: 0.70
+filename: noxk_20170311_23580.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.63
+B-cubed F1: 0.66
+filename: noxk_20170311_30780.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.81
+B-cubed F1: 0.74
+filename: noxk_20170311_37980.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.58
+B-cubed F1: 0.61
+filename: noxk_20170311_5580.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.93
+B-cubed F1: 0.80
+filename: noxk_20170311_9180.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.69
+B-cubed F1: 0.79
+filename: noxk_20170312_1980.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.86
+B-cubed F1: 0.81
+filename: noxk_20170312_12780.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.82
+B-cubed F1: 0.68
+filename: noxk_20170312_19980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.97
+B-cubed F1: 0.74
+filename: noxk_20170312_23580.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.67
+B-cubed F1: 0.67
+filename: noxk_20170312_16380.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.78
+B-cubed F1: 0.76
+filename: noxk_20170312_30780.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.79
+B-cubed F1: 0.66
+filename: noxk_20170312_27180.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.60
+B-cubed F1: 0.62
+filename: noxk_20170312_5580.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.55
+B-cubed F1: 0.62
+filename: noxk_20170312_34380.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.78
+B-cubed F1: 0.63
+filename: noxk_20170313_12780.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.63
+B-cubed F1: 0.63
+filename: noxk_20170312_37980.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.86
+B-cubed F1: 0.69
+filename: noxk_20170313_16380.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.95
+B-cubed F1: 0.75
+filename: noxk_20170313_1980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.72
+B-cubed F1: 0.65
+filename: noxk_20170312_9180.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.92
+B-cubed F1: 0.67
+filename: noxk_20170313_19980.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.78
+B-cubed F1: 0.67
+filename: noxk_20170313_27180.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.70
+B-cubed F1: 0.71
+filename: noxk_20170313_23580.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.71
+B-cubed F1: 0.66
+filename: noxk_20170313_30780.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.71
+B-cubed F1: 0.65
+filename: noxk_20170313_37980.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.90
+B-cubed F1: 0.87
+filename: noxk_20170313_5580.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.83
+B-cubed F1: 0.67
+filename: noxk_20170313_9180.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.91
+B-cubed F1: 0.78
+filename: noxk_20170313_34380.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.71
+B-cubed F1: 0.65
+filename: noxt_20160715_1980.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.90
+B-cubed F1: 0.65
+filename: noxt_20160715_12780.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.93
+B-cubed F1: 0.67
+filename: noxt_20160715_19980.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.80
+B-cubed F1: 0.72
+filename: noxt_20160715_16380.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.83
+B-cubed F1: 0.67
+filename: noxt_20160715_23580.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.86
+B-cubed F1: 0.67
+filename: noxt_20160715_27180.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.94
+B-cubed F1: 0.85
+filename: noxt_20160715_30780.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.95
+B-cubed F1: 0.67
+filename: noxt_20160715_5580.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.74
+B-cubed F1: 0.74
+filename: noxt_20160716_12780.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.73
+B-cubed F1: 0.67
+filename: noxt_20160716_16380.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.75
+B-cubed F1: 0.75
+filename: noxt_20160715_9180.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.90
+B-cubed F1: 0.71
+filename: noxt_20160716_1980.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.84
+B-cubed F1: 0.74
+filename: noxt_20160716_19980.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.91
+B-cubed F1: 0.73
+filename: noxt_20160716_23580.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.84
+B-cubed F1: 0.66
+filename: noxt_20160716_27180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.82
+B-cubed F1: 0.67
+filename: noxt_20160716_9180.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.95
+B-cubed F1: 0.78
+filename: noxt_20160717_1980.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.84
+B-cubed F1: 0.76
+filename: noxt_20160716_5580.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.95
+B-cubed F1: 0.80
+filename: noxt_20160717_16380.rttm
+B-cubed precision: 0.91
+B-cubed recall: 0.96
+B-cubed F1: 0.94
+filename: noxt_20160717_23580.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.71
+B-cubed F1: 0.69
+filename: noxt_20160717_27180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.96
+B-cubed F1: 0.72
+filename: noxt_20160717_30780.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.83
+B-cubed F1: 0.68
+filename: noxt_20160717_34380.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.74
+B-cubed F1: 0.73
+filename: noxt_20160717_5580.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.88
+B-cubed F1: 0.71
+filename: noxt_20160717_9180.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.68
+B-cubed F1: 0.72
+filename: noxt_20170314_16380.rttm
+B-cubed precision: 0.85
+B-cubed recall: 0.95
+B-cubed F1: 0.90
+filename: noxt_20160717_41580.rttm
+B-cubed precision: 0.72
+B-cubed recall: 0.89
+B-cubed F1: 0.80
+filename: noxt_20170314_1980.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.77
+B-cubed F1: 0.71
+filename: noxt_20170314_23580.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.76
+B-cubed F1: 0.70
+filename: noxt_20170314_19980.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.76
+B-cubed F1: 0.72
+filename: noxt_20170314_27180.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.81
+B-cubed F1: 0.66
+filename: noxt_20170314_37980.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.83
+B-cubed F1: 0.82
+filename: noxt_20170314_9180.rttm
+B-cubed precision: 0.94
+B-cubed recall: 0.95
+B-cubed F1: 0.94
+filename: noxt_20170315_16380.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.93
+B-cubed F1: 0.90
+filename: noxt_20170315_1980.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.90
+B-cubed F1: 0.85
+filename: noxt_20170315_27180.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.95
+B-cubed F1: 0.86
+filename: noxt_20170315_34380.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.87
+B-cubed F1: 0.85
+filename: noxt_20170315_30780.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.75
+B-cubed F1: 0.64
+filename: noxt_20170315_45180.rttm
+B-cubed precision: 0.92
+B-cubed recall: 0.68
+B-cubed F1: 0.78
+filename: noxt_20170315_5580.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.75
+B-cubed F1: 0.74
+filename: oegd_20160710_12780.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.91
+B-cubed F1: 0.90
+filename: oegd_20160710_1980.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.88
+B-cubed F1: 0.66
+filename: oegd_20160710_30780.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.91
+B-cubed F1: 0.66
+filename: oegd_20160710_37980.rttm
+B-cubed precision: 0.99
+B-cubed recall: 0.99
+B-cubed F1: 0.99
+filename: oegd_20160710_9180.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.95
+B-cubed F1: 0.72
+filename: oegd_20160711_16380.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.96
+B-cubed F1: 0.75
+filename: oegd_20160711_1980.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.90
+B-cubed F1: 0.86
+filename: oegd_20160711_12780.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.81
+B-cubed F1: 0.66
+filename: oegd_20160711_19980.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.79
+B-cubed F1: 0.66
+filename: oegd_20160710_5580.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.90
+B-cubed F1: 0.82
+filename: oegd_20160711_30780.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.83
+B-cubed F1: 0.65
+filename: oegd_20160711_27180.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.84
+B-cubed F1: 0.69
+filename: oegd_20160711_23580.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.83
+B-cubed F1: 0.71
+filename: oegd_20160711_34380.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.94
+B-cubed F1: 0.97
+filename: oegd_20160711_37980.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.98
+B-cubed F1: 0.68
+filename: oegd_20160711_9180.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.84
+B-cubed F1: 0.75
+filename: oegd_20160712_16380.rttm
+B-cubed precision: 0.88
+B-cubed recall: 0.88
+B-cubed F1: 0.88
+filename: oegd_20160711_5580.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.98
+B-cubed F1: 0.86
+filename: oegd_20160712_12780.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.93
+B-cubed F1: 0.74
+filename: oegd_20160712_1980.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.96
+B-cubed F1: 0.69
+filename: oegd_20160712_19980.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.86
+B-cubed F1: 0.79
+filename: oegd_20160712_27180.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.96
+B-cubed F1: 0.83
+filename: oegd_20160712_23580.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.90
+B-cubed F1: 0.70
+filename: oegd_20160712_34380.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.89
+B-cubed F1: 0.67
+filename: oegd_20160712_30780.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.88
+B-cubed F1: 0.85
+filename: oegd_20160712_9180.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.96
+B-cubed F1: 0.75
+filename: oegd_20160712_5580.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.90
+B-cubed F1: 0.75
+filename: oegd_20160713_1980.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.82
+B-cubed F1: 0.67
+filename: oegd_20160713_12780.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.60
+B-cubed F1: 0.65
+filename: oegd_20160713_16380.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.59
+B-cubed F1: 0.58
+filename: oegd_20160713_23580.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.73
+B-cubed F1: 0.67
+filename: oegd_20160713_27180.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.84
+B-cubed F1: 0.73
+filename: oegd_20160713_34380.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.82
+B-cubed F1: 0.64
+filename: oegd_20160713_30780.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.80
+B-cubed F1: 0.66
+filename: oegd_20160713_41580.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.92
+B-cubed F1: 0.73
+filename: oegd_20160713_5580.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.73
+B-cubed F1: 0.66
+filename: oegd_20160713_9180.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.89
+B-cubed F1: 0.77
+filename: oegd_20160713_37980.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.75
+B-cubed F1: 0.64
+filename: oegd_20161109_1980.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.63
+B-cubed F1: 0.66
+filename: oegd_20161109_16380.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.68
+B-cubed F1: 0.74
+filename: oegd_20161109_12780.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.65
+B-cubed F1: 0.71
+filename: oegd_20161109_19980.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.64
+B-cubed F1: 0.63
+filename: oegd_20161109_23580.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.59
+B-cubed F1: 0.67
+filename: oegd_20161109_27180.rttm
+B-cubed precision: 0.75
+B-cubed recall: 0.60
+B-cubed F1: 0.67
+filename: oegd_20161109_30780.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.59
+B-cubed F1: 0.64
+filename: oegd_20161109_41580.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.78
+B-cubed F1: 0.66
+filename: oegd_20161109_37980.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.85
+B-cubed F1: 0.71
+filename: oegd_20161109_34380.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.62
+B-cubed F1: 0.73
+filename: oegd_20161109_45180.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.90
+B-cubed F1: 0.75
+filename: oegd_20161109_48780.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.79
+B-cubed F1: 0.73
+filename: oegd_20161109_5580.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.68
+B-cubed F1: 0.66
+filename: oegd_20161109_9180.rttm
+B-cubed precision: 0.78
+B-cubed recall: 0.70
+B-cubed F1: 0.73
+filename: oegd_20161110_12780.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.92
+B-cubed F1: 0.86
+filename: oegd_20161110_16380.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.82
+B-cubed F1: 0.70
+filename: oegd_20161110_1980.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.80
+B-cubed F1: 0.74
+filename: oegd_20161110_23580.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.55
+B-cubed F1: 0.66
+filename: oegd_20161110_19980.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.66
+B-cubed F1: 0.74
+filename: oegd_20161110_27180.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.63
+B-cubed F1: 0.77
+filename: oegd_20161110_30780.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.80
+B-cubed F1: 0.66
+filename: oegd_20161110_34380.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.58
+B-cubed F1: 0.68
+filename: oegd_20161110_41580.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.90
+B-cubed F1: 0.95
+filename: oegd_20161110_5580.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.76
+B-cubed F1: 0.66
+filename: oegd_20161111_1980.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.77
+B-cubed F1: 0.72
+filename: oegd_20161110_9180.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.77
+B-cubed F1: 0.87
+filename: oegd_20161111_16380.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.58
+B-cubed F1: 0.65
+filename: oegd_20161111_12780.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.71
+B-cubed F1: 0.67
+filename: oegd_20161111_19980.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.68
+B-cubed F1: 0.75
+filename: oegd_20161111_23580.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.55
+B-cubed F1: 0.65
+filename: oegd_20161111_30780.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.92
+B-cubed F1: 0.77
+filename: oegd_20161111_34380.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.77
+B-cubed F1: 0.81
+filename: oegd_20161111_41580.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.72
+B-cubed F1: 0.66
+filename: oegd_20161111_37980.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.82
+B-cubed F1: 0.67
+filename: oegd_20161111_48780.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.94
+B-cubed F1: 0.91
+filename: oegd_20161111_5580.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.62
+B-cubed F1: 0.59
+filename: oegd_20170308_12780.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.82
+B-cubed F1: 0.77
+filename: oegd_20161111_9180.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.85
+B-cubed F1: 0.72
+filename: oegd_20170308_16380.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.65
+B-cubed F1: 0.57
+filename: oegd_20170308_1980.rttm
+B-cubed precision: 0.85
+B-cubed recall: 0.52
+B-cubed F1: 0.65
+filename: oegd_20170308_23580.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.66
+B-cubed F1: 0.68
+filename: oegd_20170308_19980.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.87
+B-cubed F1: 0.69
+filename: oegd_20170308_27180.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.80
+B-cubed F1: 0.71
+filename: oegd_20170308_30780.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.77
+B-cubed F1: 0.70
+filename: oegd_20170308_34380.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.72
+B-cubed F1: 0.62
+filename: oegd_20170308_37980.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.92
+B-cubed F1: 0.87
+filename: oegd_20170308_5580.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.82
+B-cubed F1: 0.78
+filename: oegd_20170309_12780.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.82
+B-cubed F1: 0.76
+filename: oegd_20170308_9180.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.69
+B-cubed F1: 0.73
+filename: oegd_20170309_16380.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.65
+B-cubed F1: 0.58
+filename: oegd_20170309_1980.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.53
+B-cubed F1: 0.65
+filename: oegd_20170309_23580.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.67
+B-cubed F1: 0.68
+filename: oegd_20170309_27180.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.80
+B-cubed F1: 0.72
+filename: oegd_20170309_19980.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.87
+B-cubed F1: 0.67
+filename: oegd_20170309_30780.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.77
+B-cubed F1: 0.72
+filename: oegd_20170309_34380.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.71
+B-cubed F1: 0.66
+filename: oegd_20170309_37980.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.92
+B-cubed F1: 0.87
+filename: oegd_20170309_52380.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.71
+B-cubed F1: 0.72
+filename: oegd_20170309_5580.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.78
+B-cubed F1: 0.70
+filename: oegd_20170309_59880.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.86
+B-cubed F1: 0.87
+filename: oegd_20170309_67080.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.89
+B-cubed F1: 0.87
+filename: oegd_20170309_70680.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.74
+B-cubed F1: 0.76
+filename: oegd_20170309_63480.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.74
+B-cubed F1: 0.66
+filename: oegd_20170309_74280.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.73
+B-cubed F1: 0.80
+filename: oegd_20170309_85080.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.93
+B-cubed F1: 0.96
+filename: oegd_20170309_9180.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.69
+B-cubed F1: 0.77
+filename: oegd_20170309_81480.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.75
+B-cubed F1: 0.62
+filename: oegd_20170309_88680.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.69
+B-cubed F1: 0.64
+filename: oegd_20170310_12780.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.87
+B-cubed F1: 0.66
+filename: oegd_20170310_16380.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.57
+B-cubed F1: 0.58
+filename: oegd_20170310_1980.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.53
+B-cubed F1: 0.66
+filename: oegd_20170310_19980.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.66
+B-cubed F1: 0.61
+filename: oegd_20170310_30780.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.83
+B-cubed F1: 0.67
+filename: oegd_20170310_23580.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.75
+B-cubed F1: 0.76
+filename: oegd_20170310_27180.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.73
+B-cubed F1: 0.67
+filename: oegd_20170310_37980.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.96
+B-cubed F1: 0.78
+filename: oegd_20170310_45180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.97
+B-cubed F1: 0.72
+filename: oegd_20170310_34380.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.80
+B-cubed F1: 0.66
+filename: oekd_20160710_12780.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.95
+B-cubed F1: 0.69
+filename: oegd_20170310_5580.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.84
+B-cubed F1: 0.69
+filename: oegd_20170310_9180.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.96
+B-cubed F1: 0.76
+filename: oekd_20160710_19980.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.98
+B-cubed F1: 0.82
+filename: oekd_20160710_1980.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.91
+B-cubed F1: 0.67
+filename: oekd_20160710_37980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.64
+B-cubed F1: 0.62
+filename: oekd_20160710_41580.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.95
+B-cubed F1: 0.94
+filename: oekd_20160710_5580.rttm
+B-cubed precision: 0.54
+B-cubed recall: 1.00
+B-cubed F1: 0.70
+filename: oekd_20160711_16380.rttm
+B-cubed precision: 0.75
+B-cubed recall: 0.84
+B-cubed F1: 0.79
+filename: oekd_20160711_1980.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.61
+B-cubed F1: 0.64
+filename: oekd_20160711_12780.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.77
+B-cubed F1: 0.69
+filename: oekd_20160711_27180.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.85
+B-cubed F1: 0.81
+filename: oekd_20160711_19980.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.89
+B-cubed F1: 0.67
+filename: oekd_20160711_34380.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.83
+B-cubed F1: 0.78
+filename: oekd_20160711_30780.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.61
+B-cubed F1: 0.70
+filename: oekd_20160711_37980.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.75
+B-cubed F1: 0.86
+filename: oekd_20160711_23580.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.82
+B-cubed F1: 0.73
+filename: oekd_20160711_41580.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.94
+B-cubed F1: 0.68
+filename: oekd_20160711_5580.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.90
+B-cubed F1: 0.67
+filename: oekd_20160711_9180.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.93
+B-cubed F1: 0.74
+filename: oekd_20160712_12780.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.92
+B-cubed F1: 0.72
+filename: oekd_20160712_1980.rttm
+B-cubed precision: 0.95
+B-cubed recall: 0.60
+B-cubed F1: 0.73
+filename: oekd_20160712_16380.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.51
+B-cubed F1: 0.63
+filename: oekd_20160712_19980.rttm
+B-cubed precision: 0.97
+B-cubed recall: 0.97
+B-cubed F1: 0.97
+filename: oekd_20160712_27180.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.98
+B-cubed F1: 0.93
+filename: oekd_20160712_23580.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.93
+B-cubed F1: 0.67
+filename: oekd_20160712_37980.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.94
+B-cubed F1: 0.71
+filename: oekd_20160712_34380.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.93
+B-cubed F1: 0.79
+filename: oekd_20160712_9180.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.73
+B-cubed F1: 0.62
+filename: oekd_20160712_5580.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.95
+B-cubed F1: 0.67
+filename: oekd_20160713_12780.rttm
+B-cubed precision: 0.95
+B-cubed recall: 0.51
+B-cubed F1: 0.66
+filename: oekd_20160713_1980.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.79
+B-cubed F1: 0.73
+filename: oekd_20160713_16380.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.82
+B-cubed F1: 0.67
+filename: oekd_20160713_23580.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.92
+B-cubed F1: 0.75
+filename: oekd_20160713_30780.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.96
+B-cubed F1: 0.67
+filename: oekd_20160713_27180.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.88
+B-cubed F1: 0.72
+filename: oekd_20160713_37980.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.90
+B-cubed F1: 0.66
+filename: oekd_20160713_41580.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.80
+B-cubed F1: 0.72
+filename: oekd_20160713_5580.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.82
+B-cubed F1: 0.67
+filename: oekd_20160713_9180.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.82
+B-cubed F1: 0.72
+filename: oekd_20161109_1980.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.89
+B-cubed F1: 0.78
+filename: oekd_20161109_12780.rttm
+B-cubed precision: 0.94
+B-cubed recall: 0.83
+B-cubed F1: 0.88
+filename: oekd_20161109_16380.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.90
+B-cubed F1: 0.88
+filename: oekd_20161109_23580.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.84
+B-cubed F1: 0.73
+filename: oekd_20161109_27180.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.92
+B-cubed F1: 0.74
+filename: oekd_20161109_34380.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.76
+B-cubed F1: 0.87
+filename: oekd_20161109_30780.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.96
+B-cubed F1: 0.98
+filename: oekd_20161110_12780.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.82
+B-cubed F1: 0.68
+filename: oekd_20161109_9180.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.60
+B-cubed F1: 0.65
+filename: oekd_20161109_5580.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.94
+B-cubed F1: 0.69
+filename: oekd_20161110_16380.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.60
+B-cubed F1: 0.62
+filename: oekd_20161110_19980.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.73
+B-cubed F1: 0.60
+filename: oekd_20161110_23580.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.63
+B-cubed F1: 0.62
+filename: oekd_20161110_1980.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.88
+B-cubed F1: 0.66
+filename: oekd_20161110_34380.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.95
+B-cubed F1: 0.77
+filename: oekd_20161110_27180.rttm
+B-cubed precision: 0.78
+B-cubed recall: 0.60
+B-cubed F1: 0.68
+filename: oekd_20161110_41580.rttm
+B-cubed precision: 0.88
+B-cubed recall: 0.71
+B-cubed F1: 0.79
+filename: oekd_20161110_30780.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.83
+B-cubed F1: 0.82
+filename: oekd_20161110_37980.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.52
+B-cubed F1: 0.68
+filename: oekd_20161110_9180.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.51
+B-cubed F1: 0.53
+filename: oekd_20161110_5580.rttm
+B-cubed precision: 0.94
+B-cubed recall: 0.77
+B-cubed F1: 0.85
+filename: oekd_20161111_16380.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.78
+B-cubed F1: 0.71
+filename: oekd_20161111_12780.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.78
+B-cubed F1: 0.73
+filename: oekd_20161111_19980.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.68
+B-cubed F1: 0.66
+filename: oekd_20161111_23580.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.63
+B-cubed F1: 0.62
+filename: oekd_20161111_1980.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.69
+B-cubed F1: 0.60
+filename: oekd_20161111_34380.rttm
+B-cubed precision: 0.72
+B-cubed recall: 0.59
+B-cubed F1: 0.65
+filename: oekd_20161111_27180.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.90
+B-cubed F1: 0.66
+filename: oekd_20161111_30780.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.56
+B-cubed F1: 0.66
+filename: oekd_20161111_41580.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.64
+B-cubed F1: 0.64
+filename: oekd_20161111_37980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.76
+B-cubed F1: 0.67
+filename: oekd_20170308_12780.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.92
+B-cubed F1: 0.75
+filename: oekd_20161111_9180.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.87
+B-cubed F1: 0.81
+filename: oekd_20161111_5580.rttm
+B-cubed precision: 0.72
+B-cubed recall: 0.59
+B-cubed F1: 0.65
+filename: oekd_20170308_1980.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.62
+B-cubed F1: 0.71
+filename: oekd_20170308_16380.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.90
+B-cubed F1: 0.68
+filename: oekd_20170308_27180.rttm
+B-cubed precision: 0.91
+B-cubed recall: 0.95
+B-cubed F1: 0.93
+filename: oekd_20170308_19980.rttm
+B-cubed precision: 0.85
+B-cubed recall: 0.63
+B-cubed F1: 0.72
+filename: oekd_20170308_34380.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.99
+B-cubed F1: 0.68
+filename: oekd_20170308_23580.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.84
+B-cubed F1: 0.76
+filename: oekd_20170308_30780.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.83
+B-cubed F1: 0.66
+filename: oekd_20170308_37980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.61
+B-cubed F1: 0.61
+filename: oekd_20170308_5580.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.98
+B-cubed F1: 0.77
+filename: oekd_20170308_9180.rttm
+B-cubed precision: 0.79
+B-cubed recall: 0.69
+B-cubed F1: 0.74
+filename: oekd_20170309_12780.rttm
+B-cubed precision: 0.75
+B-cubed recall: 0.92
+B-cubed F1: 0.83
+filename: oekd_20170309_27180.rttm
+B-cubed precision: 0.64
+B-cubed recall: 1.00
+B-cubed F1: 0.78
+filename: oekd_20170309_1980.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.61
+B-cubed F1: 0.73
+filename: oekd_20170309_23580.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.84
+B-cubed F1: 0.67
+filename: oekd_20170309_30780.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.83
+B-cubed F1: 0.66
+filename: oekd_20170309_34380.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.99
+B-cubed F1: 0.74
+filename: oekd_20170309_16380.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.90
+B-cubed F1: 0.66
+filename: oekd_20170309_19980.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.63
+B-cubed F1: 0.71
+filename: oekd_20170309_37980.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.61
+B-cubed F1: 0.60
+filename: oekd_20170309_48780.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.94
+B-cubed F1: 0.93
+filename: oekd_20170309_59880.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.79
+B-cubed F1: 0.80
+filename: oekd_20170309_5580.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.98
+B-cubed F1: 0.76
+filename: oekd_20170309_63480.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.86
+B-cubed F1: 0.66
+filename: oekd_20170309_67080.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.67
+B-cubed F1: 0.71
+filename: oekd_20170309_88680.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.76
+B-cubed F1: 0.80
+filename: oekd_20170309_70680.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.89
+B-cubed F1: 0.67
+filename: oekd_20170309_74280.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.69
+B-cubed F1: 0.69
+filename: oekd_20170309_77880.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.89
+B-cubed F1: 0.69
+filename: oekd_20170309_92280.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.97
+B-cubed F1: 0.67
+filename: oekd_20170309_95880.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.72
+B-cubed F1: 0.68
+filename: oekd_20170309_85080.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.76
+B-cubed F1: 0.65
+filename: oekd_20170309_9180.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.69
+B-cubed F1: 0.75
+filename: oekd_20170309_99480.rttm
+B-cubed precision: 0.97
+B-cubed recall: 0.98
+B-cubed F1: 0.98
+filename: oekd_20170310_12780.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.70
+B-cubed F1: 0.62
+filename: oekd_20170309_81480.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.85
+B-cubed F1: 0.66
+filename: oekd_20170310_16380.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.81
+B-cubed F1: 0.68
+filename: oekd_20170310_19980.rttm
+B-cubed precision: 0.91
+B-cubed recall: 0.92
+B-cubed F1: 0.91
+filename: oekd_20170310_1980.rttm
+B-cubed precision: 0.91
+B-cubed recall: 0.83
+B-cubed F1: 0.87
+filename: oekd_20170310_23580.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.76
+B-cubed F1: 0.69
+filename: oekd_20170310_27180.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.66
+B-cubed F1: 0.60
+filename: oekd_20170310_34380.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.90
+B-cubed F1: 0.68
+filename: oekd_20170310_30780.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.62
+B-cubed F1: 0.76
+filename: oekd_20170310_41580.rttm
+B-cubed precision: 0.98
+B-cubed recall: 0.99
+B-cubed F1: 0.98
+filename: oekd_20170310_45180.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.88
+B-cubed F1: 0.77
+filename: oekd_20170310_9180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.80
+B-cubed F1: 0.67
+filename: outg_20170314_12780.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.59
+B-cubed F1: 0.64
+filename: oekd_20170310_5580.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.98
+B-cubed F1: 0.76
+filename: outg_20170314_16380.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.72
+B-cubed F1: 0.66
+filename: outg_20170314_19980.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.96
+B-cubed F1: 0.91
+filename: outg_20170314_1980.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.59
+B-cubed F1: 0.65
+filename: outg_20170314_23580.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.83
+B-cubed F1: 0.73
+filename: outg_20170314_37980.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.92
+B-cubed F1: 0.80
+filename: outg_20170314_34380.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.90
+B-cubed F1: 0.83
+filename: outg_20170314_30780.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.86
+B-cubed F1: 0.73
+filename: outg_20170314_27180.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.85
+B-cubed F1: 0.66
+filename: outg_20170314_41580.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.73
+B-cubed F1: 0.67
+filename: outg_20170314_52380.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.73
+B-cubed F1: 0.72
+filename: outg_20170315_12780.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.95
+B-cubed F1: 0.69
+filename: outg_20170315_16380.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.94
+B-cubed F1: 0.67
+filename: outg_20170314_5580.rttm
+B-cubed precision: 0.72
+B-cubed recall: 0.94
+B-cubed F1: 0.82
+filename: outg_20170314_9180.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.93
+B-cubed F1: 0.68
+filename: outg_20170315_1980.rttm
+B-cubed precision: 0.98
+B-cubed recall: 0.64
+B-cubed F1: 0.78
+filename: outg_20170315_19980.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.84
+B-cubed F1: 0.67
+filename: outg_20170315_30780.rttm
+B-cubed precision: 0.89
+B-cubed recall: 1.00
+B-cubed F1: 0.94
+filename: outg_20170315_23580.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.60
+B-cubed F1: 0.62
+filename: outg_20170315_27180.rttm
+B-cubed precision: 0.99
+B-cubed recall: 0.66
+B-cubed F1: 0.79
+filename: outg_20170315_45180.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.96
+B-cubed F1: 0.83
+filename: outg_20170315_34380.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.91
+B-cubed F1: 0.68
+filename: outg_20170315_37980.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.76
+B-cubed F1: 0.68
+filename: outg_20170315_48780.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.92
+B-cubed F1: 0.76
+filename: outg_20170315_41580.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.98
+B-cubed F1: 0.81
+filename: outg_20170315_5580.rttm
+B-cubed precision: 0.97
+B-cubed recall: 0.66
+B-cubed F1: 0.79
+filename: outg_20170315_9180.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.70
+B-cubed F1: 0.65
+filename: uebn_20160710_12780.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.89
+B-cubed F1: 0.68
+filename: uebn_20160710_16380.rttm
+B-cubed precision: 0.88
+B-cubed recall: 0.85
+B-cubed F1: 0.86
+filename: uebn_20160710_23580.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.90
+B-cubed F1: 0.67
+filename: uebn_20160710_27180.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.94
+B-cubed F1: 0.70
+filename: uebn_20160710_1980.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.82
+B-cubed F1: 0.76
+filename: uebn_20160710_30780.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.89
+B-cubed F1: 0.81
+filename: uebn_20160710_5580.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.98
+B-cubed F1: 0.90
+filename: uebn_20160710_9180.rttm
+B-cubed precision: 0.92
+B-cubed recall: 0.94
+B-cubed F1: 0.93
+filename: uebn_20160711_12780.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.88
+B-cubed F1: 0.94
+filename: uebn_20160711_16380.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.79
+B-cubed F1: 0.70
+filename: uebn_20160711_30780.rttm
+B-cubed precision: 0.91
+B-cubed recall: 0.67
+B-cubed F1: 0.77
+filename: uebn_20160711_1980.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.98
+B-cubed F1: 0.93
+filename: uebn_20160711_27180.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.94
+B-cubed F1: 0.97
+filename: uebn_20160711_34380.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.90
+B-cubed F1: 0.71
+filename: uebn_20160711_37980.rttm
+B-cubed precision: 0.78
+B-cubed recall: 0.70
+B-cubed F1: 0.74
+filename: uebn_20160711_5580.rttm
+B-cubed precision: 0.51
+B-cubed recall: 0.75
+B-cubed F1: 0.61
+filename: uebn_20160711_9180.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.98
+B-cubed F1: 0.99
+filename: uebn_20160712_12780.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.95
+B-cubed F1: 0.73
+filename: uebn_20160711_41580.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.62
+B-cubed F1: 0.69
+filename: uebn_20160712_1980.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.98
+B-cubed F1: 0.69
+filename: uebn_20160712_9180.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.82
+B-cubed F1: 0.66
+filename: uebn_20160712_5580.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.89
+B-cubed F1: 0.76
+filename: uebn_20160713_12780.rttm
+B-cubed precision: 0.97
+B-cubed recall: 0.71
+B-cubed F1: 0.82
+filename: uebn_20160713_19980.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.69
+B-cubed F1: 0.66
+filename: uebn_20160713_1980.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.92
+B-cubed F1: 0.67
+filename: uebn_20160713_23580.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.88
+B-cubed F1: 0.69
+filename: uebn_20160713_27180.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.79
+B-cubed F1: 0.70
+filename: uebn_20160713_30780.rttm
+B-cubed precision: 0.50
+B-cubed recall: 1.00
+B-cubed F1: 0.67
+filename: uebn_20160713_34380.rttm
+B-cubed precision: 0.83
+B-cubed recall: 0.93
+B-cubed F1: 0.88
+filename: uebn_20160713_9180.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.86
+B-cubed F1: 0.66
+filename: uebn_20160713_5580.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.60
+B-cubed F1: 0.75
+filename: uebn_20161112_12780.rttm
+B-cubed precision: 0.75
+B-cubed recall: 0.77
+B-cubed F1: 0.76
+filename: uebn_20161112_16380.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.66
+B-cubed F1: 0.62
+filename: uebn_20161112_19980.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.90
+B-cubed F1: 0.83
+filename: uebn_20161112_1980.rttm
+B-cubed precision: 0.91
+B-cubed recall: 0.72
+B-cubed F1: 0.80
+filename: uebn_20161112_23580.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.57
+B-cubed F1: 0.67
+filename: uebn_20161112_27180.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.50
+B-cubed F1: 0.67
+filename: uebn_20161112_30780.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.86
+B-cubed F1: 0.68
+filename: uebn_20161112_34380.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.82
+B-cubed F1: 0.90
+filename: uebn_20161112_37980.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.83
+B-cubed F1: 0.90
+filename: uebn_20161112_45180.rttm
+B-cubed precision: 0.85
+B-cubed recall: 0.91
+B-cubed F1: 0.88
+filename: uebn_20161112_41580.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.90
+B-cubed F1: 0.67
+filename: uebn_20161112_5580.rttm
+B-cubed precision: 0.95
+B-cubed recall: 0.94
+B-cubed F1: 0.95
+filename: uebn_20161113_12780.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.68
+B-cubed F1: 0.74
+filename: uebn_20161113_16380.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.65
+B-cubed F1: 0.68
+filename: uebn_20161112_9180.rttm
+B-cubed precision: 0.54
+B-cubed recall: 1.00
+B-cubed F1: 0.70
+filename: uebn_20161113_1980.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.84
+B-cubed F1: 0.69
+filename: uebn_20161113_19980.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.51
+B-cubed F1: 0.67
+filename: uebn_20161113_23580.rttm
+B-cubed precision: 0.72
+B-cubed recall: 0.95
+B-cubed F1: 0.82
+filename: uebn_20161113_27180.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.96
+B-cubed F1: 0.98
+filename: uebn_20161113_30780.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.85
+B-cubed F1: 0.89
+filename: uebn_20161113_34380.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.79
+B-cubed F1: 0.80
+filename: uebn_20161113_37980.rttm
+B-cubed precision: 0.78
+B-cubed recall: 0.56
+B-cubed F1: 0.65
+filename: uebn_20161114_12780.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.88
+B-cubed F1: 0.94
+filename: uebn_20161114_16380.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.57
+B-cubed F1: 0.72
+filename: uebn_20161114_19980.rttm
+B-cubed precision: 0.91
+B-cubed recall: 0.98
+B-cubed F1: 0.95
+filename: uebn_20161114_1980.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.63
+B-cubed F1: 0.75
+filename: uebn_20161114_23580.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.69
+B-cubed F1: 0.75
+filename: uebn_20161114_30780.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.73
+B-cubed F1: 0.72
+filename: uebn_20161114_5580.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.73
+B-cubed F1: 0.82
+filename: uebn_20161114_9180.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.67
+B-cubed F1: 0.80
+filename: uebn_20170308_16380.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.73
+B-cubed F1: 0.70
+filename: uebn_20170308_12780.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.51
+B-cubed F1: 0.66
+filename: uebn_20170308_1980.rttm
+B-cubed precision: 0.88
+B-cubed recall: 0.50
+B-cubed F1: 0.64
+filename: uebn_20170308_19980.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.54
+B-cubed F1: 0.68
+filename: uebn_20170308_27180.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.87
+B-cubed F1: 0.68
+filename: uebn_20170308_23580.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.56
+B-cubed F1: 0.69
+filename: uebn_20170308_45180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.78
+B-cubed F1: 0.66
+filename: uebn_20170308_41580.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.71
+B-cubed F1: 0.64
+filename: uebn_20170308_34380.rttm
+B-cubed precision: 0.90
+B-cubed recall: 0.94
+B-cubed F1: 0.92
+filename: uebn_20170308_30780.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.60
+B-cubed F1: 0.65
+filename: uebn_20170308_37980.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.75
+B-cubed F1: 0.71
+filename: uebn_20170308_5580.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.93
+B-cubed F1: 0.96
+filename: uebn_20170308_9180.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.83
+B-cubed F1: 0.67
+filename: uebn_20170309_12780.rttm
+B-cubed precision: 0.98
+B-cubed recall: 0.51
+B-cubed F1: 0.67
+filename: uebn_20170309_16380.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.75
+B-cubed F1: 0.66
+filename: uebn_20170309_1980.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.50
+B-cubed F1: 0.62
+filename: uebn_20170309_19980.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.53
+B-cubed F1: 0.66
+filename: uebn_20170309_27180.rttm
+B-cubed precision: 0.59
+B-cubed recall: 0.87
+B-cubed F1: 0.70
+filename: uebn_20170309_30780.rttm
+B-cubed precision: 0.75
+B-cubed recall: 0.61
+B-cubed F1: 0.67
+filename: uebn_20170309_34380.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.91
+B-cubed F1: 0.78
+filename: uebn_20170309_37980.rttm
+B-cubed precision: 0.71
+B-cubed recall: 0.77
+B-cubed F1: 0.74
+filename: uebn_20170309_23580.rttm
+B-cubed precision: 0.89
+B-cubed recall: 0.57
+B-cubed F1: 0.70
+filename: uebn_20170309_41580.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.69
+B-cubed F1: 0.61
+filename: uebn_20170309_56280.rttm
+B-cubed precision: 0.53
+B-cubed recall: 0.89
+B-cubed F1: 0.67
+filename: uebn_20170309_45180.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.78
+B-cubed F1: 0.65
+filename: uebn_20170309_59880.rttm
+B-cubed precision: 0.90
+B-cubed recall: 0.78
+B-cubed F1: 0.83
+filename: uebn_20170309_5580.rttm
+B-cubed precision: 0.94
+B-cubed recall: 0.93
+B-cubed F1: 0.94
+filename: uebn_20170309_63480.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.76
+B-cubed F1: 0.66
+filename: uebn_20170309_67080.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.91
+B-cubed F1: 0.69
+filename: uebn_20170309_70680.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.62
+B-cubed F1: 0.61
+filename: uebn_20170309_74280.rttm
+B-cubed precision: 0.56
+B-cubed recall: 0.80
+B-cubed F1: 0.66
+filename: uebn_20170309_77880.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.66
+B-cubed F1: 0.67
+filename: uebn_20170309_81480.rttm
+B-cubed precision: 0.77
+B-cubed recall: 0.56
+B-cubed F1: 0.65
+filename: uebn_20170309_85080.rttm
+B-cubed precision: 0.72
+B-cubed recall: 0.59
+B-cubed F1: 0.65
+filename: uebn_20170309_88680.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.94
+B-cubed F1: 0.93
+filename: uebn_20170309_9180.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.83
+B-cubed F1: 0.66
+filename: uebn_20170309_99480.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.83
+B-cubed F1: 0.76
+filename: uebn_20170309_92280.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.75
+B-cubed F1: 0.69
+filename: uebn_20170310_12780.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.78
+B-cubed F1: 0.67
+filename: uebn_20170310_1980.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.70
+B-cubed F1: 0.65
+filename: uebn_20170310_16380.rttm
+B-cubed precision: 0.61
+B-cubed recall: 0.75
+B-cubed F1: 0.67
+filename: uebn_20170310_19980.rttm
+B-cubed precision: 0.82
+B-cubed recall: 0.87
+B-cubed F1: 0.84
+filename: uebn_20170310_23580.rttm
+B-cubed precision: 0.93
+B-cubed recall: 0.52
+B-cubed F1: 0.67
+filename: uebn_20170310_34380.rttm
+B-cubed precision: 0.78
+B-cubed recall: 0.58
+B-cubed F1: 0.66
+filename: uebn_20170310_30780.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.72
+B-cubed F1: 0.78
+filename: uebn_20170310_27180.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.68
+B-cubed F1: 0.62
+filename: uebn_20170310_37980.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.84
+B-cubed F1: 0.85
+filename: uebn_20170310_45180.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.90
+B-cubed F1: 0.71
+filename: uebn_20170310_5580.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.62
+B-cubed F1: 0.70
+filename: uebn_20170310_9180.rttm
+B-cubed precision: 0.65
+B-cubed recall: 0.76
+B-cubed F1: 0.70
+filename: uoga_20170311_12780.rttm
+B-cubed precision: 0.85
+B-cubed recall: 0.71
+B-cubed F1: 0.77
+filename: uoga_20170311_16380.rttm
+B-cubed precision: 0.73
+B-cubed recall: 0.89
+B-cubed F1: 0.80
+filename: uoga_20170311_1980.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.54
+B-cubed F1: 0.67
+filename: uoga_20170311_19980.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.57
+B-cubed F1: 0.63
+filename: uoga_20170311_27180.rttm
+B-cubed precision: 0.66
+B-cubed recall: 0.86
+B-cubed F1: 0.75
+filename: uoga_20170311_23580.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.70
+B-cubed F1: 0.73
+filename: uoga_20170311_30780.rttm
+B-cubed precision: 0.87
+B-cubed recall: 0.78
+B-cubed F1: 0.82
+filename: uoga_20170311_34380.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.86
+B-cubed F1: 0.67
+filename: uoga_20170311_48780.rttm
+B-cubed precision: 0.57
+B-cubed recall: 0.87
+B-cubed F1: 0.69
+filename: uoga_20170311_45180.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.78
+B-cubed F1: 0.70
+filename: uoga_20170311_52380.rttm
+B-cubed precision: 0.60
+B-cubed recall: 0.67
+B-cubed F1: 0.63
+filename: uoga_20170311_5580.rttm
+B-cubed precision: 0.62
+B-cubed recall: 0.83
+B-cubed F1: 0.71
+filename: uoga_20170311_9180.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.70
+B-cubed F1: 0.69
+filename: uoga_20170312_12780.rttm
+B-cubed precision: 0.70
+B-cubed recall: 0.58
+B-cubed F1: 0.63
+filename: uoga_20170312_16380.rttm
+B-cubed precision: 0.55
+B-cubed recall: 0.78
+B-cubed F1: 0.65
+filename: uoga_20170312_1980.rttm
+B-cubed precision: 0.84
+B-cubed recall: 0.64
+B-cubed F1: 0.72
+filename: uoga_20170312_23580.rttm
+B-cubed precision: 0.69
+B-cubed recall: 0.80
+B-cubed F1: 0.74
+filename: uoga_20170312_27180.rttm
+B-cubed precision: 0.54
+B-cubed recall: 0.88
+B-cubed F1: 0.67
+filename: uoga_20170312_30780.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.67
+B-cubed F1: 0.67
+filename: uoga_20170312_19980.rttm
+B-cubed precision: 0.63
+B-cubed recall: 0.67
+B-cubed F1: 0.65
+filename: uoga_20170312_34380.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.61
+B-cubed F1: 0.59
+filename: uoga_20170313_12780.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.63
+B-cubed F1: 0.65
+filename: uoga_20170313_16380.rttm
+B-cubed precision: 0.95
+B-cubed recall: 0.81
+B-cubed F1: 0.88
+filename: uoga_20170312_5580.rttm
+B-cubed precision: 0.86
+B-cubed recall: 0.74
+B-cubed F1: 0.79
+filename: uoga_20170312_9180.rttm
+B-cubed precision: 0.85
+B-cubed recall: 0.90
+B-cubed F1: 0.87
+filename: uoga_20170313_19980.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.79
+B-cubed F1: 0.67
+filename: uoga_20170313_23580.rttm
+B-cubed precision: 0.52
+B-cubed recall: 0.79
+B-cubed F1: 0.62
+filename: uoga_20170313_27180.rttm
+B-cubed precision: 0.76
+B-cubed recall: 0.87
+B-cubed F1: 0.81
+filename: uoga_20170313_1980.rttm
+B-cubed precision: 0.68
+B-cubed recall: 0.77
+B-cubed F1: 0.72
+filename: uoga_20170313_30780.rttm
+B-cubed precision: 0.64
+B-cubed recall: 0.66
+B-cubed F1: 0.65
+filename: uoga_20170313_37980.rttm
+B-cubed precision: 0.92
+B-cubed recall: 0.94
+B-cubed F1: 0.93
+filename: uoga_20170313_48780.rttm
+B-cubed precision: 0.74
+B-cubed recall: 0.88
+B-cubed F1: 0.80
+filename: uoga_20170313_34380.rttm
+B-cubed precision: 0.81
+B-cubed recall: 0.62
+B-cubed F1: 0.70
+filename: uoga_20170313_5580.rttm
+B-cubed precision: 1.00
+B-cubed recall: 0.80
+B-cubed F1: 0.89
+filename: uoga_20170313_41580.rttm
+B-cubed precision: 0.58
+B-cubed recall: 0.80
+B-cubed F1: 0.67
+filename: uoga_20170313_45180.rttm
+B-cubed precision: 0.80
+B-cubed recall: 0.71
+B-cubed F1: 0.75
+filename: uoga_20170313_9180.rttm
+B-cubed precision: 0.67
+B-cubed recall: 0.79
+B-cubed F1: 0.72
