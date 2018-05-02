@@ -158,6 +158,13 @@ everything$min_coded <- floor(everything$time_coded)
 everything$key=paste0(substr(everything$date,1,8),everything$child)
 
 
+#merge demographic data 
+#be sure that demodata has the "key" column!
+
+merge(x=everything,y = demo_data[ , c("key",  "age_mo", "sex", "n_of_siblings", "oder_of_birth","half_of_day_delivery"),], all.x=T,all.y=F)->everything
+#there should be 5202 rows
+
+
 write.table(everything,"line_per_segment.txt", row.names=F,quote=T,sep="\t")
 read.table("line_per_segment.txt", header=T) -> everything
 
@@ -169,6 +176,8 @@ read.table("line_per_segment.txt", header=T) -> everything
 
 ```{r cds proxy}
 #Creating a loop that goes through the file name dataframe called everything that each line corresponds to a vocalization per child
+read.table("line_per_segment.txt", header=T) -> everything
+
 everything$addressee <- NA
 
 for (i in 1:dim(everything)[1]){ # this will only do it for the last row
@@ -191,9 +200,13 @@ for (i in 1:dim(everything)[1]){ # this will only do it for the last row
   }
 }
 
+write.table(everything,"line_per_segment.txt", row.names=F,quote=T,sep="\t")
+
+
 ```
 
 
+## Do not run this, is redundant
 
 ```{r add_demo }
 
@@ -727,6 +740,97 @@ write.table(tot_suminput_day,"~/Documents/tsimane_project/dalohumacosp/derivedFi
 
 ```
 
+Apply the same pipeline for all the file for the measure of cds
+
+```{r calculation for "cds"}
+
+read.table("line_per_segment.txt", header=T) -> everything
+
+#remove all the rows that don't include the child in the conversation
+cds = everything[grep("CHI",everything$addressee, value=F),]
+
+table(cds$speakerID)
+
+# because you are interested in the input of that children is supposely address to , you exclude SP 
+cds=cds[-grep("SP",cds$speakerID, value=F),]
+
+##fyi...
+# > sum(sums_n1_nochi$dur[sums_n1_nochi$clean==F])
+# [1] 172.882
+# > sum(sums_n1_nochi$dur[sums_n1_nochi$clean==T])
+# [1] 6091.64
+head(cds)
+
+# #create table with sum of FA1-2-3 MA 1-2 UC1-2 XOL & SP duration of vocalizations
+# aggregate(suminput$dur, by=list(suminput$child), sum, na.rm=T) -> xx
+# names(xx)<-c("child", "dur")
+# 
+# #create table with sum of total time avaiable to code per child
+# aggregate(suminput$min_coded, by=list(suminput$child), sum, na.rm=T) -> yy
+# names(yy)<-c("child", "min_coded")
+# 
+# merge(xx, yy , by="child", all.x=TRUE) -> tot_suminput
+
+
+##the same but only for daylight recordings
+cds[cds$half_of_day_delivery=="M",] -> cds
+
+
+#DAY : create table with sum of FA1-2-3 MA 1-2 UC1-2 XOL & SP duration of vocalizations
+aggregate(cds$dur, by=list(cds$child), sum, na.rm=T) -> xxx
+names(xxx)<-c("child", "dur")
+
+#DAY: create table with sum of total time avaiable to code per child
+# aggregate(suminput$min_coded, by=list(suminput$child), sum, na.rm=T) -> yy
+# names(yy)<-c("child", "min_coded")
+
+
+#merging both
+merge(x=xxx, y=cds[ , c("child", "min_coded", "mot", "oder_of_birth", "n_of_siblings", "sex", "age_mo")], all.x=T,all.y=F) -> tot_suminput_cds
+tot_suminput_cds <- unique(tot_suminput_cds)
+
+#convert min in seconds
+tot_suminput_cds$sec_coded <- tot_suminput_cds$min_coded * 60
+
+# Number of seconds per minute containing input (overlapping!! no counting less) 
+tot_suminput_cds$secspermin <- tot_suminput_cds$dur * 60 / tot_suminput_cds$sec_coded # multiply by 60 to have in minutes
+
+#Approximation for a cds -- cdslong recording right?
+tot_suminput_cds$hoursperday <- tot_suminput_cds$secspermin * 10 / 60
+
+
+
+#merge(tot_suminput_cds, ages, by="child", all.x = T) -> tot_suminput_cds
+
+
+#group ages by categories
+# tot_suminput$agecat[tot_suminput$age_mo <= 12 ] <- 1 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >12 & tot_suminput$age_mo <= 24   ] <- 2 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >24 & tot_suminput$age_mo <= 36  ] <- 3 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >36 & tot_suminput$age_mo <= 48   ] <- 4 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >48   ] <- 5 #under or equal to  12 mo
+# DAY: group ages by categories
+tot_suminput_cds$agecat[tot_suminput_cds$age_mo <= 12 ] <- 1 #under or equal to  12 mo
+tot_suminput_cds$agecat[tot_suminput_cds$age_mo >12 & tot_suminput_cds$age_mo <= 24   ] <- 2 #under or equal to  12 mo
+tot_suminput_cds$agecat[tot_suminput_cds$age_mo >24 & tot_suminput_cds$age_mo <= 36  ] <- 3 #under or equal to  12 mo
+tot_suminput_cds$agecat[tot_suminput_cds$age_mo >36 & tot_suminput_cds$age_mo <= 48   ] <- 4 #under or equal to  12 mo
+tot_suminput_cds$agecat[tot_suminput_cds$age_mo >48   ] <- 5 #under or equal to  12 mo
+
+
+
+
+
+write.table(tot_suminput_cds,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/tot_suminput_cds.txt",row.names=F,sep="\t")
+
+
+
+
+
+
+
+```
+
+
 
 #Finally put in this document all the graphs you have done, you are overwriting them you idiot
 
@@ -748,6 +852,7 @@ library(car)
 coef(lm(secspermin ~ age_mo, data=tot_suminput_day ))
 
 #plot
+par(mfrow=c(2,1)) 
 ggplot(tot_suminput_day, aes( 
    x=age_mo, y= secspermin, color=as.factor(agecat) )) + geom_jitter(
      aes(x=age_mo))  + labs(x="Age in Months", y="Minutes per Hour") + guides(
@@ -837,7 +942,13 @@ ggplot(subset( sumdur, speakerID %in% c("UC1", "UC2") & type %in% c(1)  & half_o
   geom_jitter(stat = "identity", color= "blue") +  labs(x="Ages in months", y="Total input from other Children Input") + geom_abline(
     mapping = NULL, data = NULL, slope =-0.03303238 , intercept =22.21673136 ,na.rm = FALSE, show.legend = NA)
 
+```
 
+```{r plots time}
+ggplot(tot_suminput_day, aes( 
+   x=age_mo, y= secspermin, color=as.factor(mot), size=min_coded )) +  geom_jitter(
+     aes(x=age_mo))  + geom_jitter( data=tot_suminput_cds, shape=3) + labs(x="Age in Months", y="Minutes per Hour")  +  geom_abline(
+           mapping = NULL, data = NULL, slope =-0.1988568 , intercept = 22.1909240,na.rm = FALSE, show.legend = NA) 
 
 
 
