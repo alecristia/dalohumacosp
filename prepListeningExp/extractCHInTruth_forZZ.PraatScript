@@ -1,0 +1,88 @@
+# This file extracts all non-empty intervals coded as CHI vocalizations
+# and puts together a table with information about these vocs (when, what)
+
+#infolder$="/Users/alejandrinacristia/corpora_inprogress/Namibie_m1/"
+infolder$="/Users/alejandrinacristia/corpora_inprogress/Vanuatu_m1/"
+#infolder$="//Volumes/Seagate Expansion Drive/Tsimane_m1/"
+outfolder$="/Users/alejandrinacristia/corpora_inprogress/vocmat/"
+
+data$="ling_nonling_chi_vocs.txt"
+
+# COMMENT OUT IF NOT THE FIRST FOLDER THAT IS RAN
+#header_row$ = "orig_file" + tab$ + "out_file" + tab$ + "beg" + tab$ + "end"  + tab$  + "type" + newline$
+#header_row$ > 'outfolder$''data$'
+
+
+Create Strings as directory list... dirs 'infolder$'*
+ndir=Get number of strings
+
+for thisdir to ndir
+	select Strings dirs
+	thisdir$=Get string... 'thisdir'
+
+	Create Strings as file list... tgs 'infolder$''thisdir$'/*m1.TextGrid
+	ntg=Get number of strings
+#print 'infolder$''thisdir$'/
+#pause 'infolder$''thisdir$'/
+	for i to ntg
+		select Strings tgs
+		tg$=Get string... 'i'
+		tgx$=tg$-".TextGrid"
+		tgx$=right$(tgx$,2)
+#pause 'tgx$'
+		clean$=tg$ - ".TextGrid" - tgx$ - "_"
+
+#this distinguishes from a temporary textgrid (which has the onset time) and an annotated textgrid (which has the coder ID)
+		if tgx$<>"00"
+#pause 'tgx$'
+			Read from file... 'infolder$''thisdir$'/'tg$'
+
+#correct some common labeling mistakes
+			Replace interval text: 1, 0, 0, " ", "", "Literals"
+			Replace interval text: 1, 0, 0, "\n", "", "Literals"
+
+			nchiling=Count intervals where: 1, "is equal to", "1"
+			nNonChiling=Count intervals where: 1, "is equal to", "0"
+#pause 'nchiling'
+			if ( nchiling + nNonChiling ) > 0
+				Open long sound file... 'infolder$''thisdir$'/'clean$'.wav
+
+				thisint=1
+				nintFound=0
+				while nintFound < ( nchiling + nNonChiling )
+#pause 'thisint' 'nintFound' 'nchiling'
+					select TextGrid 'clean$'_'tgx$'
+					thislab$=Get label of interval... 1 'thisint'
+					if ( thislab$="1" or thislab$="0" )
+						start=Get start point... 1 'thisint'
+						end=Get end point... 1 'thisint'
+						thisdur=end-start
+
+						select LongSound 'clean$'
+						Extract part... 'start' 'end' rectangular 1.0 0
+						filename$=outfolder$+clean$+"_"+ fixed$(start,0)+"_"+thislab$
+						Save as WAV file... 'filename$'.wav
+						Remove
+
+						nintFound=nintFound+1
+
+#header_row$ = "orig_file" + tab$ + "out_file" + tab$  + "beg" + tab$ + "end"  + tab$  + "type" + newline$
+						fileappend "'outfolder$''data$'" 'clean$''tab$''filename$''tab$''start''tab$''end''tab$''thislab$''newline$'
+					endif
+					thisint=thisint+1
+				endwhile
+#pause check after while
+			endif
+#pause check 'clean$''tab$'done
+			select all
+			minus Strings tgs
+			minus Strings dirs
+			Remove
+		endif
+#pause check after cleaning
+	endfor
+	select all
+	minus Strings dirs
+	Remove
+endfor
+print all done

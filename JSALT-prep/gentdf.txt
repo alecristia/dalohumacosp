@@ -1,0 +1,51 @@
+for j in *.csv;
+do
+k=`echo $j | sed "s/.csv/.tdf/" `
+cp ../header.txt $k
+
+grep -v "tier" < $j |
+	sed "s/\*//" |
+	sed "s/ //g" |
+	tr -d "\t" |
+	tr -d "\177"|
+	sed "s/, ,/,NA,/g" |
+	sed "s/,,/,NA,/g" |
+	sed "s/Autre/Noise/" |
+	sed "s/FA2/FA3/" |
+	sed "s/FA1/FA2/" |
+	sed "s/MOT/FA1/" |
+	sed "s/\+2parl/XOL/" |
+	sed "s/2POPMT/XOL/" |
+	sed "s/2parlou\+/XOL/" |
+	sed "s/LF2P/SP/" |
+	sed "s/Loin-faible/SP/" |
+	sed "s/Loin/SP/" |
+	sed "s/,C/,UC/" |
+	sed "s/UCHI/CHI/" |
+	sed "s/1&/1/" |
+	sed "s/,11,/,1,/" |
+	sed "s/^/$j,/"|
+	tr -d "\r" |
+	tr "," "\t" |
+ 	awk  '{ print $1 "\t0\t" $2 "\t" $5 "\t" $3"-"$4 "\t" (substr($3,1,1)=="F"?"female":(substr($3,1,1)=="M"?"male":(substr($3,1,1)=="U"?"child":(substr($3,1,1)=="C"?"child":"NA")))) "\tnative\t" 0 "\t" 0 "\t" 0 "\t" 0 "\t" 0 "\t" NR-1}' |
+	sed "s/XOL-./XOL/g"   |
+	sed "s/Noisex/Noise/g"   |
+	sed "s/Noise-x/Noise/g"   |
+ 	sed "s/Noise-X/Noise/g"   |
+ 	sed "s/Noise-1/Noise/g"   |
+ 	sed "s/SP-1/SP/g"   |
+ 	sed "s/SP-0/SP/g"   |
+ 	sed "s/SP-x/SP/g"   |
+	sed "s/\([A-Z][A-Z].\)\(-[a-z]\)/\1-NA/g"   >> $k
+
+
+done
+
+
+for j in *.tdf;
+do
+k=`echo $j | sed "s/.tdf/.txt/" `
+
+grep -v ";" < $j |awk  '{ print $3 "\t" $4 "\t" $5 }'  > $k
+
+done
