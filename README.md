@@ -18,3 +18,4 @@ and finally for the human to hand code the minute 4, still having some of the co
 # compAna
 This folder contains scripts to compare coding among humans and between humans & machines (1_ and 2_)
 And to draw some generalizations over bodies of data (to be added, in progress)
+# tsimane2017

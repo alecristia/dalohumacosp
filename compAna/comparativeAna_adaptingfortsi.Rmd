@@ -1,0 +1,1232 @@
+---
+title: "Analyses speech patterns in daylong recordings "
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+redoALL=FALSE ## LOOK HERE!!!
+
+```
+# Instructions for use
+
+If this is first time that you are running this script, change the redoALL parameter to TRUE so that the first set of chunks, under generate main databases, is recalculated. Make sure you've created a folder called "derivedFiles" inside dalohumacosp, since the databases will be stored in that folder. (The folder is not pushed to github.)
+
+
+# Generate main databases 
+
+Hopefully, this pipeline should be usefull for analysis of daylong recordings using the coding method of random sampling for one minute per hour.
+Namely for now:
+Tsimane july 2017 recordings
+Namibia?
+Vanuatu?
+
+## Prep
+
+Convert textgrids (obtain using Praat) into csv's.
+
+```{bash convert,eval=redoALL, include=redoALL}
+final_folder="/Users/lscpuser/Documents/tsimane_project/Tsimane_m1/" #where coded files lie
+/Applications/Praat.app/Contents/MacOS/Praat --run "1_compareCoding_praat_cam_version.PraatScript" $final_folder 
+mkdir /Users/lscpuser/Documents/tsimane_project/dalohumacosp/derivedFiles/coded
+mv $final_folder/*.csv /Users/lscpuser/Documents/tsimane_project/dalohumacosp/derivedFiles/coded/
+```
+
+## Reading in current coding
+
+Read in all csv's and clean up.
+
+
+```{r doAll,eval=redoALL, include=redoALL}
+
+setwd("~/Documents/tsimane_project/dalohumacosp/derivedFiles/")
+csv_folder="~/Documents/tsimane_project/dalohumacosp/derivedFiles/coded/"
+csvs=dir(path=csv_folder,pattern="csv")
+
+#compose table from csv previously stored in "coded" folder, these csvs come from the transcription of praat files.
+#This composition of the table makes sense ONLY if your filenames are as follow: 
+#Example: C01_C02_M01_20170706_m1.csv 
+#where C01 stands for the key child / C02 for the sibling / M01 the mother / 20170706 for the date and m1 for the coder ID
+
+all=NULL
+for(thisf in csvs){
+  #csvs[1]->thisf
+  read.csv(paste0(csv_folder,thisf))->thiscsv
+  bits=strsplit(thisf,"_")
+  print(bits[[1]])
+  if(length(bits[[1]])==5){child=bits[[1]][1]; sib=bits[[1]][2]; mom=bits[[1]][3]; date=bits[[1]][4]; recn=1} else {child=bits[[1]][1]; sib=bits[[1]][2]; mom=bits[[1]][3]; date=bits[[1]][4]; recn=bits[[1]][5]}
+  if(dim(thiscsv)[1]==0) thiscsv[1,]<-NA
+  all=rbind(all,cbind(thisf, child,sib,mom, date,recn, thiscsv))
+}
+
+names(all)<-c("File","child", "sib","mot", "date","recn",	"beg",	"speakerID",	 "type",	"end")
+#File : stands for the csv file name
+#child : key child wearing recorder
+#sib: sibling of the key child
+#mot: mother of the key child
+#date: date of recording
+# recn: number of file - only for wavs files that were heavier than 2go - because to process them correctly in previous steps, it was necessary to cut in 2 the big files
+#beg: beginning of tier - in sec
+#end: ending of tier - in sec
+#speaker ID: identity of tier 
+#type: tier linguistic information // 0 non ling // 1 ling
+
+
+##tier name clean 
+table(all$speakerID) #check whether you have only the speaker IDs that you should
+# in this case : CHI - FA1_2_3 - MA1_2 - UC1_2 - XOL - SP - Noise 
+
+all$speakerID=gsub("*","",all$speakerID,fixed=T)
+all$speakerID=gsub(" ","",all$speakerID,fixed=T)
+
+table(all$child,all$speakerID)
+all$speakerID[all$speakerID == "Autre"]<-"Noise"
+all$speakerID[all$speakerID == "CODE"]<-"Noise"
+all$speakerID[all$speakerID == "FA2"]<-"FA3"
+all$speakerID[all$speakerID == "FA1"]<-"FA2"
+all$speakerID[all$speakerID == "MOT"]<-"FA1"
+all$speakerID[all$speakerID %in% c("+2parl","2POPMT","2parlou+")]<-"XOL" #overlap bet 2 or more speakers hard to separate
+all$speakerID[all$speakerID %in% c("LF2P","Loin","Loin-faible")]<-"SP" #far away speech, "second plane" 
+all$speakerID=gsub("^C","UC",all$speakerID,perl=T)
+all$speakerID[all$speakerID %in% c("UCHI")]<-"CHI"
+table(all$speakerID)
+
+# type column clean
+table(all$type) # check whether you only have 0 - 1 or x everything else should be verified and corrected
+
+all$type[all$type=="\t"]<-"x"
+all$type[all$type=="\t\t\t"]<-"x"
+all$type[all$type=="xx"]<-"x"
+all$type[all$type=="X"]<-"x"
+all$type[all$type %in% c("1&","11")]<-"1"
+
+table(all$type)
+# if "11" is no longer an option as type, why is it still showing it up as an option???
+
+### STEP IN WHICH I PROPERLY ADD THE LENGTH CODE RETRIEVE ###
+# the purpose of this step is to merge the files that orgininally where to heavy to be counted as one for Praat so had to be cut in 2.
+
+all$File=gsub("_m.","",all$File)
+# involved files : C07_C06_M04_20170717_2_2 and C27_C26_M15_20170713_2_2
+#adding total lenght of _1_2 file to $dur variable
+all$beg[all$File=="C07_C06_M04_20170717_2_2.csv"]= all$beg[all$File=="C07_C06_M04_20170717_2_2.csv"] +  54000
+all$end[all$File=="C07_C06_M04_20170717_2_2.csv"]= all$end[all$File=="C07_C06_M04_20170717_2_2.csv"] +  54000
+
+all$beg[all$File=="C27_C26_M15_20170713_2_2.csv"]= all$beg[all$File=="C27_C26_M15_20170713_2_2.csv"] +  54000
+all$end[all$File=="C27_C26_M15_20170713_2_2.csv"]= all$end[all$File=="C27_C26_M15_20170713_2_2.csv"] +  54000
+
+#Seconds per tier
+all$dur=all$end-all$beg 
+
+#duration = subset(duration, select = -c(duration$NA))
+hist(all$dur)
+all$dur[all$dur>60]<-NA # removing open tiers (bigger than the minute that was supposed to be looked )
+
+#site
+all$site="Bol"
+
+#IMPORT TEXT FILE WITH LENGHT OF FILES WAVs
+# this step is important because it will give you the total duration of each recording
+
+#all$date=as.Date(paste(substr(all$date,1,4),substr(all$date,5,6),substr(all$date,7,8),sep="-"))
+read.table("~/Documents/tsimane_project/Tsimane_m1/duration.txt", header = F, sep = "") -> duration
+names(duration) <- c("File", "wav_length")
+#duration$time_coded <- (duration$wav_length - 2040)
+
+
+## From now on, the table containing one line per vocalization per child per day is called "everything"
+merge(all, duration) -> everything
+
+
+#fixing values for the big wavs
+everything$File=gsub("_2_2", "", everything$File)
+everything$File=gsub("_1_2", "", everything$File)
+
+#fixing wav length of big files
+everything$wav_length[everything$File=="C07_C06_M04_20170717.csv"] <-  54000 + 25981.24 -2040 #part 1 + part 2 - 34 first min
+everything$wav_length[everything$File=="C27_C26_M15_20170713.csv"] <-  54000 + 24678.7 -2040 #idem
+
+#transforming recordings in min 
+everything$time_coded <- (everything$wav_length - 2040) / 3600 # minus 34 min (2040 sec) of the beginning of the recording not transcribe 
+
+#cutting to actual min coded per file
+everything$min_coded <- floor(everything$time_coded)
+
+#create key variable as key child per recording day
+everything$key=paste0(substr(everything$date,1,8),everything$child)
+
+
+#merge demographic data 
+#be sure that demodata has the "key" column!
+
+merge(x=everything,y = demo_data[ , c("key",  "age_mo", "sex", "n_of_siblings", "oder_of_birth","half_of_day_delivery"),], all.x=T,all.y=F)->everything
+#there should be 5202 rows
+
+
+write.table(everything,"line_per_segment.txt", row.names=F,quote=T,sep="\t")
+read.table("line_per_segment.txt", header=T) -> everything
+
+#Congrats!! your data should be clean and ready for different analysis
+
+```
+
+#Building a proxy for CDS
+
+```{r cds proxy}
+#Creating a loop that goes through the file name dataframe called everything that each line corresponds to a vocalization per child
+read.table("line_per_segment.txt", header=T) -> everything
+
+everything$addressee <- NA
+
+for (i in 1:dim(everything)[1]){ # this will only do it for the last row
+  thispeaker<-everything[i,"speakerID"]
+  thischild <-everything[i,"File"]
+  if((!(thispeaker %in% c("XOL", "Noise")))){
+  #if(!(thispeaker %in% c("CHI", "FA1", "FA2", "FA3", "MA1", "MA2", "SP", "UC1", "UC2")))
+      on=everything[i, "beg"] - 1 #change of mind -- I fear you'll have too "many"
+      off=everything[i,"end"] + 1
+      
+      blabla <- subset(everything, beg > on & beg < off & thispeaker!=speakerID & thischild==File & !(speakerID %in% c("XOL", "Noise"))  )
+      levels(factor(blabla$speakerID)) -> naddressee
+      if (length(naddressee)==1) everything$addressee[i]  <- as.character(naddressee) #I think ifelse doesn't exist in r... also, see above; oh and this doesn't tell you which addressee it is; use instead: 
+      #if(dim(blabla)[1] > 1) everything$addressee[i]  <- "many"
+
+      if(length(naddressee) > 1) everything$addressee[i]  <- paste((naddressee), sep = ', ', collapse = ", ")
+     #everything$addressee[i]<-blabla$speakerID
+      #grep(",",everything$speakerID,invert=T)
+   #see above
+  }
+}
+
+write.table(everything,"line_per_segment.txt", row.names=F,quote=T,sep="\t")
+
+
+```
+
+
+## Do not run this, is redundant
+
+```{r add_demo }
+
+#Read table with demographic information such as sex and age
+read.table("~/Documents/tsimane_project/dalohumacosp/derivedFiles/coded/info_tsi.txt",header=T, sep = "\t")->ages
+names(ages) <- c("child", "age_mo","sex")
+
+#Add demo information to the big table
+merge(everything,ages)->everything
+
+#child_age variable just copy the age of the child and it's code name 
+everything$child_age=paste0(everything$age, everything$child)
+
+#this counts how many segments per recording you have
+everything$totNchunks=NA
+for(eachchidate in levels(as.factor(everything$key))) everything$totNchunks[everything$key==eachchidate]<-length((everything$File[everything$key==eachchidate]))
+
+#this is your big table but with more information such as sex -age  and number of segments coded per recording
+write.table(everything,"line_per_segment_age.txt", row.names=F,quote=T,sep="\t")
+
+```
+
+## Draw summaries per child & file
+
+The goal is to find out how much clean and overlapping speech there is by all of the speakers, summing within each file. This chunk uses code from https://stackoverflow.com/questions/41839268/sum-overlapping-non-overlapping-time-intervals-in-r by Jonathan von Schroeder.
+
+```{r doSums, echo=TRUE, include=redoALL}
+###### local functions
+
+read.table("~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_segment_age.txt",header=T)->everything
+
+# These are your different functions
+extract_interval_as_vector <- function(df) {
+  as.vector(t(subset(df,select=c('beg','end'))))
+}
+
+sum_length <- function(v) {
+  sum(v[seq(2,length(v),2)]-v[seq(1,length(v),2)])
+}
+
+sum_length_of_overlaps <- function(v1,v2) {
+  id <- rep(c(1,0),c(length(v1),length(v2)))
+  m <- rbind(id,1-id,c(v1,v2))
+  m <- m[,order(m[3,])]
+  idx <- which(cumsum(m[1,]) %% 2 & cumsum(m[2,]) %% 2)
+  if(length(idx)) sum(sapply(idx,function(i) m[3,i+1]-m[3,i]))
+  else 0
+}
+
+```
+THIS FOLLOWING PIPELINE IS ACTUALLY ONLY RELEVANT IF YOU ARE INTERESTED IN OVERLAPPING SPEECH
+
+##OK human this part is super important!
+#Here you have to actively choose what you consider input. 
+#Because your hypothesis might be different let's have different cases scenarios
+
+##First scenario: INPUT is everything (linguistic and not linguistic) except for NOISE
+```{r }
+all_n01=everything[everything$speakerID!="Noise" & !is.na(everything$beg),]
+
+sums_n01=NULL
+for(thisf in levels(as.factor(everything$File))){
+  subset(all_n01,File==thisf)->df #PLEASE LOOK HERE, as a function of what scenario you choose please modify "all_df" part to the data that you are looking for.
+  all_names <- unique(df$speakerID)
+  if(length(all_names)>1){
+     print(length(all_names>1))
+    combs <- combn(all_names,2)
+    for(i in 1:ncol(combs)) {
+      df.sub1 <- subset(df,speakerID == combs[1,i])
+      df.sub2 <- subset(df,speakerID == combs[2,i])
+      int1= extract_interval_as_vector(df.sub1)
+      int2= extract_interval_as_vector(df.sub2)
+      l1 <- sum_length(int1) #sum(df.sub1$duration)
+      l2 <- sum_length(int2) #sum(df.sub2$duration)
+      ol=sum_length_of_overlaps(int1,int2)
+      x=cbind(df[1,1:5],combs[1,i],l1, T)
+      names(x)<-c(names(df)[1:5],"source","dur","clean")
+      y=cbind(df[1,1:5],combs[2,i],l2, T)
+      names(y)<-c(names(df)[1:5],"source","dur","clean")
+      z=cbind(df[1,1:5],paste(combs[1,i],combs[2,i]),ol ,F)
+      names(z)<-c(names(df)[1:5],"source","dur","clean")
+      sums_n01=rbind(sums_n01, x,y,z)
+    } 
+  } else{ 
+    x=cbind(df[1,1:5],all_names[1],sum(df$dur),T) 
+    names(x)<-c(names(df)[1:5],"source","dur","clean")
+    sums_n01=rbind(sums_n01, x)}
+}
+
+sums_n01[!is.na(sums_n01$child),]->sums_n01
+#we remove all the NA files CHECK
+
+# the way in which we compute this, gives a lot duplicate rows, in order to clean them up use this:
+sums_n01 <- unique(sums_n01)
+
+
+sums_n01$key=paste0(substr(sums_n01$date,1,8),sums_n01$child)
+#sums$key[substr(sums$child,1,1)=="v"]<-paste0("201703",sums$child[substr(sums$child,1,1)=="v"])
+
+## ADD demo data  
+
+#of course only if you have it
+read.csv("~/Documents/tsimane_project/dalohumacosp/compAna/demo_data.csv",header=T)->demo_data
+
+#create the key variable the demo data so you can merge it with the other data
+demo_data$key=paste0(substr(demo_data$date,1,8),demo_data$chi_id)
+
+#merge
+merge(x=sums_n01,y = demo_data[ , c("key", "age_mo", "sex", "n_of_siblings", "oder_of_birth","half_of_day_delivery")], all.x=T,all.y=F)->sums_n01
+
+
+write.table(sums_n01,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_chunk_n01.txt", row.names=F,quote=T,sep="\t")
+read.table("~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_chunk_n01.txt", header = T) -> sums_n01
+```
+
+##Second scenario: INPUT is everything (linguistic and not linguistic) except for NOISE & Second Plane conversations
+```{r }
+all_nsp01=everything[everything$speakerID!="Noise" &    everything$speakerID!="SP" & !is.na(everything$beg),]
+
+sums_nsp01=NULL
+for(thisf in levels(as.factor(everything$File))){
+  subset(all_nsp01,File==thisf)->df #PLEASE LOOK HERE, as a function of what scenario you choose please modify "all_df" part to the data that you are looking for.
+  all_names <- unique(df$speakerID)
+  if(length(all_names)>1){
+     #print(length(all_names>1))
+    combs <- combn(all_names,2)
+    for(i in 1:ncol(combs)) {
+      df.sub1 <- subset(df,speakerID == combs[1,i])
+      df.sub2 <- subset(df,speakerID == combs[2,i])
+      int1= extract_interval_as_vector(df.sub1)
+      int2= extract_interval_as_vector(df.sub2)
+      l1 <- sum_length(int1) #sum(df.sub1$duration)
+      l2 <- sum_length(int2) #sum(df.sub2$duration)
+      ol=sum_length_of_overlaps(int1,int2)
+      x=cbind(df[1,1:5],combs[1,i],l1, T)
+      names(x)<-c(names(df)[1:5],"source","dur","clean")
+      y=cbind(df[1,1:5],combs[2,i],l2, T)
+      names(y)<-c(names(df)[1:5],"source","dur","clean")
+      z=cbind(df[1,1:5],paste(combs[1,i],combs[2,i]),ol ,F)
+      names(z)<-c(names(df)[1:5],"source","dur","clean")
+      sums_nsp01=rbind(sums_nsp01, x,y,z)
+    } 
+  } else{ 
+    x=cbind(df[1,1:5],all_names[1],sum(df$dur),T) 
+    names(x)<-c(names(df)[1:5],"source","dur","clean")
+    sums_nsp01=rbind(sums_nsp01, x)}
+}
+
+sums_nsp01[!is.na(sums_nsp01$child),]->sums_nsp01
+#we remove all the NA files CHECK
+
+# the way in which we compute this, gives a lot duplicate rows, in order to clean them up use this:
+sums_nsp01 <- unique(sums_nsp01)
+
+
+sums_nsp01$key=paste0(substr(sums_nsp01$date,1,8),sums_nsp01$child)
+#sums$key[substr(sums$child,1,1)=="v"]<-paste0("201703",sums$child[substr(sums$child,1,1)=="v"])
+
+## ADD demo data  
+
+#of course only if you have it
+read.csv("~/Documents/tsimane_project/dalohumacosp/compAna/demo_data.csv",header=T)->demo_data
+
+#create the key variable the demo data so you can merge it with the other data
+demo_data$key=paste0(substr(demo_data$date,1,8),demo_data$chi_id)
+
+#merge
+merge(x=sums_nsp01,y = demo_data[ , c("key", "age_mo", "sex", "n_of_siblings", "oder_of_birth","half_of_day_delivery")], all.x=T,all.y=F)->sums_nsp01
+
+
+write.table(sums_nsp01,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_chunk_nsp01.txt", row.names=F,quote=T,sep="\t")
+read.table("~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_chunk_nsp01.txt", header = T) -> sums_nsp01
+
+
+```
+
+##Third scenario: INPUT is only linguistic vocalizations except for NOISE 
+```{r }
+all_n1=everything[everything$speakerID!="Noise" &    everything$type==1 & !is.na(everything$beg),]
+
+
+sums_n1=NULL
+for(thisf in levels(as.factor(everything$File))){
+  subset(all_n1,File==thisf)->df #PLEASE LOOK HERE, as a function of what scenario you choose please modify "all_df" part to the data that you are looking for.
+  all_names <- unique(df$speakerID)
+  if(length(all_names)>1){
+     #print(length(all_names>1))
+    combs <- combn(all_names,2)
+    for(i in 1:ncol(combs)) {
+      df.sub1 <- subset(df,speakerID == combs[1,i])
+      df.sub2 <- subset(df,speakerID == combs[2,i])
+      int1= extract_interval_as_vector(df.sub1)
+      int2= extract_interval_as_vector(df.sub2)
+      l1 <- sum_length(int1) #sum(df.sub1$duration)
+      l2 <- sum_length(int2) #sum(df.sub2$duration)
+      ol=sum_length_of_overlaps(int1,int2)
+      x=cbind(df[1,1:5],combs[1,i],l1, T)
+      names(x)<-c(names(df)[1:5],"source","dur","clean")
+      y=cbind(df[1,1:5],combs[2,i],l2, T)
+      names(y)<-c(names(df)[1:5],"source","dur","clean")
+      z=cbind(df[1,1:5],paste(combs[1,i],combs[2,i]),ol ,F)
+      names(z)<-c(names(df)[1:5],"source","dur","clean")
+      sums_n1=rbind(sums_n1, x,y,z)
+    } 
+  } else{ 
+    x=cbind(df[1,1:5],all_names[1],sum(df$dur),T) 
+    names(x)<-c(names(df)[1:5],"source","dur","clean")
+    sums_n1=rbind(sums_n1, x)}
+}
+
+sums_n1[!is.na(sums_n1$child),]->sums_n1
+#we remove all the NA files CHECK
+
+# the way in which we compute this, gives a lot duplicate rows, in order to clean them up use this:
+sums_n1 <- unique(sums_n1)
+
+
+sums_n1$key=paste0(substr(sums_n1$date,1,8),sums_n1$child)
+#sums$key[substr(sums$child,1,1)=="v"]<-paste0("201703",sums$child[substr(sums$child,1,1)=="v"])
+
+## ADD demo data  
+
+#of course only if you have it
+read.csv("~/Documents/tsimane_project/dalohumacosp/compAna/demo_data.csv",header=T)->demo_data
+
+#create the key variable the demo data so you can merge it with the other data
+demo_data$key=paste0(substr(demo_data$date,1,8),demo_data$chi_id)
+
+#merge
+merge(x=sums_n1,y = demo_data[ , c("key", "age_mo", "sex", "n_of_siblings", "oder_of_birth","half_of_day_delivery")], all.x=T,all.y=F)->sums_n1
+
+
+write.table(sums_n1,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_chunk_n1.txt", row.names=F,quote=T,sep="\t")
+read.table("~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_chunk_n1.txt", header = T) -> sums_n1
+
+```
+
+##Fourth scenario: INPUT is only linguistic vocalizations except for NOISE and SP conversations
+```{r }
+all_nsp1=everything[everything$speakerID!="Noise" &    everything$type==1 & everything$speakerID!="SP" & !is.na(everything$beg),]
+
+
+sums_nsp1=NULL
+for(thisf in levels(as.factor(everything$File))){
+  subset(all_nsp1,File==thisf)->df #PLEASE LOOK HERE, as a function of what scenario you choose please modify "all_df" part to the data that you are looking for.
+  all_names <- unique(df$speakerID)
+  if(length(all_names)>1){
+     #print(length(all_names>1))
+    combs <- combn(all_names,2)
+    for(i in 1:ncol(combs)) {
+      df.sub1 <- subset(df,speakerID == combs[1,i])
+      df.sub2 <- subset(df,speakerID == combs[2,i])
+      int1= extract_interval_as_vector(df.sub1)
+      int2= extract_interval_as_vector(df.sub2)
+      l1 <- sum_length(int1) #sum(df.sub1$duration)
+      l2 <- sum_length(int2) #sum(df.sub2$duration)
+      ol=sum_length_of_overlaps(int1,int2)
+      x=cbind(df[1,1:5],combs[1,i],l1, T)
+      names(x)<-c(names(df)[1:5],"source","dur","clean")
+      y=cbind(df[1,1:5],combs[2,i],l2, T)
+      names(y)<-c(names(df)[1:5],"source","dur","clean")
+      z=cbind(df[1,1:5],paste(combs[1,i],combs[2,i]),ol ,F)
+      names(z)<-c(names(df)[1:5],"source","dur","clean")
+      sums_nsp1=rbind(sums_nsp1, x,y,z)
+    } 
+  } else{ 
+    x=cbind(df[1,1:5],all_names[1],sum(df$dur),T) 
+    names(x)<-c(names(df)[1:5],"source","dur","clean")
+    sums_nsp1=rbind(sums_nsp1, x)}
+}
+
+sums_nsp1[!is.na(sums_nsp1$child),]->sums_nsp1
+#we remove all the NA files CHECK
+
+# the way in which we compute this, gives a lot duplicate rows, in order to clean them up use this:
+sums_nsp1 <- unique(sums_nsp1)
+
+
+sums_nsp1$key=paste0(substr(sums_nsp1$date,1,8),sums_nsp1$child)
+#sums$key[substr(sums$child,1,1)=="v"]<-paste0("201703",sums$child[substr(sums$child,1,1)=="v"])
+
+## ADD demo data  
+
+#of course only if you have it
+read.csv("~/Documents/tsimane_project/dalohumacosp/compAna/demo_data.csv",header=T)->demo_data
+
+#create the key variable the demo data so you can merge it with the other data
+demo_data$key=paste0(substr(demo_data$date,1,8),demo_data$chi_id)
+
+#merge
+merge(x=sums_nsp1,y = demo_data[ , c("key", "age_mo", "sex", "n_of_siblings", "oder_of_birth","half_of_day_delivery")], all.x=T,all.y=F)->sums_nsp1
+
+
+write.table(sums_nsp1,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_chunk_nsp1.txt", row.names=F,quote=T,sep="\t")
+read.table("~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_chunk_nsp1.txt", header = T) -> sums_nsp1
+
+
+
+```
+
+Do you want to perform sums with of all the input excluding the child??
+This would include overlapping segments from other speakers but not from the child
+the assumption here is that the child is  unable  to process something when he is "speaking" so overlapping speech with him/her is not taken into account
+If you are interested in including only "pure" segments , use the "clean" column 
+
+```{r doSums, echo=TRUE, include=redoALL}
+
+##having only sums table with sources other than CHI 
+sums_n1_nochi=sums_n1[-grep("CHI",sums_n1$source, value=F),]
+
+#sum!!
+aggregate(sums_n1_nochi$dur,by=list(sums_n1_nochi$child,sums_n1_nochi$date,sums_n1_nochi$key, sums_n1_nochi$sib, sums_n1_nochi$mot, sums_n1_nochi$sex,sums_n1_nochi$age_mo, sums_n1_nochi$half_of_day_delivery),sum,na.rm=T)->overlapinput_nochi
+head(overlapinput_nochi)
+names(overlapinput_nochi)<-c("child","date","key", "sib", "mot", "sex", "age_mo","half_of_day_delivery", "dur")
+
+#add duration of all recording
+merge(x=overlapinput_nochi, y=everything[ , c( "key","min_coded")], all.x=T,all.y=F)->overlapinput_nochi
+overlapinput_nochi <- unique(overlapinput_nochi)
+overlapinput_nochi$prop_rec <- (overlapinput_nochi$dur/(overlapinput_nochi$min_coded*60))*100
+
+write.table(overlapinput_nochi,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/overlap_nochi.txt",row.names=F,sep="\t")
+read.csv("~/Documents/tsimane_project/dalohumacosp/derivedFiles/overlap_nochi.txt", header=T, sep = "")->overlapinput_nochi
+
+library(ggplot2)
+#visualize day vs night recordings
+ggplot(overlapinput_nochi, aes(x=child, y=prop_rec)) + geom_bar(aes (fill= half_of_day_delivery), stat = "identity", position = "dodge") + labs(x="Child", y="Total of seconds") + guides(fill=guide_legend(title=NULL))
+
+```
+
+In this part you actually don't have intell if whether the sums are overlapping or not and you create your daylight subset data
+
+```{r dosumdurs,eval= redoALL, include=redoALL}
+## Generating Proportions & quantities of CHI vocalizations of different types
+
+aggregate(everything$dur,by=list(everything$child,everything$speakerID,everything$type,everything$date,everything$key, everything$min_coded, everything$child_age),sum,na.rm=T)->sumdur
+names(sumdur)<-c("child","speakerID","type","date","key", "min_coded", "child_age", "totdur")
+merge(x = sumdur, y = demo_data[ , c("key", "age_mo", "half_of_day_delivery")], by="key", all.x=TRUE) -> sumdur
+sumdur$prop_rec <- (sumdur$totdur/(sumdur$min_coded*60))*100
+
+write.table(sumdur,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/min_perID.txt",row.names=F,sep="\t")
+read.csv("~/Documents/tsimane_project/dalohumacosp/derivedFiles/min_perID.txt", header=T, sep = "")->sumdur
+
+
+##Generate the same but only with daylight recordings
+daylight <- sumdur[sumdur$half_of_day_delivery=="M",]
+
+write.table(daylight,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/min_perID_daylight.txt",row.names=F,sep="\t")
+read.csv("~/Documents/tsimane_project/dalohumacosp/derivedFiles/min_perID_daylight.txt", header=T, sep = "")->daylight
+```
+
+## Generating Proportions & quantities of CHI vocalizations of different types
+Are you interested only on children's vocalizations?
+
+
+
+## children vocalizations analysis
+#this contains overlapping speech proportions!
+
+
+```{r }
+sumdur[sumdur$speakerID=="CHI" ,]->sumchi
+
+#sumchi$chidate=paste0(sumchi$child,sumchi$date) I already created "key"
+sumchi[sumchi$type==0,c("key","totdur")]->chinonling
+colnames(chinonling)[2]<-"nonling"
+sumchi[sumchi$type==1,]->chiling
+colnames(chiling)[dim(chiling)[2]]<-"ling"
+merge(chiling,chinonling,all.x=T,all.y=T)->sumchi
+sumchi$ling[is.na(sumchi$ling)]<-0
+sumchi$nonling[is.na(sumchi$nonling)]<-0 #code error?? prior sumchi$nonling[is.na(sumchi$ling)]<-0
+sumchi$tot=sumchi$ling+sumchi$nonling
+sumchi$prop=sumchi$ling/sumchi$tot
+#sumchi$child_age=paste0(sumchi$age_mo,sumchi$child)
+
+sumchi$nchunks=NA
+
+for(eachchidate in levels(factor(everything$key))) sumchi$nchunks[sumchi$key==eachchidate]<- length((everything$File[everything$key==eachchidate]))
+
+
+
+# sumchi$ling.CFRL=sumchi$ling/(sumchi$nchunks*60)
+# sumchi$nonling.CFRL=sumchi$nonling/(sumchi$nchunks*60)
+# sumchi$all.CFRL=sumchi$ling.CFRL+sumchi$nonling.CFRL
+
+head(sumchi)
+summary(sumchi)
+write.table(sumchi,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/propling_age.txt",row.names=F,sep="\t")
+read.csv("~/Documents/tsimane_project/dalohumacosp/derivedFiles/propling_age.txt", header=T, sep = "")->sumchi
+
+
+```
+
+## Generating Proportions & quantities of FA1 vocalizations of different types
+Are you interested only on "mother's" vocalizations?
+
+
+
+## mother's vocalizations analysis
+#this contains overlapping speech proportions!
+
+```{r dopropsFA1,eval= redoALL, include=redoALL}
+## Generating Proportion & quantities of FA1 linguistic vocalizations
+
+sumdur[sumdur$speakerID=="FA1",]->summot
+
+#summot$chidate=paste0(summot$child,summot$date) already got key 
+summot[summot$type==0,c("key","totdur")]->motnonling
+colnames(motnonling)[2]<-"nonling"
+summot[summot$type==1,]->motling
+colnames(motling)[dim(motling)[2]]<-"ling"
+merge(motling,motnonling,all.x=T,all.y=T)->summot
+summot$ling[is.na(summot$ling)]<-0
+summot$nonling[is.na(summot$nonling)]<-0
+summot$tot=summot$ling+summot$nonling
+summot$prop=summot$ling/summot$tot
+#summot$child_age=paste0(summot$age, summot$child)
+
+summot$nchunks=NA
+for(eachchidate in levels(factor(everything$key))) summot$nchunks[summot$key==eachchidate]<- length((everything$File[everything$key==eachchidate]))
+
+
+# summot$ling.CFRL=summot$ling/(summot$nchunks*60)
+# summot$nonling.CFRL=summot$nonling/(summot$nchunks*60)
+# summot$all.CFRL=summot$ling.CFRL+summot$nonling.CFRL
+
+head(summot)
+summary(summot)
+
+write.table(summot,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/propling_age_MOT.txt",row.names=F,sep="\t")
+read.csv("~/Documents/tsimane_project/dalohumacosp/derivedFiles/propling_age_MOT.txt", header=T, sep = "")->summot
+
+```
+
+
+## hi human this should be an interesting part for calculating a lot of fun stuff
+
+
+```{r dopropsinput, eval= redoALL, include=redoALL}
+
+#SUPER IMPORTANT 
+#choose wisely what subset of the data you re going to use
+
+#in this case : all linguistic only  input except for noise
+read.table("~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_chunk_n1.txt", header = T) -> sums_n1
+
+#remove all the empty dur row as they do not contain speech
+sums_n1 = sums_n1[sums_n1$dur!=0,]
+
+
+# because you are interested in the input of that children hear, you exclude his/her own vocalizations
+#having only sums table with sources other than CHI 
+#So you have excluded input that overlaps with children's own vocalizations too
+sums_n1_nochi=sums_n1[-grep("CHI",sums_n1$source, value=F),]
+
+#add total lenght of recording 
+merge(x=sums_n1_nochi, y=everything[ , c( "key","min_coded")], all.x=T,all.y=F)->sums_n1_nochi
+sums_n1_nochi <- unique(sums_n1_nochi)
+
+
+##fyi...
+# > sum(sums_n1_nochi$dur[sums_n1_nochi$clean==F])
+# [1] 172.882
+# > sum(sums_n1_nochi$dur[sums_n1_nochi$clean==T])
+# [1] 6091.64
+head(sums_n1_nochi)
+sums_n1_nochi -> suminput
+
+# #create table with sum of FA1-2-3 MA 1-2 UC1-2 XOL & SP duration of vocalizations
+# aggregate(suminput$dur, by=list(suminput$child), sum, na.rm=T) -> xx
+# names(xx)<-c("child", "dur")
+# 
+# #create table with sum of total time avaiable to code per child
+# aggregate(suminput$min_coded, by=list(suminput$child), sum, na.rm=T) -> yy
+# names(yy)<-c("child", "min_coded")
+# 
+# merge(xx, yy , by="child", all.x=TRUE) -> tot_suminput
+
+
+##the same but only for daylight recordings
+sums_n1_nochi[sums_n1_nochi$half_of_day_delivery=="M",] -> suminput_day
+
+#DAY : create table with sum of FA1-2-3 MA 1-2 UC1-2 XOL & SP duration of vocalizations
+aggregate(suminput_day$dur, by=list(suminput_day$child), sum, na.rm=T) -> xx
+names(xx)<-c("child", "dur")
+
+#DAY: create table with sum of total time avaiable to code per child
+# aggregate(suminput$min_coded, by=list(suminput$child), sum, na.rm=T) -> yy
+# names(yy)<-c("child", "min_coded")
+
+
+#merging both
+merge(x=xx, y=suminput_day[ , c("child", "min_coded", "mot", "oder_of_birth", "n_of_siblings")], all.x=T,all.y=F) -> tot_suminput_day
+tot_suminput_day <- unique(tot_suminput_day)
+
+#convert min in seconds
+tot_suminput_day$sec_coded <- tot_suminput_day$min_coded * 60
+
+# Number of seconds per minute containing input (overlapping!! no counting less) 
+tot_suminput_day$secspermin <- tot_suminput_day$dur * 60 / tot_suminput_day$sec_coded # multiply by 60 to have in minutes
+
+#Approximation for a day -- daylong recording right?
+tot_suminput_day$hoursperday <- tot_suminput_day$secspermin * 10 / 60
+
+
+
+merge(tot_suminput_day, ages, by="child", all.x = T) -> tot_suminput_day
+
+
+#group ages by categories
+# tot_suminput$agecat[tot_suminput$age_mo <= 12 ] <- 1 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >12 & tot_suminput$age_mo <= 24   ] <- 2 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >24 & tot_suminput$age_mo <= 36  ] <- 3 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >36 & tot_suminput$age_mo <= 48   ] <- 4 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >48   ] <- 5 #under or equal to  12 mo
+# DAY: group ages by categories
+tot_suminput_day$agecat[tot_suminput_day$age_mo <= 12 ] <- 1 #under or equal to  12 mo
+tot_suminput_day$agecat[tot_suminput_day$age_mo >12 & tot_suminput_day$age_mo <= 24   ] <- 2 #under or equal to  12 mo
+tot_suminput_day$agecat[tot_suminput_day$age_mo >24 & tot_suminput_day$age_mo <= 36  ] <- 3 #under or equal to  12 mo
+tot_suminput_day$agecat[tot_suminput_day$age_mo >36 & tot_suminput_day$age_mo <= 48   ] <- 4 #under or equal to  12 mo
+tot_suminput_day$agecat[tot_suminput_day$age_mo >48   ] <- 5 #under or equal to  12 mo
+
+
+
+
+
+write.table(tot_suminput_day,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/tot_suminput_day.txt",row.names=F,sep="\t")
+
+
+
+#write.table(tot_suminput,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/tot_suminput.txt",row.names=F,sep="\t")
+
+```
+
+Apply the same pipeline for all the file for the measure of cds
+
+```{r calculation for "cds"}
+
+read.table("line_per_segment.txt", header=T) -> everything
+
+#remove all the rows that don't include the child in the conversation
+cds = everything[grep("CHI",everything$addressee, value=F),]
+
+table(cds$speakerID)
+
+# because you are interested in the input of that children is supposely address to , you exclude SP 
+cds=cds[-grep("SP",cds$speakerID, value=F),]
+
+##fyi...
+# > sum(sums_n1_nochi$dur[sums_n1_nochi$clean==F])
+# [1] 172.882
+# > sum(sums_n1_nochi$dur[sums_n1_nochi$clean==T])
+# [1] 6091.64
+head(cds)
+
+# #create table with sum of FA1-2-3 MA 1-2 UC1-2 XOL & SP duration of vocalizations
+# aggregate(suminput$dur, by=list(suminput$child), sum, na.rm=T) -> xx
+# names(xx)<-c("child", "dur")
+# 
+# #create table with sum of total time avaiable to code per child
+# aggregate(suminput$min_coded, by=list(suminput$child), sum, na.rm=T) -> yy
+# names(yy)<-c("child", "min_coded")
+# 
+# merge(xx, yy , by="child", all.x=TRUE) -> tot_suminput
+
+
+##the same but only for daylight recordings
+cds[cds$half_of_day_delivery=="M",] -> cds
+
+
+#DAY : create table with sum of FA1-2-3 MA 1-2 UC1-2 XOL & SP duration of vocalizations
+aggregate(cds$dur, by=list(cds$child), sum, na.rm=T) -> xxx
+names(xxx)<-c("child", "dur")
+
+#DAY: create table with sum of total time avaiable to code per child
+# aggregate(suminput$min_coded, by=list(suminput$child), sum, na.rm=T) -> yy
+# names(yy)<-c("child", "min_coded")
+
+
+#merging both
+merge(x=xxx, y=cds[ , c("child", "min_coded", "mot", "oder_of_birth", "n_of_siblings", "sex", "age_mo")], all.x=T,all.y=F) -> tot_suminput_cds
+tot_suminput_cds <- unique(tot_suminput_cds)
+
+#convert min in seconds
+tot_suminput_cds$sec_coded <- tot_suminput_cds$min_coded * 60
+
+# Number of seconds per minute containing input (overlapping!! no counting less) 
+tot_suminput_cds$secspermin <- tot_suminput_cds$dur * 60 / tot_suminput_cds$sec_coded # multiply by 60 to have in minutes
+
+#Approximation for a cds -- cdslong recording right?
+tot_suminput_cds$hoursperday <- tot_suminput_cds$secspermin * 10 / 60
+
+
+
+#merge(tot_suminput_cds, ages, by="child", all.x = T) -> tot_suminput_cds
+
+
+#group ages by categories
+# tot_suminput$agecat[tot_suminput$age_mo <= 12 ] <- 1 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >12 & tot_suminput$age_mo <= 24   ] <- 2 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >24 & tot_suminput$age_mo <= 36  ] <- 3 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >36 & tot_suminput$age_mo <= 48   ] <- 4 #under or equal to  12 mo
+# tot_suminput$agecat[tot_suminput$age_mo >48   ] <- 5 #under or equal to  12 mo
+# DAY: group ages by categories
+tot_suminput_cds$agecat[tot_suminput_cds$age_mo <= 12 ] <- 1 #under or equal to  12 mo
+tot_suminput_cds$agecat[tot_suminput_cds$age_mo >12 & tot_suminput_cds$age_mo <= 24   ] <- 2 #under or equal to  12 mo
+tot_suminput_cds$agecat[tot_suminput_cds$age_mo >24 & tot_suminput_cds$age_mo <= 36  ] <- 3 #under or equal to  12 mo
+tot_suminput_cds$agecat[tot_suminput_cds$age_mo >36 & tot_suminput_cds$age_mo <= 48   ] <- 4 #under or equal to  12 mo
+tot_suminput_cds$agecat[tot_suminput_cds$age_mo >48   ] <- 5 #under or equal to  12 mo
+
+
+
+
+
+write.table(tot_suminput_cds,"~/Documents/tsimane_project/dalohumacosp/derivedFiles/tot_suminput_cds.txt",row.names=F,sep="\t")
+
+
+
+
+
+
+
+```
+
+
+
+#Finally put in this document all the graphs you have done, you are overwriting them you idiot
+
+
+```{r graphs}
+load
+library(ggplot2)
+library(likert) 
+library(reshape2)
+library(RColorBrewer)
+library(dplyr)
+library(ggthemes)
+library(stringr)
+library(car)
+
+
+#question number one : how many minutes per hour
+#to compute the coefficients of the abline
+coef(lm(secspermin ~ age_mo, data=tot_suminput_day ))
+
+#plot
+par(mfrow=c(2,1)) 
+ggplot(tot_suminput_day, aes( 
+   x=age_mo, y= secspermin, color=as.factor(agecat) )) + geom_jitter(
+     aes(x=age_mo))  + labs(x="Age in Months", y="Minutes per Hour") + guides(
+       color=guide_legend(title=NULL))  + scale_color_discrete(
+         labels= c("und 12mo", "12 - 24mo", " 24 - 36mo" , "36 - 48mo", "sup 48 mo" )) +  geom_abline(
+           mapping = NULL, data = NULL, slope =-0.1988568 , intercept = 22.1909240,na.rm = FALSE, show.legend = NA) 
+
+#BUT outlier... (see section below to see how we handle this outlier)
+
+#to compute the coefficients of the abline
+coef(lm(secspermin ~ age_mo, data=notc07 ) )
+
+#plot
+ggplot(tot_suminput_day, aes( 
+   x=age_mo, y= secspermin, color=as.factor(agecat) )) + geom_jitter(
+     aes(x=age_mo))  + labs(x="Age in Months", y="Minutes per Hour") + guides(
+       color=guide_legend(title=NULL))  + scale_color_discrete(
+         labels= c("und 12mo", "12 - 24mo", " 24 - 36mo" , "36 - 48mo", "sup 48 mo" )) +  geom_abline(
+           mapping = NULL, data = NULL, slope =-0.09547335 , intercept = 17.22281078,na.rm = FALSE, show.legend = NA) 
+
+
+
+
+sumdur$child_age=paste0(sumdur$age_mo,sumdur$child)
+sumdur$child_age[sumdur$child=="C13"] <- "06C13"
+sumdur$child_age[sumdur$child=="C14"] <- "08C14"
+sumdur$child_age[sumdur$child=="C25"] <- "08C25"
+
+#Create dataframe that paste sec_coded column and totdur_sum so it you can plot the total time next to the one having vocalizations// conceptually it doesnt make any sense // i know
+dfm <- melt(tot_suminput_day[,c('child_age','dur','sec_coded')],id.vars = 1)
+ggplot(dfm, aes(x=child_age, y=value)) + geom_bar(aes (fill= variable), stat = "identity", position = "dodge") + labs(x="Child", y="Total of seconds") + guides(fill=guide_legend(title=NULL)) + scale_fill_discrete(labels= c("Sumed Input", "Length total coded time"))
+
+tot_suminput_day$child_age=paste0(tot_suminput_day$age_mo,tot_suminput_day$child)
+tot_suminput_day$child_age[tot_suminput_day$child=="C13"] <- "06C13"
+tot_suminput_day$child_age[tot_suminput_day$child=="C14"] <- "08C14"
+tot_suminput_day$child_age[tot_suminput_day$child=="C25"] <- "08C25"
+#create category of age 
+sumdur$agecat[sumdur$age_mo <= 12 ] <- 1 #under or equal to  12 mo
+sumdur$agecat[sumdur$age_mo >12 & sumdur$age_mo <= 24   ] <- 2 #under or equal to  12 mo
+sumdur$agecat[sumdur$age_mo >24 & sumdur$age_mo <= 36  ] <- 3 #under or equal to  12 mo
+sumdur$agecat[sumdur$age_mo >36 & sumdur$age_mo <= 48   ] <- 4 #under or equal to  12 mo
+sumdur$agecat[sumdur$age_mo >48   ] <- 5 #under or equal to  12 mo
+
+#regroup identity of speakers
+sumdur$source[ sumdur$speakerID %in% c("FA2","FA3") ] <- "FAs" #create  female adults cats
+sumdur$source[ sumdur$speakerID %in% c("MA1","MA2") ] <- "MAs" #create  male adults cats
+sumdur$source[ sumdur$speakerID %in% c("UC1","UC2") ] <- "UCs" #create  children cats
+sumdur$source[ sumdur$speakerID %in% c("FA1") ] <- "FA1" #create  female adults cats
+
+# Grouped
+ggplot(subset(sumdur,source  %in% c("FA1", "FAs", "MAs", "UCs") & type %in% c(1) & half_of_day_delivery %in% c("M") ), aes( y=prop_rec, x=agecat, fill=source)) +
+  geom_bar(position="dodge", stat="identity") 
+
+# Grouped - removing outlier
+ggplot(subset(sumdur,source  %in% c("FA1", "FAs", "MAs", "UCs") & type %in% c(1) & half_of_day_delivery %in% c("M") & child!="C07" ), aes( y=totdur, x=agecat, fill=source)) +
+  geom_bar(position="dodge", stat="identity") +  scale_x_discrete(limits=c("und 12mo", "12 - 24mo", " 24 - 36mo" , "36 - 48mo", "sup 48 mo" )) + labs(
+    x="Age Category", y=" Total Linguistic Input") + scale_fill_discrete(labels= c("Female Caregiver", "Female Adult", "Male Adult", "Children")) + 
+  guides(fill=guide_legend(title=NULL)) 
+
+
+
+
+
+
+#plot of MOT ling voc as a function of age
+plot(sumdur$age_mo[sumdur$speakerID=="FA1" & sumdur$type==1 & sumdur$child!="C07" & sumdur$half_of_day_delivery=="M" ], sumdur$totdur[sumdur$speakerID=="FA1" & sumdur$type==1 & sumdur$child!="C07"&  sumdur$half_of_day_delivery=="M"])
+
+cor.test(sumdur$age_mo[sumdur$speakerID=="FA1" & sumdur$type==1 & sumdur$child!="C07" & sumdur$half_of_day_delivery=="M" ], sumdur$totdur[sumdur$speakerID=="FA1" & sumdur$type==1 & sumdur$child!="C07"&  sumdur$half_of_day_delivery=="M"])
+
+REGMOTLING <-lm(sumdur$totdur[sumdur$speakerID=="FA1" & sumdur$type==1 & sumdur$child!="C07" & sumdur$half_of_day_delivery=="M" ] ~  sumdur$age_mo[sumdur$speakerID=="FA1" & sumdur$type==1 & sumdur$child!="C07" & sumdur$half_of_day_delivery=="M" ])
+summary(REGMOTLING)
+coef(REGMOTLING)
+#better plot of this
+ggplot(subset( sumdur, speakerID %in% c("FA1") & type %in% c(1)  & half_of_day_delivery %in% c("M") & child!="C07" ) ,  aes(x = age_mo, y = totdur)) +    
+  geom_jitter(stat = "identity", color= "tomato2") +  labs(x="Ages in months", y="Total of Maternal Input") + geom_abline(mapping = NULL, data = NULL, slope =-0.621658 , intercept =58.688245 ,na.rm = FALSE, show.legend = NA)
+
+#plot of other children ling voc as a function of age
+cor.test(sumdur$age_mo[(sumdur$speakerID=="UC1" | sumdur$speakerID=="UC2") & sumdur$type==1 & sumdur$child!="C07" & sumdur$half_of_day_delivery=="M"], sumdur$totdur[(sumdur$speakerID=="UC1" | sumdur$speakerID=="UC2") & sumdur$type==1 & sumdur$child!="C07" & sumdur$half_of_day_delivery=="M"])
+
+REGsibLING <-lm(sumdur$totdur[(sumdur$speakerID=="UC1" | sumdur$speakerID=="UC2") & sumdur$type==1 & sumdur$child!="C07" & sumdur$half_of_day_delivery=="M"]~  sumdur$age_mo[(sumdur$speakerID=="UC1" | sumdur$speakerID=="UC2") & sumdur$type==1 & sumdur$child!="C07" & sumdur$half_of_day_delivery=="M"])
+
+summary(REGsibLING)
+
+coef(REGsibLING)
+#better plot of this
+ggplot(subset( sumdur, speakerID %in% c("UC1", "UC2") & type %in% c(1)  & half_of_day_delivery %in% c("M") & child!="C07") ,  aes(x = age_mo, y = totdur)) +    
+  geom_jitter(stat = "identity", color= "blue") +  labs(x="Ages in months", y="Total input from other Children Input") + geom_abline(
+    mapping = NULL, data = NULL, slope =-0.03303238 , intercept =22.21673136 ,na.rm = FALSE, show.legend = NA)
+
+```
+
+```{r plots time}
+ggplot(tot_suminput_day, aes( 
+   x=age_mo, y= secspermin, color=as.factor(mot), size=min_coded )) +  geom_jitter(
+     aes(x=age_mo))  + geom_jitter( data=tot_suminput_cds, shape=3) + labs(x="Age in Months", y="Minutes per Hour")  +  geom_abline(
+           mapping = NULL, data = NULL, slope =-0.1988568 , intercept = 22.1909240,na.rm = FALSE, show.legend = NA) 
+
+
+
+```
+Checking outliers 
+```{r tests stats}
+ 
+# Linear regression of amount of hours as a function of age
+#controling for household and all lenght 
+tot_suminput_day$mot
+
+regression <- lmer(tot_suminput_day$dur ~ tot_suminput_day$age_mo + (1+tot_suminput_day$age_mo|tot_suminput_day$mot) )
+summary(regression)
+
+regression <- lm(hoursperday ~ age_mo, data=tot_suminput_day )
+
+
+#without the outlier C07
+notc07 <- tot_suminput_day[tot_suminput_day$child !="C07",]
+regression <- lm(notc07$secspermin ~ notc07$age_mo )
+coef(regression)
+
+
+#assessing outliers
+outlierTest(regression)
+qqPlot(regression, main="QQ Plot")
+leveragePlots(regression)
+
+#influential Observations
+#added variable plots
+avPlots(regression)
+# identify D values > 4/(n-k-1) 
+cutoff <- 4/((nrow(tot_suminput_day)-length(regression$coefficients)-2)) 
+plot(regression, which=4, cook.levels=cutoff)
+
+# Influence Plot 
+influencePlot(regression,	id.method="identify", main="Influence Plot", sub="Circle size is proportial to Cook's Distance" )
+
+
+influence.measures(regression)
+
+```
+
+
+
+
+
+# Methodological analyses
+
+## How much data are there?
+
+We read in the version of the file that has one line per coded segment. That is, if the child vocalized 3 times in a given minute, an adult 2 times, and another child once, then there will be 6 segments for that *minute*. This is the most fine-grained format of representation, and thus too fine-grained for some of the quantification questions we have. So we will derive tables as needed.
+
+First, we look at how many coded minutes there are for each child and date.
+
+```{r qfy}
+read.table("~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_segment_age.txt",header=T)->all
+levels(all$child)-> kids
+levels(all$key)-> days
+
+#number of coded minutes per child
+data.frame(table(all$key,all$min_coded))->x
+x[x$Freq!=0,]->x
+
+#number of coded days per child
+data.frame(table(all$child,all$key))->y
+y[y$Freq!=0,]->y
+
+```
+
+There are `r length(kids)` in all. There are a total of `r length(days)` days coded. Number of days coded per children (C10 actually had also her second day coded but the Praat file was damaged? :
+
+```{r} 
+table(y$Var1)
+```
+
+The two sites and groups of kids vary in recording length, which is equivalent to number of minutes coded since there is 1 minute per hour that has been coded. This is clear in the following histograms of number of minutes coded separated by site.
+#this is definitely not showing minutes
+
+```{r mincoded}
+hist(x$Freq,main="Bolivia: Total nb of minutes coded")
+
+```
+
+The following table shows the number of minutes coded by recording day.
+
+
+This table doesnt show that : `r table(x$Freq)`
+
+
+# Theory-relevant analyses
+```{r prodsfunctions}
+dokidageplot<-function(sumchi,dvname,fancydvname){
+  #dvname="prop";fancydvname="prop"
+  mycols=ifelse(substr(sumchi$child,1,1)=="v","red","blue")
+  plot(sumchi[,dvname]~sumchi$age_mo,type="n",main=fancydvname,xlab="Age (months)",ylab=dvname)
+for(kidag in levels(factor(sumchi$child_age))){ 
+  age=mean(sumchi$age_mo[sumchi$child_age==kidag],na.rm=T)
+  prop=mean(sumchi[sumchi$child_age==kidag,dvname],na.rm=T)
+  err=sd(sumchi[sumchi$child_age==kidag,dvname],na.rm=T)
+  text(age,prop,substr(kidag,1,3),col=mycols)
+  lines(c(age,age),c(prop-err,prop+err),col="gray")
+}
+
+for(kid in levels(factor(sumchi$child))){ 
+  props = aggregate(sumchi[sumchi$child==kid,dvname],by=list(sumchi$age_mo[sumchi$child==kid]),mean,na.rm=T)
+  for(thisline in 1:(dim(props)[1]-1)) lines(c(props$Group.1[thisline],props$Group.1[thisline+1]),c(props$x[thisline],props$x[thisline+1]),lty=2,col=ifelse(substr(kid,1,1)=="v","red","blue"))
+}
+  
+    plot(sumchi[,dvname]~sumchi$age_mo,cex=(sumchi[,dvname]/max(sumchi[,dvname],na.rm=T)),main="Data per recording day",xlab="Age (months)",ylab=dvname)
+text(sumchi$age_mo,sumchi[,dvname],as.character(sumchi$child),cex=.5,pos=4,col=mycols)
+ 
+}
+
+```
+
+In all of the following analyses, we will consider four possible dependent measures, all of which control for the fact that we have a lot more coded data for some kids than others:
+
+    - The quantity of linguistic vocalizations (controlling for recording length)
+    - The quantity of non-linguistic vocalizations (controlling for recording length)
+    - The quantity of vocalizations (summing linguistic and non-linguistic) (controlling for recording length)
+    - The proportion of vocalizations that are linguistic, out of all vocalizations
+
+When we say controlling for recording length we mean that these are proportions of the time that has been coded where CHI produces ling vocs. For instance, if kid produced 200 secs of ling vocalizations in a given day, of which 1000 secs have been coded, then they will show up below as .2. We don't need to do that for the last DV, since the length of vocalizations is already in the denominator.
+
+## How much does CHI vocalize as a function of age?
+
+Focus on linguistic vocalizations:
+
+```{r prod-age-ling}
+read.table("~/Documents/tsimane_project/dalohumacosp/derivedFiles/propling_age.txt",header=T)->sumchi
+
+dokidageplot(sumchi,"ling.CFRL","Quantity of CHI ling vocs (controlling for rec length)")
+```
+
+Now non-linguistic vocalizations:
+
+```{r prod-age-nonling}
+dokidageplot(sumchi,"nonling.CFRL","Quantity of CHI non-ling vocs (controlling for rec length)")
+```
+
+Now total vocalizations:
+
+```{r prod-age-all}
+dokidageplot(sumchi,"all.CFRL","Quantity of CHI vocs (controlling for rec length)")
+```
+
+And finally, the ratio of ling to all vocs:
+
+```{r prod-age-prop}
+dokidageplot(sumchi,"prop","Proportion of CHI  vocs that are linguistic")
+```
+
+## How much does MOTHER vocalize as a function of age?
+
+Please note that we believe our "mother" coding to be a lot less reliable in Vanuatu than Namibia. For adults, it doesn't make a lot of sense to look at proportion of vocs that are linguistic, so we just plot quantity of linguistic and quantity total (ling + nonling).
+
+Focus on linguistic vocalizations:
+
+```{r prod-age-ling-mot}
+
+read.table("~/Documents/tsimane_project/dalohumacosp/derivedFiles/propling_age_MOT.txt",header=T)->summot
+
+
+dokidageplot(summot,"ling.CFRL","Quantity of MOT ling vocs (controlling for rec length)")
+```
+
+Now total vocalizations:
+
+```{r prod-age-all-mot}
+dokidageplot(summot,"all.CFRL","Quantity of MOT vocs (controlling for rec length)")
+```
+
+## How much input is there, as a function of age?
+
+Since overheard versus child-directed has not yet been coded, this is total input
+
+```{r input-age,eval=F}
+read.table("~/Documents/tsimane_project/dalohumacosp/derivedFiles/line_per_chunk.txt",header=T)->sums
+
+aggregate(sums$dur,by=list(sums$key,sums$source,sums$maxtot,sums$age_mo),sum,na.rm=T)->sum_visit
+colnames(sum_visit)<-c("key","source","maxtot","age","tot")
+sum_visit$tot.CFRL=sum_visit$tot/sum_visit$maxtot
+
+all_sources=as.character(levels(sum_visit$source))
+nonCHI=all_sources[-grep("CHI",all_sources)]
+
+nonOL=all_sources[-grep(" ",all_sources)]
+nonOL=nonOL[-grep("XOL",nonOL)]
+nonOLnonCHI=nonOL[-grep("CHI",nonOL)]
+
+
+
+aggregate(sum_visit$tot.CFRL[sum_visit$source %in% nonOLnonCHI],by=list(sum_visit$key[sum_visit$source %in% nonOLnonCHI],sum_visit$age[sum_visit$source %in% nonOLnonCHI]),sum)->tot_talking_nonOL
+colnames(tot_talking_nonOL)<-c("key","age","tot")
+
+aggregate(sum_visit$tot.CFRL[sum_visit$source %in% nonCHI],by=list(sum_visit$key[sum_visit$source %in% nonCHI],sum_visit$age[sum_visit$source %in% nonCHI]),sum)->tot_talking
+colnames(tot_talking)<-c("key","age","tot")
+
+
+plot(tot_talking$tot ~ tot_talking$age,col=ifelse(substr(as.character(tot_talking$key),7,7)=="v","red","blue"),main="Total non-CHI talking with overlap")
+
+plot(tot_talking_nonOL$tot ~ tot_talking_nonOL$age,col=ifelse(substr(as.character(tot_talking$key),7,7)=="v","red","blue"),main="Total non-CHI talking, NO overlap")
+```
+## How much of the input comes from mother versus other adults versus other kids?
+
+```{r props-sources,eval=F}
+aggregate(sum_visit$tot.CFRL[sum_visit$source %in% nonOLnonCHI],by=list(sum_visit$key[sum_visit$source %in% nonOLnonCHI],sum_visit$source[sum_visit$source %in% nonOLnonCHI],sum_visit$age[sum_visit$source %in% nonOLnonCHI]),sum)->tot_talking_nonOL
+colnames(tot_talking_nonOL)<-c("key","source","age","tot")
+
+aggregate(sum_visit$tot.CFRL[sum_visit$source %in% nonCHI],by=list(sum_visit$key[sum_visit$source %in% nonCHI],sum_visit$source[sum_visit$source %in% nonCHI],sum_visit$age[sum_visit$source %in% nonCHI]),sum)->tot_talking
+colnames(tot_talking)<-c("key","source","age","tot")
+```
+
+```{r lena data}
+
+read.csv("~/Documents/tsimane_project/lena reports camila fev 2018/LENA Export (Hourly) 20180216 141459.csv", header = T) -> lena_hourly
+read.csv("~/Documents/tsimane_project/lena reports camila fev 2018/LENA Export (5 Minute) 20180216 141512.csv", header = T) -> lena_min
+read.csv("~/Documents/tsimane_project/lena reports camila fev 2018/LENA Export (Daily) 20180216 141525.csv", header=T) -> lena_day
+
+```
+
+##Comparative analysis
+```{r comparative ana }
+
+sentences.per.minute=65
+nwordsxsent=4.7
+hxday=10
+daysxmonth=365.25/12
+
+read.table("~/Documents/tsimane_project/dalohumacosp/compAna/weisleder_data.csv",header=T, sep=",")->weisleder
+read.table("~/Documents/tsimane_project/dalohumacosp/compAna/well_adult_words.csv",header=T, sep=",")->wells
+
+
+#Wells
+wells$average_words <- wells$words*60/90
+sum(wells$average_words) / 299 -> wells_mean
+summary(wells$average_words)
+
+wells_cum= wells_mean/nwordsxsent
+
+wells_cum*hxday*daysxmonth
+
+#Directed speech
+mean(weisleder$D_adult_words_per_day) 
+sqrt(sum((weisleder$D_adult_words_per_day-mean(weisleder$D_adult_words_per_day))^2/(length(weisleder$D_adult_words_per_day)-1)))
+sd(weisleder$D_adult_words_per_day)
+
+#OH speech
+mean(weisleder$OH_adult_word_per_day, na.rm = F) 
+sd(weisleder$OH_adult_word_per_day, na.rm = F)
+
+#total input
+mean(weisleder$total_adult_wprd_per_day, na.rm = F) 
+sd(weisleder$total_adult_wprd_per_day, na.rm = F)
+
+
+#conversion using supp mat anna
+
+
+
+
+```
+
+
+
+## Is there a relationship between input quantity and output quantity?
+
+Considering all input
+
+Considering only non-OL input
+
+Considering only MOT
+
+
+
+# TO DO:
+- identify what I could possibly have meant by: "CHI. voc auqntm speech auqntm ratio"
+- add recording onset time
+- only then describe quant over hours
+
