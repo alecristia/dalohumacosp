@@ -1,0 +1,27 @@
+
+form Test command line calls
+	sentence folder "/Users/acristia/Dropbox/nam-sample/"
+endform
+
+	Create Strings as file list... tgs 'folder$'*.TextGrid
+	ntg=Get number of strings
+	for i to ntg
+		select Strings tgs
+		tg$=Get string... 'i'
+		tgx$=tg$-".TextGrid"
+		tgx$=right$(tgx$,2)
+#pause 'tgx$'
+		if tgx$<>"00"
+			Read from file... 'folder$''tg$'
+			do ("Down to Table...", "no", 3, "yes", "no")
+			t$=tg$-".TextGrid"
+			do ("Save as comma-separated file...", "'folder$''t$'.csv")
+			Remove
+		endif
+
+	endfor
+	select all
+	minus Strings tgs
+	Remove
+
+print all done

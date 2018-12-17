@@ -1,6 +1,6 @@
 
 form Test command line calls
-	sentence folder "/Users/alejandrinacristia/habilis_backup/PROJECTS/1-developing/WACK/listeningExperiment/universal_materials/aiku_201607/"
+	sentence folder "/Users/acristia/Dropbox/nam-sample/"
 endform
 
 Create Strings as directory list... dirs 'folder$'*
